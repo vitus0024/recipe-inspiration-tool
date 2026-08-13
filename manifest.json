@@ -1,0 +1,12 @@
+{
+  "name": "今晚吃什麼｜料理靈感工具",
+  "short_name": "今晚吃什麼",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#fff8f2",
+  "theme_color": "#e2622a",
+  "icons": [
+    { "src": "icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" }
+  ]
+}
