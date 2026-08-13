@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#e2622a">
+<title>今晚吃什麼｜料理靈感工具</title>
+<link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%23e2622a'/%3E%3Ctext x='50' y='68' font-size='55' text-anchor='middle'%3E%F0%9F%A5%98%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="app-header">
+  <h1>今晚吃什麼？</h1>
+  <p class="subtitle">輸入家裡有的食材，看看能煮出哪些料理</p>
+</header>
+
+<main>
+  <section class="input-section">
+    <label for="ingredient-input">你手邊有的食材</label>
+    <div class="input-row">
+      <input
+        type="text"
+        id="ingredient-input"
+        inputmode="text"
+        placeholder="例如：雞蛋、番茄、高麗菜"
+        autocomplete="off"
+      >
+      <button id="search-btn" type="button">找料理</button>
+    </div>
+    <p class="hint">用逗號或空白分開食材；鹽、糖、醬油、蒜、薑、蔥等常備調味料不用輸入</p>
+  </section>
+
+  <section id="results" class="results" aria-live="polite">
+    <p class="empty-state">先輸入手邊的食材，按「找料理」看看今晚能煮什麼 🍳</p>
+  </section>
+</main>
+
+<div id="detail-modal" class="modal hidden">
+  <div class="modal-backdrop" id="modal-backdrop"></div>
+  <div class="modal-content" role="dialog" aria-modal="true">
+    <button id="close-modal" class="close-btn" aria-label="關閉">×</button>
+    <div id="modal-body"></div>
+  </div>
+</div>
+
+<script src="recipes.js"></script>
+<script src="match.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
