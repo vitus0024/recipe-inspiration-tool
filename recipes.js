@@ -1597,6 +1597,168 @@ const RECIPES = [
       "加入秋葵片略煮 1 分鐘",
       "盛在白飯上即可"
     ]
+  },
+
+  // ── 蝦仁（追加） ──────────────────────────────
+  {
+    id: "shrimp-garlic-bake",
+    name: "蒜烤蝦仁",
+    baseServings: 2,
+    ingredients: [
+      { name: "蝦仁", amount: 250, unit: "克" }
+    ],
+    method: "烤",
+    cuisine: "西式",
+    diet: "葷",
+    steps: [
+      "蝦仁去腸泥，用鹽、黑胡椒調味",
+      "蒜末、少許油拌入蝦仁",
+      "烤箱預熱 200°C，蝦仁排盤入烤箱烤 8~10 分鐘",
+      "取出擠檸檬汁即可"
+    ]
+  },
+  {
+    id: "shrimp-curry",
+    name: "咖哩蝦仁",
+    baseServings: 2,
+    ingredients: [
+      { name: "蝦仁", amount: 250, unit: "克" },
+      { name: "洋蔥", amount: 0.5, unit: "顆" }
+    ],
+    method: "燒",
+    cuisine: "日式",
+    diet: "葷",
+    steps: [
+      "蝦仁去腸泥，洋蔥切絲",
+      "熱油鍋，洋蔥炒軟",
+      "加水煮滾，轉小火加入咖哩塊拌至融化",
+      "放入蝦仁煮至變色熟透即可"
+    ]
+  },
+  {
+    id: "shrimp-tofu-braised",
+    name: "蝦仁豆腐煲",
+    baseServings: 2,
+    ingredients: [
+      { name: "蝦仁", amount: 200, unit: "克" },
+      { name: "嫩豆腐", amount: 1, unit: "盒" }
+    ],
+    method: "燒",
+    cuisine: "中式",
+    diet: "葷",
+    steps: [
+      "蝦仁去腸泥，豆腐切塊",
+      "熱油鍋，蒜末爆香，蝦仁炒至變色盛起",
+      "鍋中加水、醬油煮滾，放入豆腐煮 2 分鐘",
+      "加回蝦仁，太白粉水勾薄芡",
+      "撒蔥花即可"
+    ]
+  },
+  {
+    id: "shrimp-egg-pancake",
+    name: "蝦仁烘蛋",
+    baseServings: 2,
+    ingredients: [
+      { name: "蝦仁", amount: 150, unit: "克" },
+      { name: "雞蛋", amount: 4, unit: "顆" }
+    ],
+    method: "煎",
+    cuisine: "中式",
+    diet: "葷",
+    steps: [
+      "蝦仁去腸泥，雞蛋打散加鹽",
+      "熱油鍋，蝦仁炒至半熟",
+      "倒入蛋液，轉小火加蓋煎至底部金黃",
+      "翻面續煎至兩面熟透即可"
+    ]
+  },
+
+  // ── 空心菜 ──────────────────────────────
+  {
+    id: "water-spinach-garlic",
+    name: "蒜炒空心菜",
+    baseServings: 2,
+    ingredients: [
+      { name: "空心菜", amount: 300, unit: "克" }
+    ],
+    method: "炒",
+    cuisine: "中式",
+    diet: "素",
+    steps: [
+      "空心菜洗淨切段，梗葉分開",
+      "熱油鍋，蒜末爆香",
+      "先下梗部拌炒，再加葉子快炒",
+      "加鹽調味即可"
+    ]
+  },
+  {
+    id: "water-spinach-fermented-tofu",
+    name: "腐乳空心菜",
+    baseServings: 2,
+    ingredients: [
+      { name: "空心菜", amount: 300, unit: "克" }
+    ],
+    method: "炒",
+    cuisine: "中式",
+    diet: "素",
+    steps: [
+      "空心菜洗淨切段",
+      "豆腐乳用少許水調開備用",
+      "熱油鍋，蒜末爆香",
+      "空心菜下鍋大火快炒，倒入腐乳醬拌炒均勻即可"
+    ]
+  },
+  {
+    id: "water-spinach-salad",
+    name: "涼拌空心菜",
+    baseServings: 2,
+    ingredients: [
+      { name: "空心菜", amount: 250, unit: "克" }
+    ],
+    method: "涼拌",
+    cuisine: "中式",
+    diet: "素",
+    steps: [
+      "空心菜切段，滾水汆燙 30 秒後冰鎮瀝乾",
+      "醬油、蒜末、香油、糖調成醬汁",
+      "空心菜拌入醬汁即可"
+    ]
+  },
+  {
+    id: "water-spinach-dried-shrimp",
+    name: "開陽空心菜",
+    baseServings: 2,
+    ingredients: [
+      { name: "空心菜", amount: 300, unit: "克" },
+      { name: "蝦米", amount: 1, unit: "大匙" }
+    ],
+    method: "炒",
+    cuisine: "中式",
+    diet: "葷",
+    steps: [
+      "蝦米泡軟，空心菜切段",
+      "熱油鍋，爆香蝦米、蒜末",
+      "加入空心菜大火快炒",
+      "加鹽調味即可"
+    ]
+  },
+  {
+    id: "water-spinach-beef",
+    name: "空心菜炒牛肉",
+    baseServings: 2,
+    ingredients: [
+      { name: "空心菜", amount: 250, unit: "克" },
+      { name: "牛肉片", amount: 200, unit: "克" }
+    ],
+    method: "炒",
+    cuisine: "泰式",
+    diet: "葷",
+    steps: [
+      "牛肉片用醬油、太白粉抓醃，空心菜切段",
+      "大火熱油鍋，牛肉片快炒至變色盛起",
+      "鍋中蒜末、辣椒爆香，空心菜下鍋快炒",
+      "加回牛肉拌炒，加蠔油調味即可"
+    ]
   }
 ];
 
