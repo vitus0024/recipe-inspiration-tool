@@ -1759,6 +1759,94 @@ const RECIPES = [
       "鍋中蒜末、辣椒爆香，空心菜下鍋快炒",
       "加回牛肉拌炒，加蠔油調味即可"
     ]
+  },
+
+  // ── 地瓜葉 ──────────────────────────────
+  {
+    id: "sweet-potato-leaves-garlic",
+    name: "蒜炒地瓜葉",
+    baseServings: 2,
+    ingredients: [
+      { name: "地瓜葉", amount: 300, unit: "克" }
+    ],
+    method: "炒",
+    cuisine: "中式",
+    diet: "素",
+    steps: [
+      "地瓜葉洗淨摘取嫩葉嫩莖",
+      "熱油鍋，蒜末爆香",
+      "地瓜葉下鍋大火快炒",
+      "加鹽調味即可"
+    ]
+  },
+  {
+    id: "sweet-potato-leaves-dried-fish",
+    name: "小魚乾炒地瓜葉",
+    baseServings: 2,
+    ingredients: [
+      { name: "地瓜葉", amount: 300, unit: "克" },
+      { name: "小魚乾", amount: 20, unit: "克" }
+    ],
+    method: "炒",
+    cuisine: "中式",
+    diet: "葷",
+    steps: [
+      "小魚乾泡水稍軟，地瓜葉摘取嫩葉嫩莖",
+      "熱油鍋，爆香小魚乾、蒜末",
+      "加入地瓜葉大火快炒",
+      "加鹽調味即可"
+    ]
+  },
+  {
+    id: "sweet-potato-leaves-salad",
+    name: "涼拌地瓜葉",
+    baseServings: 2,
+    ingredients: [
+      { name: "地瓜葉", amount: 250, unit: "克" }
+    ],
+    method: "涼拌",
+    cuisine: "中式",
+    diet: "素",
+    steps: [
+      "地瓜葉滾水汆燙 1 分鐘後冰鎮瀝乾",
+      "醬油、蒜末、香油調成醬汁",
+      "地瓜葉拌入醬汁即可"
+    ]
+  },
+  {
+    id: "sweet-potato-leaves-miso-soup",
+    name: "地瓜葉味噌湯",
+    baseServings: 2,
+    ingredients: [
+      { name: "地瓜葉", amount: 150, unit: "克" }
+    ],
+    method: "煮",
+    cuisine: "日式",
+    diet: "素",
+    steps: [
+      "地瓜葉洗淨切段",
+      "水煮滾，放入地瓜葉煮軟",
+      "轉小火，取一勺熱湯調開味噌",
+      "倒回鍋中拌勻即可"
+    ]
+  },
+  {
+    id: "sweet-potato-leaves-dried-shrimp",
+    name: "開陽地瓜葉",
+    baseServings: 2,
+    ingredients: [
+      { name: "地瓜葉", amount: 300, unit: "克" },
+      { name: "蝦米", amount: 1, unit: "大匙" }
+    ],
+    method: "炒",
+    cuisine: "中式",
+    diet: "葷",
+    steps: [
+      "蝦米泡軟，地瓜葉摘取嫩葉嫩莖",
+      "熱油鍋，爆香蝦米、蒜末",
+      "加入地瓜葉大火快炒",
+      "加鹽調味即可"
+    ]
   }
 ];
 
