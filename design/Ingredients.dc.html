@@ -1,0 +1,116 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <style>
+    body { margin: 0; background: #fff8f2; font-family: -apple-system, BlinkMacSystemFont, "PingFang TC", "Noto Sans TC", "Microsoft JhengHei", sans-serif; color: #3a2c22; -webkit-font-smoothing: antialiased; }
+    a { color: #c14f1d; } a:hover { color: #e2622a; }
+    .cats::-webkit-scrollbar { display: none; }
+  </style>
+</helmet>
+<div style="width: 390px; min-height: 1000px; background: #fff8f2; display: flex; flex-direction: column; padding: 20px 16px 32px; box-sizing: border-box;">
+
+  <!-- 上方：返回＋標題 -->
+  <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 14px;">
+    <div style="width: 36px; height: 36px; border-radius: 12px; background: #ffffff; border: 1px solid #f0e2d6; display: flex; align-items: center; justify-content: center;">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#3a2c22" stroke-width="2.2" stroke-linecap="round"><path d="m15 6-6 6 6 6"></path></svg>
+    </div>
+    <div style="font-size: 20px; font-weight: 800; color: #3a2c22;">冰箱有什麼？</div>
+  </div>
+
+  <!-- 輸入框 + 已選 tokens -->
+  <div style="display: flex; flex-direction: column; gap: 10px; padding: 12px 14px; border-radius: 16px; background: #ffffff; border: 1px solid #f0e2d6; box-shadow: 0 2px 10px rgba(58,44,34,0.06);">
+    <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+      <div style="display: flex; align-items: center; gap: 6px; padding: 7px 10px 7px 12px; border-radius: 999px; background: #4c8a5e; color: #ffffff; font-size: 14px; font-weight: 600;">
+        <span>雞蛋</span>
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2.4" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"></path></svg>
+      </div>
+      <div style="display: flex; align-items: center; gap: 6px; padding: 7px 10px 7px 12px; border-radius: 999px; background: #4c8a5e; color: #ffffff; font-size: 14px; font-weight: 600;">
+        <span>高麗菜</span>
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2.4" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"></path></svg>
+      </div>
+      <div style="display: flex; align-items: center; gap: 6px; padding: 7px 10px 7px 12px; border-radius: 999px; background: #4c8a5e; color: #ffffff; font-size: 14px; font-weight: 600;">
+        <span>蛤蜊</span>
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2.4" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"></path></svg>
+      </div>
+    </div>
+    <div style="display: flex; align-items: center; gap: 8px; border-top: 1px dashed #f0e2d6; padding-top: 10px;">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#8a7969" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"></path></svg>
+      <div style="flex: 1; font-size: 15px; color: #b3a394;">再打字加食材，例如：豬肉絲</div>
+    </div>
+  </div>
+  <div style="font-size: 12px; color: #8a7969; margin: 8px 2px 0;">鹽、糖、醬油、蒜、薑等常備調味料不用選</div>
+
+  <!-- 分類 tab（橫向捲動） -->
+  <div class="cats" style="display: flex; gap: 8px; overflow-x: auto; margin: 18px -16px 0; padding: 0 16px;">
+    <div style="padding: 9px 14px; border-radius: 999px; background: #ffffff; border: 1px solid #f0e2d6; font-size: 14px; font-weight: 600; color: #3a2c22; white-space: nowrap; flex: 0 0 auto;">葉菜</div>
+    <div style="padding: 9px 14px; border-radius: 999px; background: #ffffff; border: 1px solid #f0e2d6; font-size: 14px; font-weight: 600; color: #3a2c22; white-space: nowrap; flex: 0 0 auto;">瓜果根莖</div>
+    <div style="padding: 9px 14px; border-radius: 999px; background: #ffffff; border: 1px solid #f0e2d6; font-size: 14px; font-weight: 600; color: #3a2c22; white-space: nowrap; flex: 0 0 auto;">菇類</div>
+    <div style="padding: 9px 14px; border-radius: 999px; background: #ffffff; border: 1px solid #f0e2d6; font-size: 14px; font-weight: 600; color: #3a2c22; white-space: nowrap; flex: 0 0 auto;">肉類</div>
+    <div style="padding: 9px 14px; border-radius: 999px; background: {{accent}}; border: 1px solid {{accent}}; font-size: 14px; font-weight: 700; color: #ffffff; white-space: nowrap; flex: 0 0 auto;">海鮮</div>
+    <div style="padding: 9px 14px; border-radius: 999px; background: #ffffff; border: 1px solid #f0e2d6; font-size: 14px; font-weight: 600; color: #3a2c22; white-space: nowrap; flex: 0 0 auto;">蛋豆製品</div>
+    <div style="padding: 9px 14px; border-radius: 999px; background: #ffffff; border: 1px solid #f0e2d6; font-size: 14px; font-weight: 600; color: #3a2c22; white-space: nowrap; flex: 0 0 auto;">主食</div>
+  </div>
+
+  <!-- 該分類的食材（網格） -->
+  <div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; margin-top: 12px;">
+    <div style="padding: 13px 8px; border-radius: 14px; background: #ffffff; border: 1px solid #f0e2d6; font-size: 15px; font-weight: 600; color: #3a2c22; text-align: center;">蝦仁</div>
+    <div style="padding: 13px 8px; border-radius: 14px; background: #ffffff; border: 1px solid #f0e2d6; font-size: 15px; font-weight: 600; color: #3a2c22; text-align: center;">鮭魚</div>
+    <div style="padding: 13px 8px; border-radius: 14px; background: #ffffff; border: 1px solid #f0e2d6; font-size: 15px; font-weight: 600; color: #3a2c22; text-align: center;">魚片</div>
+    <div style="padding: 13px 8px; border-radius: 14px; background: #ffffff; border: 1px solid #f0e2d6; font-size: 15px; font-weight: 600; color: #3a2c22; text-align: center;">蝦米</div>
+    <div style="padding: 13px 8px; border-radius: 14px; background: #ffffff; border: 1px solid #f0e2d6; font-size: 15px; font-weight: 600; color: #3a2c22; text-align: center;">小魚乾</div>
+    <div style="padding: 13px 8px; border-radius: 14px; background: #ffffff; border: 1px solid #f0e2d6; font-size: 15px; font-weight: 600; color: #3a2c22; text-align: center;">海帶芽</div>
+    <div style="padding: 13px 8px; border-radius: 14px; background: #4c8a5e; border: 1px solid #4c8a5e; font-size: 15px; font-weight: 700; color: #ffffff; text-align: center;">蛤蜊</div>
+    <div style="padding: 13px 8px; border-radius: 14px; background: #ffffff; border: 1px solid #f0e2d6; font-size: 15px; font-weight: 600; color: #3a2c22; text-align: center;">透抽</div>
+    <div style="padding: 13px 8px; border-radius: 14px; background: #ffffff; border: 1px solid #f0e2d6; font-size: 15px; font-weight: 600; color: #3a2c22; text-align: center;">鯖魚</div>
+    <div style="padding: 13px 8px; border-radius: 14px; background: #ffffff; border: 1px solid #f0e2d6; font-size: 15px; font-weight: 600; color: #3a2c22; text-align: center;">鱈魚</div>
+  </div>
+
+  <!-- 即時結果預覽 -->
+  <div style="display: flex; align-items: baseline; justify-content: space-between; margin-top: 24px; margin-bottom: 10px;">
+    <div style="display: flex; align-items: baseline; gap: 8px;">
+      <div style="font-size: 18px; font-weight: 800; color: #4c8a5e;">可以直接煮</div>
+      <div style="font-size: 12px; color: #8a7969;">4 道</div>
+    </div>
+    <div style="font-size: 12px; color: #8a7969;">只差一兩樣 12 道 ›</div>
+  </div>
+
+  <div style="display: flex; flex-direction: column; gap: 10px;">
+    <div style="display: flex; gap: 14px; align-items: center; padding: 14px; border-radius: 16px; background: #ffffff; box-shadow: 0 2px 10px rgba(58,44,34,0.08);">
+      <div style="width: 56px; height: 56px; border-radius: 14px; background: #ffe8da; display: flex; flex-direction: column; align-items: center; justify-content: center; flex: 0 0 auto;">
+        <div style="font-size: 22px; font-weight: 800; color: #c14f1d; line-height: 1;">5</div>
+        <div style="font-size: 11px; color: #c14f1d; margin-top: 2px;">分鐘</div>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 6px; flex: 1; min-width: 0;">
+        <div style="font-size: 16px; font-weight: 700; color: #3a2c22;">蛤蜊蒸蛋</div>
+        <div style="font-size: 12px; color: #4c8a5e; font-weight: 600;">用到你的 蛤蜊、雞蛋</div>
+      </div>
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#d9c8b8" stroke-width="2.2" stroke-linecap="round"><path d="m9 6 6 6-6 6"></path></svg>
+    </div>
+    <div style="display: flex; gap: 14px; align-items: center; padding: 14px; border-radius: 16px; background: #ffffff; box-shadow: 0 2px 10px rgba(58,44,34,0.08);">
+      <div style="width: 56px; height: 56px; border-radius: 14px; background: #ffe8da; display: flex; flex-direction: column; align-items: center; justify-content: center; flex: 0 0 auto;">
+        <div style="font-size: 22px; font-weight: 800; color: #c14f1d; line-height: 1;">8</div>
+        <div style="font-size: 11px; color: #c14f1d; margin-top: 2px;">分鐘</div>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 6px; flex: 1; min-width: 0;">
+        <div style="font-size: 16px; font-weight: 700; color: #3a2c22;">高麗菜炒肉絲</div>
+        <div style="font-size: 12px; color: #a15c1f; font-weight: 600;">還缺 豬肉片</div>
+      </div>
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#d9c8b8" stroke-width="2.2" stroke-linecap="round"><path d="m9 6 6 6-6 6"></path></svg>
+    </div>
+  </div>
+
+</div>
+</x-dc>
+<script data-dc-script data-props='{"accent":{"editor":"color","default":"#e2622a","options":["#e2622a","#d9542c","#c86a3a","#e07a2e"]},"$preview":{"width":390,"height":1000}}'>
+class Component extends DCLogic {
+  renderVals() { return { accent: this.props.accent ?? '#e2622a' }; }
+}
+</script>
+</body>
+</html>

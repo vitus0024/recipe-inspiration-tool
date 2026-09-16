@@ -1,0 +1,95 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <style>
+    body { margin: 0; background: #fff8f2; font-family: -apple-system, BlinkMacSystemFont, "PingFang TC", "Noto Sans TC", "Microsoft JhengHei", sans-serif; color: #3a2c22; -webkit-font-smoothing: antialiased; }
+    a { color: #c14f1d; } a:hover { color: #e2622a; }
+  </style>
+</helmet>
+<div style="width: 390px; min-height: 1060px; background: rgba(58,44,34,0.35); display: flex; flex-direction: column; justify-content: flex-end; box-sizing: border-box; padding-top: 60px;">
+  <!-- 底部抽屜 -->
+  <div style="background: #ffffff; border-radius: 24px 24px 0 0; padding: 12px 20px 36px; display: flex; flex-direction: column; gap: 0; box-shadow: 0 -8px 30px rgba(58,44,34,0.18);">
+    <div style="width: 40px; height: 4px; border-radius: 999px; background: #e8dccf; align-self: center; margin-bottom: 14px;"></div>
+
+    <!-- 標題與時間 -->
+    <div style="display: flex; align-items: flex-start; justify-content: space-between; gap: 12px;">
+      <div style="display: flex; flex-direction: column; gap: 6px;">
+        <div style="font-size: 24px; font-weight: 800; color: #3a2c22; line-height: 1.2;">白蘿蔔滷排骨</div>
+        <div style="display: flex; gap: 6px; flex-wrap: wrap;">
+          <span style="font-size: 12px; padding: 4px 9px; border-radius: 999px; background: #fff3c4; color: #8a6400; font-weight: 700;">週末做一鍋</span>
+          <span style="font-size: 12px; padding: 4px 9px; border-radius: 999px; background: #e4f2e7; color: #4c8a5e; font-weight: 700;">便當 OK</span>
+          <span style="font-size: 12px; padding: 4px 9px; border-radius: 999px; background: #fff8f2; color: #8a7969;">中式・滷・葷</span>
+        </div>
+      </div>
+      <div style="width: 62px; height: 62px; border-radius: 16px; background: {{accent}}; display: flex; flex-direction: column; align-items: center; justify-content: center; flex: 0 0 auto; box-shadow: 0 4px 12px rgba(226,98,42,0.28);">
+        <div style="font-size: 24px; font-weight: 800; color: #ffffff; line-height: 1;">10</div>
+        <div style="font-size: 11px; color: #ffe8da; margin-top: 2px;">分鐘動手</div>
+      </div>
+    </div>
+
+    <div style="display: flex; align-items: center; gap: 8px; margin-top: 12px; padding: 10px 12px; border-radius: 12px; background: #fff8f2; font-size: 13px; color: #8a7969;">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#8a7969" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"></circle><path d="M12 7v5l3 2"></path></svg>
+      <span>另外等它自己滷 40 分鐘，不用顧火</span>
+    </div>
+
+    <!-- 份量 -->
+    <div style="display: flex; align-items: center; justify-content: space-between; margin-top: 18px;">
+      <div style="font-size: 15px; font-weight: 800; color: #c14f1d;">準備材料</div>
+      <div style="display: flex; align-items: center; gap: 12px; padding: 6px 8px; border-radius: 999px; background: #fff8f2; border: 1px solid #f0e2d6;">
+        <div style="width: 30px; height: 30px; border-radius: 50%; background: #ffffff; border: 1px solid #f0e2d6; display: flex; align-items: center; justify-content: center;">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#c14f1d" stroke-width="2.6" stroke-linecap="round"><path d="M5 12h14"></path></svg>
+        </div>
+        <div style="font-size: 14px; font-weight: 700; color: #3a2c22; min-width: 48px; text-align: center;">4 人份</div>
+        <div style="width: 30px; height: 30px; border-radius: 50%; background: {{accent}}; display: flex; align-items: center; justify-content: center;">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2.6" stroke-linecap="round"><path d="M12 5v14M5 12h14"></path></svg>
+        </div>
+      </div>
+    </div>
+
+    <!-- 材料清單 -->
+    <div style="display: flex; flex-direction: column; margin-top: 10px; border-radius: 14px; border: 1px solid #f0e2d6; overflow: hidden;">
+      <div style="display: flex; justify-content: space-between; align-items: center; padding: 12px 14px; font-size: 15px; background: #ffffff;"><span style="font-weight: 600;">排骨</span><span style="color: #8a7969;">600 克</span></div>
+      <div style="display: flex; justify-content: space-between; align-items: center; padding: 12px 14px; font-size: 15px; background: #ffffff; border-top: 1px solid #f7ede3;"><span style="font-weight: 600;">白蘿蔔</span><span style="color: #8a7969;">1 條</span></div>
+      <div style="display: flex; justify-content: space-between; align-items: center; padding: 10px 14px; font-size: 12px; background: #fff8f2; color: #8a7969; border-top: 1px solid #f7ede3;"><span>常備：薑片、蔥段、醬油、米酒、糖</span></div>
+    </div>
+
+    <!-- 步驟 -->
+    <div style="font-size: 15px; font-weight: 800; color: #c14f1d; margin-top: 20px;">步驟</div>
+    <div style="display: flex; flex-direction: column; gap: 12px; margin-top: 10px;">
+      <div style="display: flex; gap: 12px; align-items: flex-start;">
+        <div style="width: 26px; height: 26px; border-radius: 50%; background: #ffe8da; color: #c14f1d; font-size: 13px; font-weight: 800; display: flex; align-items: center; justify-content: center; flex: 0 0 auto;">1</div>
+        <div style="font-size: 15px; line-height: 1.55; color: #3a2c22; padding-top: 2px;">排骨冷水下鍋汆燙去血水，撈起沖淨；白蘿蔔去皮切大塊</div>
+      </div>
+      <div style="display: flex; gap: 12px; align-items: flex-start;">
+        <div style="width: 26px; height: 26px; border-radius: 50%; background: #ffe8da; color: #c14f1d; font-size: 13px; font-weight: 800; display: flex; align-items: center; justify-content: center; flex: 0 0 auto;">2</div>
+        <div style="font-size: 15px; line-height: 1.55; color: #3a2c22; padding-top: 2px;">熱少許油爆香薑片、蔥段，下排骨略炒</div>
+      </div>
+      <div style="display: flex; gap: 12px; align-items: flex-start;">
+        <div style="width: 26px; height: 26px; border-radius: 50%; background: #ffe8da; color: #c14f1d; font-size: 13px; font-weight: 800; display: flex; align-items: center; justify-content: center; flex: 0 0 auto;">3</div>
+        <div style="font-size: 15px; line-height: 1.55; color: #3a2c22; padding-top: 2px;">加醬油 4 大匙、米酒 2 大匙、糖 1 小匙、水蓋過食材</div>
+      </div>
+      <div style="display: flex; gap: 12px; align-items: flex-start;">
+        <div style="width: 26px; height: 26px; border-radius: 50%; background: #ffe8da; color: #c14f1d; font-size: 13px; font-weight: 800; display: flex; align-items: center; justify-content: center; flex: 0 0 auto;">4</div>
+        <div style="font-size: 15px; line-height: 1.55; color: #3a2c22; padding-top: 2px;">煮滾後放白蘿蔔，蓋鍋小火滷 40 分鐘（電鍋外鍋 1.5 杯水亦可）</div>
+      </div>
+      <div style="display: flex; gap: 12px; align-items: flex-start;">
+        <div style="width: 26px; height: 26px; border-radius: 50%; background: #ffe8da; color: #c14f1d; font-size: 13px; font-weight: 800; display: flex; align-items: center; justify-content: center; flex: 0 0 auto;">5</div>
+        <div style="font-size: 15px; line-height: 1.55; color: #3a2c22; padding-top: 2px;">放涼分裝，冷藏可放 3 天，隔夜更入味</div>
+      </div>
+    </div>
+  </div>
+</div>
+</x-dc>
+<script data-dc-script data-props='{"accent":{"editor":"color","default":"#e2622a","options":["#e2622a","#d9542c","#c86a3a","#e07a2e"]},"$preview":{"width":390,"height":1060}}'>
+class Component extends DCLogic {
+  renderVals() { return { accent: this.props.accent ?? '#e2622a' }; }
+}
+</script>
+</body>
+</html>

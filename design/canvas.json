@@ -1,0 +1,11 @@
+{
+  "artboards": [
+    { "file": "Main.dc.html", "title": "首頁：10 分鐘開飯", "x": 0, "y": 0, "w": 390, "h": 1180 },
+    { "file": "Ingredients.dc.html", "title": "選食材", "x": 480, "y": 0, "w": 390, "h": 1000 },
+    { "file": "Detail.dc.html", "title": "食譜詳情", "x": 960, "y": 0, "w": 390, "h": 1060 }
+  ],
+  "annotations": [
+    { "id": "note-direction", "x": 0, "y": -150, "w": 420, "text": "暖色延續：沿用現有橘色＋奶油底。\n改動重點：時間變成大字方塊、便當／週末用綠／黃兩色標記、篩選改橫向捲動、食材點選改分類 tab＋三欄格。\n上方「accent」可換主色試試。" }
+  ],
+  "launch": { "view": "canvas" }
+}
