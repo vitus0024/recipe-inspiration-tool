@@ -2962,6 +2962,393 @@ const RECIPES = [
       "油升溫至 190°C 回炸 1 分鐘逼油、更酥",
       "擠檸檬汁；便當菜的經典，冷了也好吃"
     ]
+  },
+  // ══════════════════════════════════════════════════
+  // 第三批（2026-09-16）：平日快煮型 —— 新葉菜（A菜、芥藍）、培根／香腸、麵／年糕／吐司
+  // ══════════════════════════════════════════════════
+
+  // ── A菜（現煮現吃）──────────────────────────────
+  {
+    id: "a-choy-garlic",
+    name: "蒜炒A菜",
+    baseServings: 2,
+    ingredients: [{ name: "A菜", amount: 300, unit: "克" }],
+    method: "炒", cuisine: "中式", diet: "素",
+    time: 5, bento: false, tags: ["健康", "多纖維"],
+    steps: [
+      "A菜洗淨切段，梗葉分開",
+      "熱鍋 1 大匙油，蒜末爆香",
+      "先下梗炒 30 秒，再下葉大火快炒至軟",
+      "加鹽調味即可，A菜易出水，起鍋要快"
+    ]
+  },
+  {
+    id: "a-choy-shimeji",
+    name: "鴻喜菇炒A菜",
+    baseServings: 2,
+    ingredients: [
+      { name: "A菜", amount: 250, unit: "克" },
+      { name: "鴻喜菇", amount: 1, unit: "包" }
+    ],
+    method: "炒", cuisine: "中式", diet: "素",
+    time: 6, bento: false, tags: ["健康", "多纖維"],
+    steps: [
+      "A菜切段；鴻喜菇剝散",
+      "熱鍋 1 大匙油，蒜末爆香，下鴻喜菇炒至微軟出香",
+      "加A菜大火快炒",
+      "加鹽、少許醬油調味即可"
+    ]
+  },
+  {
+    id: "a-choy-sausage",
+    name: "香腸炒A菜",
+    baseServings: 2,
+    ingredients: [
+      { name: "香腸", amount: 2, unit: "條" },
+      { name: "A菜", amount: 250, unit: "克" }
+    ],
+    method: "炒", cuisine: "中式", diet: "葷",
+    time: 6, bento: false, tags: ["多纖維"],
+    steps: [
+      "香腸斜切薄片；A菜切段",
+      "冷鍋下香腸片，小火煎至出油微焦",
+      "下蒜末、A菜轉大火快炒",
+      "加少許鹽即可（香腸已有鹹味）"
+    ]
+  },
+
+  // ── 芥藍（便當友善：蒸過重熱不變色）──────────────────────────────
+  {
+    id: "gai-lan-oyster-sauce",
+    name: "蠔油芥藍",
+    baseServings: 2,
+    ingredients: [{ name: "芥藍", amount: 300, unit: "克" }],
+    method: "炒", cuisine: "中式", diet: "葷",
+    time: 6, bento: true, tags: ["健康", "多纖維"],
+    steps: [
+      "芥藍去老梗，梗厚的對剖",
+      "滾水加少許油、鹽，芥藍燙 1 分鐘撈起",
+      "熱鍋 1 小匙油，蒜末、薑絲爆香，下芥藍快炒",
+      "加蠔油 1 大匙、少許水拌勻即可"
+    ]
+  },
+  {
+    id: "gai-lan-beef",
+    name: "芥藍炒牛肉",
+    baseServings: 2,
+    ingredients: [
+      { name: "芥藍", amount: 250, unit: "克" },
+      { name: "牛肉片", amount: 200, unit: "克" }
+    ],
+    method: "炒", cuisine: "中式", diet: "葷",
+    time: 8, bento: true, tags: ["健康", "高蛋白", "多纖維"],
+    steps: [
+      "牛肉片用醬油、太白粉、米酒抓醃；芥藍切段",
+      "大火熱鍋 1 大匙油，牛肉快炒至變色盛起",
+      "同鍋蒜末爆香，下芥藍炒 2 分鐘",
+      "加回牛肉，加蠔油 1 大匙拌炒均勻即可"
+    ]
+  },
+  {
+    id: "gai-lan-squid-celery",
+    name: "芹菜芥藍炒透抽",
+    baseServings: 2,
+    ingredients: [
+      { name: "透抽", amount: 250, unit: "克" },
+      { name: "芥藍", amount: 200, unit: "克" },
+      { name: "芹菜", amount: 2, unit: "根" }
+    ],
+    method: "炒", cuisine: "中式", diet: "葷",
+    time: 8, bento: true, tags: ["健康", "高蛋白", "多纖維"],
+    steps: [
+      "透抽切圈或切花；芥藍、芹菜切段",
+      "透抽滾水燙 20 秒撈起（先燙再炒才不會出水變老）",
+      "熱鍋 1 大匙油，蒜末、薑絲爆香，下芥藍、芹菜炒 1 分鐘",
+      "加回透抽，加醬油 1 大匙、米酒 1 大匙、白胡椒大火快炒即可"
+    ]
+  },
+
+  // ── 培根 ──────────────────────────────
+  {
+    id: "bacon-baby-corn",
+    name: "培根炒玉米筍",
+    baseServings: 2,
+    ingredients: [
+      { name: "培根", amount: 3, unit: "片" },
+      { name: "玉米筍", amount: 8, unit: "根" },
+      { name: "甜椒", amount: 1, unit: "顆" }
+    ],
+    method: "炒", cuisine: "西式", diet: "葷",
+    time: 6, bento: true, tags: ["多纖維"],
+    steps: [
+      "培根切段；玉米筍對剖；甜椒切條",
+      "冷鍋下培根，小火煎至出油微焦",
+      "下玉米筍、甜椒轉中火炒 2 分鐘",
+      "加黑胡椒、少許鹽即可"
+    ]
+  },
+  {
+    id: "bacon-egg-toast",
+    name: "培根蛋吐司",
+    baseServings: 2,
+    ingredients: [
+      { name: "吐司", amount: 4, unit: "片" },
+      { name: "培根", amount: 2, unit: "片" },
+      { name: "雞蛋", amount: 2, unit: "顆" }
+    ],
+    method: "煎", cuisine: "西式", diet: "葷",
+    time: 6, bento: false, tags: ["高蛋白"],
+    steps: [
+      "吐司烤或乾煎至微焦",
+      "培根煎至微焦盛起，用鍋中培根油煎蛋（喜歡半熟或全熟自己決定）",
+      "吐司夾培根、蛋，撒黑胡椒",
+      "有生菜、番茄片就夾進去"
+    ]
+  },
+  {
+    id: "bacon-cabbage-pasta",
+    name: "培根高麗菜義大利麵",
+    baseServings: 2,
+    ingredients: [
+      { name: "義大利麵", amount: 180, unit: "克" },
+      { name: "培根", amount: 3, unit: "片" },
+      { name: "高麗菜", amount: 200, unit: "克" }
+    ],
+    method: "煮", cuisine: "西式", diet: "葷",
+    time: 10, bento: true, tags: ["多纖維"],
+    steps: [
+      "義大利麵依包裝時間煮，留半碗煮麵水；培根切段；高麗菜切片",
+      "冷鍋下培根煎至出油，下蒜末炒香",
+      "加高麗菜炒軟，加煮麵水半碗",
+      "拌入義大利麵，加鹽、黑胡椒拌勻即可"
+    ]
+  },
+
+  // ── 香腸 ──────────────────────────────
+  {
+    id: "sausage-mixed-veg",
+    name: "香腸炒三色豆",
+    baseServings: 2,
+    ingredients: [
+      { name: "香腸", amount: 2, unit: "條" },
+      { name: "冷凍三色豆", amount: 1, unit: "杯" }
+    ],
+    method: "炒", cuisine: "中式", diet: "葷",
+    time: 6, bento: true, tags: ["一鍋"],
+    steps: [
+      "香腸切丁；三色豆免解凍",
+      "冷鍋下香腸丁，小火煎至出油",
+      "下三色豆轉中火炒 3 分鐘",
+      "加黑胡椒、少許醬油即可，便當配菜零前處理"
+    ]
+  },
+  {
+    id: "sausage-fried-rice",
+    name: "香腸蛋炒飯",
+    baseServings: 2,
+    ingredients: [
+      { name: "白飯", amount: 2, unit: "碗" },
+      { name: "香腸", amount: 2, unit: "條" },
+      { name: "雞蛋", amount: 2, unit: "顆" },
+      { name: "冷凍三色豆", amount: 0.5, unit: "杯" }
+    ],
+    method: "炒", cuisine: "中式", diet: "葷",
+    time: 8, bento: true, tags: ["一鍋"],
+    steps: [
+      "香腸切丁；雞蛋打散；白飯打散（隔夜飯較佳）",
+      "冷鍋下香腸丁煎至出油，下蛋液炒散",
+      "加白飯、三色豆大火拌炒至粒粒分明",
+      "加鹽、白胡椒、蔥花拌勻即可"
+    ]
+  },
+
+  // ── 麵條 ──────────────────────────────
+  {
+    id: "noodle-chive-sprout-stir",
+    name: "韭菜豆芽炒麵",
+    baseServings: 2,
+    ingredients: [
+      { name: "麵條", amount: 200, unit: "克" },
+      { name: "豆芽菜", amount: 150, unit: "克" },
+      { name: "韭菜", amount: 1, unit: "把" }
+    ],
+    method: "炒", cuisine: "中式", diet: "素",
+    time: 8, bento: true, tags: ["多纖維", "一鍋"],
+    steps: [
+      "麵條煮至八分熟撈起瀝乾（油麵可免煮）；韭菜切段",
+      "熱鍋 1 大匙油，蒜末爆香，下豆芽炒 30 秒",
+      "加麵條、醬油 2 大匙、烏醋 1 小匙、白胡椒拌炒",
+      "起鍋前加韭菜拌兩下即可"
+    ]
+  },
+  {
+    id: "noodle-sesame-cold",
+    name: "麻醬涼麵",
+    baseServings: 2,
+    ingredients: [
+      { name: "麵條", amount: 200, unit: "克" },
+      { name: "小黃瓜", amount: 1, unit: "條" },
+      { name: "雞胸肉", amount: 150, unit: "克" }
+    ],
+    method: "涼拌", cuisine: "中式", diet: "葷",
+    time: 8, bento: true, tags: ["高蛋白"],
+    steps: [
+      "麵條煮熟，沖冷水瀝乾拌少許香油；雞胸肉水煮撕絲；小黃瓜切絲",
+      "芝麻醬 2 大匙先用溫水 2 大匙調開，再加醬油 1 大匙、糖 1 小匙、蒜末、烏醋少許",
+      "麵鋪底，放雞絲、小黃瓜絲，淋醬",
+      "帶便當時醬另外裝，吃前再拌"
+    ]
+  },
+  {
+    id: "noodle-zhajiang",
+    name: "炸醬麵",
+    baseServings: 2,
+    ingredients: [
+      { name: "麵條", amount: 200, unit: "克" },
+      { name: "豬絞肉", amount: 200, unit: "克" },
+      { name: "豆干", amount: 3, unit: "片" },
+      { name: "小黃瓜", amount: 1, unit: "條" }
+    ],
+    method: "炒", cuisine: "中式", diet: "葷",
+    time: 10, bento: true, tags: ["高蛋白"],
+    steps: [
+      "豆干切小丁；小黃瓜切絲；麵條煮熟",
+      "熱鍋 1 大匙油，豬絞肉炒散上色，下豆干丁、蒜末炒香",
+      "加甜麵醬 2 大匙、豆瓣醬 1 大匙、糖 1 小匙、水半杯，小火煮 5 分鐘收濃",
+      "醬淋麵上，鋪小黃瓜絲拌勻；醬可多做，冷藏 3 天"
+    ]
+  },
+
+  // ── 烏龍麵 ──────────────────────────────
+  {
+    id: "udon-clam-enoki",
+    name: "蛤蜊金針菇烏龍麵",
+    baseServings: 2,
+    ingredients: [
+      { name: "烏龍麵", amount: 2, unit: "包" },
+      { name: "蛤蜊", amount: 250, unit: "克" },
+      { name: "金針菇", amount: 1, unit: "包" }
+    ],
+    method: "煮", cuisine: "日式", diet: "葷",
+    time: 8, bento: false, tags: ["健康", "一鍋"],
+    steps: [
+      "蛤蜊吐沙；金針菇去根剝散",
+      "水 3 杯加薑絲煮滾，放烏龍麵煮 2 分鐘",
+      "下金針菇、蛤蜊，開口即熄火",
+      "加鹽、米酒少許，撒蔥花即可"
+    ]
+  },
+  {
+    id: "udon-pork-belly-stir",
+    name: "五花肉炒烏龍麵",
+    baseServings: 2,
+    ingredients: [
+      { name: "烏龍麵", amount: 2, unit: "包" },
+      { name: "豬五花", amount: 150, unit: "克" },
+      { name: "高麗菜", amount: 200, unit: "克" }
+    ],
+    method: "炒", cuisine: "日式", diet: "葷",
+    time: 8, bento: true, tags: ["一鍋"],
+    steps: [
+      "五花肉片切段；高麗菜切片；烏龍麵用熱水沖散",
+      "冷鍋下五花肉煎至出油微焦",
+      "下高麗菜炒軟，加烏龍麵",
+      "加醬油 2 大匙、味醂 1 大匙、少許烏醋拌炒，撒柴魚片即可"
+    ]
+  },
+
+  // ── 年糕 ──────────────────────────────
+  {
+    id: "tteokbokki",
+    name: "韓式辣炒年糕",
+    baseServings: 2,
+    ingredients: [
+      { name: "年糕", amount: 300, unit: "克" },
+      { name: "高麗菜", amount: 150, unit: "克" },
+      { name: "雞蛋", amount: 2, unit: "顆" }
+    ],
+    method: "炒", cuisine: "韓式", diet: "葷",
+    time: 8, bento: true, tags: ["一鍋"],
+    steps: [
+      "雞蛋水煮 8 分鐘剝殼；高麗菜切片；年糕泡水 5 分鐘",
+      "鍋中水 1.5 杯、韓式辣醬 2 大匙、醬油 1 大匙、糖 1 大匙煮滾",
+      "放年糕、高麗菜煮 5 分鐘至醬汁濃稠",
+      "放水煮蛋滾一下裹醬即可"
+    ]
+  },
+  {
+    id: "rice-cake-napa-pork",
+    name: "白菜肉片炒年糕",
+    baseServings: 2,
+    ingredients: [
+      { name: "年糕", amount: 300, unit: "克" },
+      { name: "大白菜", amount: 250, unit: "克" },
+      { name: "豬肉片", amount: 150, unit: "克" }
+    ],
+    method: "炒", cuisine: "中式", diet: "葷",
+    time: 8, bento: true, tags: ["一鍋"],
+    steps: [
+      "豬肉片用醬油、太白粉抓醃；大白菜切片；年糕泡水",
+      "熱鍋 1 大匙油，肉片炒至變色，下蒜末、白菜梗炒軟",
+      "加白菜葉、年糕、水半杯、醬油 1.5 大匙",
+      "蓋鍋燜 3 分鐘至年糕軟，加鹽、白胡椒拌勻即可"
+    ]
+  },
+  {
+    id: "rice-cake-seaweed-egg-soup",
+    name: "年糕海帶蛋湯",
+    baseServings: 2,
+    ingredients: [
+      { name: "年糕", amount: 200, unit: "克" },
+      { name: "海帶芽", amount: 1, unit: "大匙" },
+      { name: "雞蛋", amount: 2, unit: "顆" }
+    ],
+    method: "湯", cuisine: "韓式", diet: "葷",
+    time: 6, bento: false, tags: ["一鍋"],
+    steps: [
+      "年糕泡水；雞蛋打散",
+      "水 3 杯煮滾，加醬油 1 大匙、蒜末，放年糕煮 3 分鐘至軟",
+      "放海帶芽煮 1 分鐘",
+      "淋蛋液成蛋花，撒蔥花、滴香油即可"
+    ]
+  },
+
+  // ── 吐司 ──────────────────────────────
+  {
+    id: "toast-pizza",
+    name: "吐司披薩",
+    baseServings: 2,
+    ingredients: [
+      { name: "吐司", amount: 4, unit: "片" },
+      { name: "番茄", amount: 1, unit: "顆" },
+      { name: "玉米粒", amount: 0.5, unit: "杯" }
+    ],
+    method: "烤", cuisine: "西式", diet: "素",
+    time: 5, bento: false, tags: [],
+    tool: "烤箱",
+    steps: [
+      "番茄切薄片",
+      "吐司抹番茄醬，鋪番茄片、玉米粒，有起司就撒",
+      "烤箱 200°C 烤 8 分鐘至邊緣酥脆",
+      "撒黑胡椒即可；冰箱剩的培根、甜椒都能加"
+    ]
+  },
+  {
+    id: "french-toast",
+    name: "法式吐司",
+    baseServings: 2,
+    ingredients: [
+      { name: "吐司", amount: 4, unit: "片" },
+      { name: "雞蛋", amount: 2, unit: "顆" }
+    ],
+    method: "煎", cuisine: "西式", diet: "葷",
+    time: 5, bento: false, tags: [],
+    steps: [
+      "雞蛋打散，加牛奶 3 大匙（沒有用水）、糖 1 小匙",
+      "吐司兩面沾滿蛋液",
+      "熱鍋放一小塊奶油或少許油，中小火煎至兩面金黃",
+      "淋蜂蜜或撒糖粉即可"
+    ]
   }
 
 ];
