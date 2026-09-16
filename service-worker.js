@@ -2,12 +2,13 @@
  * 離線快取：策略是「先連網更新，離線時退回快取」。
  * 有網路時一律用最新內容並更新快取；沒網路時才用上次存的版本。
  */
-const CACHE_NAME = "recipe-tool-v1";
+const CACHE_NAME = "recipe-tool-v2";
 const ASSETS = [
   "./",
   "./index.html",
   "./style.css",
   "./app.js",
+  "./ingredients.js",
   "./match.js",
   "./recipes.js",
   "./manifest.json",

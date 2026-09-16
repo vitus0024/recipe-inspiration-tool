@@ -506,7 +506,7 @@ const RECIPES = [
     name: "韭黃炒肉絲",
     baseServings: 2,
     ingredients: [
-      { name: "豬肉絲", amount: 200, unit: "克" },
+      { name: "豬肉片", amount: 200, unit: "克" },
       { name: "韭黃", amount: 100, unit: "克" }
     ],
     method: "炒",
@@ -525,7 +525,7 @@ const RECIPES = [
     name: "木須炒肉",
     baseServings: 2,
     ingredients: [
-      { name: "豬肉絲", amount: 150, unit: "克" },
+      { name: "豬肉片", amount: 150, unit: "克" },
       { name: "黑木耳", amount: 50, unit: "克" },
       { name: "雞蛋", amount: 2, unit: "顆" }
     ],
@@ -880,7 +880,7 @@ const RECIPES = [
     baseServings: 2,
     ingredients: [
       { name: "高麗菜", amount: 250, unit: "克" },
-      { name: "豬肉絲", amount: 120, unit: "克" }
+      { name: "豬肉片", amount: 120, unit: "克" }
     ],
     method: "炒",
     cuisine: "中式",
@@ -1438,7 +1438,7 @@ const RECIPES = [
       { name: "冬粉", amount: 80, unit: "克" },
       { name: "菠菜", amount: 100, unit: "克" },
       { name: "紅蘿蔔", amount: 0.5, unit: "條" },
-      { name: "豬肉絲", amount: 100, unit: "克" }
+      { name: "豬肉片", amount: 100, unit: "克" }
     ],
     method: "炒",
     cuisine: "韓式",
