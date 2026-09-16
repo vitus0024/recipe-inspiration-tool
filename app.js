@@ -9,7 +9,7 @@
 
   const MIN_SERVINGS = 1;
   const MAX_SERVINGS = 10;
-  const DISCRETE_UNITS = ["顆", "條", "片", "塊", "根", "朵", "把", "碗", "盒"];
+  const DISCRETE_UNITS = ["顆", "條", "片", "塊", "根", "朵", "把", "碗", "盒", "包", "支"];
 
   let currentRecipe = null;
   let currentServings = 1;
