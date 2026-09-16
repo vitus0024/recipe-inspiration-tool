@@ -59,4 +59,4 @@
 3. ✅ 分四批寫了 77 道（09-16）：週末備料 17／湯蒸燴炸 17／新葉菜麵食 21／補覆蓋率 22 → 176 道、80 食材全部有食譜，`validate --strict` 全過（commit `de0eaf9`）。⚠️ 週末備料型只有 27 道＝15%，離 30% 有距離，待 Bryant 決定要不要再補
 4. ✅ Bryant 抽查（09-16）：拿掉涼拌檸檬苦瓜，其餘通過
 5. ✅ UI 功能版（09-16，commit 見 git log）：篩選 chips＋四個下拉、分類點選食材、首頁預設 10 分鐘清單、邊打邊找。在 Claude 瀏覽器 375px 寬實測過；**Bryant 手機實測 PWA 更新待做**（要 push GitHub 才更新得到）
-6. 進入③ 美化
+6. ③ 美化進行中（09-16）：方向定「暖色延續」；三張手機畫板 https://claude.ai/artifact/S3Kkv8HR8y1nLzrmAi3kMZ（原始檔在 `design/`）。Bryant 在畫板上調完 Save → 讀回 → 改 CSS／app.js（emoji 改線條 SVG、時間大字方塊、再看 20 道、食材 token）
