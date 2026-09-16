@@ -3476,20 +3476,20 @@ const RECIPES = [
     ]
   },
   {
-    id: "bitter-melon-lemon-salad",
-    name: "涼拌檸檬苦瓜",
+    id: "bitter-melon-dried-fish",
+    name: "小魚乾炒苦瓜",
     baseServings: 2,
     ingredients: [
       { name: "苦瓜", amount: 1, unit: "條" },
-      { name: "檸檬", amount: 1, unit: "顆" }
+      { name: "小魚乾", amount: 30, unit: "克" }
     ],
-    method: "涼拌", cuisine: "中式", diet: "素",
-    time: 6, bento: true, tags: ["健康", "多纖維"],
+    method: "炒", cuisine: "中式", diet: "葷",
+    time: 8, bento: true, tags: ["健康", "多纖維"],
     steps: [
-      "苦瓜去籽刮白膜切薄片，滾水燙 30 秒立刻冰鎮",
-      "檸檬汁、蜂蜜（或糖）1 大匙、鹽少許拌勻",
-      "苦瓜瀝乾拌入醬汁，冷藏 30 分鐘",
-      "帶便當分開放一格"
+      "苦瓜去籽刮白膜切片，鹽抓 5 分鐘擠掉苦水；小魚乾沖水瀝乾",
+      "熱鍋 1 大匙油，小火把小魚乾、蒜末、豆豉（有就加）炒香",
+      "下苦瓜轉大火炒 2 分鐘，加水 2 大匙蓋鍋燜 1 分鐘",
+      "加醬油 1 小匙、少許糖拌勻即可"
     ]
   },
   {
@@ -3656,7 +3656,10 @@ const RECIPES = [
     id: "mackerel-pan-fried",
     name: "香煎鯖魚",
     baseServings: 2,
-    ingredients: [{ name: "鯖魚", amount: 1, unit: "片" }],
+    ingredients: [
+      { name: "鯖魚", amount: 1, unit: "片" },
+      { name: "檸檬", amount: 0.5, unit: "顆" }
+    ],
     method: "煎", cuisine: "日式", diet: "葷",
     time: 6, bento: true, tags: ["高蛋白"],
     steps: [
