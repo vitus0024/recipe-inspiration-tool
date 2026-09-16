@@ -11,8 +11,11 @@
  *
  * 定位標記（給「下班十分鐘開飯」排序與篩選用，定義見 EXPANSION-PLAN.md）：
  *   - time  ：實際動手分鐘數，等待不計（電鍋按下去、烤箱烤、醃、燉、冷藏都不算）。≤10 進首頁清單。
- *   - bento ：隔天便當 OK —— 冷了不難吃、重複加熱不出水不變硬、沒有生食。
- *             葉菜快炒（空心菜、地瓜葉、菠菜、青江菜）重熱會黑會出水 → false；湯品 → false；生菜涼拌、溏心蛋 → false。
+ *   - bento ：隔天便當 OK。Bryant 2026-09-16 定的原則：
+ *             ・葉菜快炒 → true（便當要有足夠蔬菜量與種類才均衡；新食譜優先挑蒸過／微波過不易變色的青菜）
+ *             ・涼拌菜 → true（便當分開放就好，生菜涼拌也算）
+ *             ・湯品 → false
+ *             ・茶碗蒸、溏心蛋（整顆不切）、蒸魚 → true；韭菜炒蛋、涼拌皮蛋豆腐 → false（他不喜歡帶便當）
  *   - tags  ：健康（有蔬菜或菇＋油 ≤1 大匙／2 人份＋不用咖哩塊等現成醬料包，三條都要）、高蛋白、多纖維、一鍋
  *   - tool  ：（選填）電鍋、氣炸鍋、烤箱、免開火 —— 器具是篩選條件，method 仍是動作
  *   - prep  ：（選填）"weekend" ＝ 週末備料型，一次做一鍋分裝 3 天便當；bento 必為 true
@@ -82,7 +85,7 @@ const RECIPES = [
     cuisine: "日式",
     diet: "葷",
     time: 5,
-    bento: false,
+    bento: true,
     tags: ["高蛋白"],
     tool: "電鍋",
     steps: [
@@ -125,13 +128,13 @@ const RECIPES = [
     cuisine: "日式",
     diet: "葷",
     time: 5,
-    bento: false,
+    bento: true,
     tags: ["高蛋白"],
     steps: [
       "雞蛋放入滾水中煮 6.5 分鐘，撈起冰鎮剝殼",
       "醬油、味醂、水以 1:1:1 混合煮滾放涼",
       "雞蛋放入醬汁中冷藏浸泡至少 4 小時",
-      "取出對切即可"
+      "取出即可（現吃可對切；帶便當整顆放，不要切開）"
     ]
   },
 
@@ -278,7 +281,7 @@ const RECIPES = [
     cuisine: "中式",
     diet: "葷",
     time: 8,
-    bento: false,
+    bento: true,
     tags: ["健康", "高蛋白"],
     steps: [
       "雞胸肉水煮至熟（約 15 分鐘），放涼後撕絲",
@@ -855,7 +858,7 @@ const RECIPES = [
     cuisine: "泰式",
     diet: "葷",
     time: 8,
-    bento: false,
+    bento: true,
     tags: ["健康", "高蛋白"],
     steps: [
       "蝦仁川燙至熟，冰鎮",
@@ -899,7 +902,7 @@ const RECIPES = [
     cuisine: "中式",
     diet: "葷",
     time: 5,
-    bento: false,
+    bento: true,
     tags: ["健康", "高蛋白"],
     tool: "電鍋",
     steps: [
@@ -1004,7 +1007,7 @@ const RECIPES = [
     cuisine: "中式",
     diet: "素",
     time: 8,
-    bento: false,
+    bento: true,
     tags: ["健康", "多纖維"],
     tool: "免開火",
     steps: [
@@ -1132,7 +1135,7 @@ const RECIPES = [
     cuisine: "中式",
     diet: "素",
     time: 5,
-    bento: false,
+    bento: true,
     tags: ["健康", "多纖維"],
     steps: [
       "青江菜洗淨對切",
@@ -1152,7 +1155,7 @@ const RECIPES = [
     cuisine: "中式",
     diet: "葷",
     time: 5,
-    bento: false,
+    bento: true,
     tags: ["健康", "多纖維"],
     steps: [
       "青江菜滾水汆燙 30 秒撈起排盤",
@@ -1173,7 +1176,7 @@ const RECIPES = [
     cuisine: "中式",
     diet: "葷",
     time: 6,
-    bento: false,
+    bento: true,
     tags: ["健康", "多纖維"],
     steps: [
       "蝦米泡軟，青江菜對切",
@@ -1195,7 +1198,7 @@ const RECIPES = [
     cuisine: "日式",
     diet: "素",
     time: 5,
-    bento: false,
+    bento: true,
     tags: ["健康", "多纖維"],
     steps: [
       "菠菜滾水汆燙 30 秒，冰鎮瀝乾切段",
@@ -1214,7 +1217,7 @@ const RECIPES = [
     cuisine: "中式",
     diet: "素",
     time: 5,
-    bento: false,
+    bento: true,
     tags: ["健康", "多纖維"],
     steps: [
       "菠菜洗淨切段",
@@ -1448,7 +1451,7 @@ const RECIPES = [
     cuisine: "中式",
     diet: "素",
     time: 6,
-    bento: false,
+    bento: true,
     tags: ["健康"],
     tool: "免開火",
     steps: [
@@ -1518,7 +1521,7 @@ const RECIPES = [
     cuisine: "中式",
     diet: "素",
     time: 5,
-    bento: false,
+    bento: true,
     tags: ["健康"],
     tool: "免開火",
     steps: [
@@ -1724,7 +1727,7 @@ const RECIPES = [
     cuisine: "中式",
     diet: "素",
     time: 5,
-    bento: false,
+    bento: true,
     tags: ["健康", "多纖維"],
     steps: [
       "豆芽菜洗淨瀝乾，韭菜切段",
@@ -1982,7 +1985,7 @@ const RECIPES = [
     cuisine: "中式",
     diet: "素",
     time: 5,
-    bento: false,
+    bento: true,
     tags: ["健康", "多纖維"],
     steps: [
       "空心菜洗淨切段，梗葉分開",
@@ -2002,7 +2005,7 @@ const RECIPES = [
     cuisine: "中式",
     diet: "素",
     time: 5,
-    bento: false,
+    bento: true,
     tags: ["健康", "多纖維"],
     steps: [
       "空心菜洗淨切段",
@@ -2022,7 +2025,7 @@ const RECIPES = [
     cuisine: "中式",
     diet: "素",
     time: 5,
-    bento: false,
+    bento: true,
     tags: ["健康", "多纖維"],
     steps: [
       "空心菜切段，滾水汆燙 30 秒後冰鎮瀝乾",
@@ -2042,7 +2045,7 @@ const RECIPES = [
     cuisine: "中式",
     diet: "葷",
     time: 6,
-    bento: false,
+    bento: true,
     tags: ["健康", "多纖維"],
     steps: [
       "蝦米泡軟，空心菜切段",
@@ -2063,7 +2066,7 @@ const RECIPES = [
     cuisine: "泰式",
     diet: "葷",
     time: 8,
-    bento: false,
+    bento: true,
     tags: ["健康", "高蛋白"],
     steps: [
       "牛肉片用醬油、太白粉抓醃，空心菜切段",
@@ -2085,7 +2088,7 @@ const RECIPES = [
     cuisine: "中式",
     diet: "素",
     time: 5,
-    bento: false,
+    bento: true,
     tags: ["健康", "多纖維"],
     steps: [
       "地瓜葉洗淨摘取嫩葉嫩莖",
@@ -2106,7 +2109,7 @@ const RECIPES = [
     cuisine: "中式",
     diet: "葷",
     time: 6,
-    bento: false,
+    bento: true,
     tags: ["健康", "多纖維"],
     steps: [
       "小魚乾泡水稍軟，地瓜葉摘取嫩葉嫩莖",
@@ -2126,7 +2129,7 @@ const RECIPES = [
     cuisine: "中式",
     diet: "素",
     time: 5,
-    bento: false,
+    bento: true,
     tags: ["健康", "多纖維"],
     steps: [
       "地瓜葉滾水汆燙 1 分鐘後冰鎮瀝乾",
@@ -2166,7 +2169,7 @@ const RECIPES = [
     cuisine: "中式",
     diet: "葷",
     time: 6,
-    bento: false,
+    bento: true,
     tags: ["健康", "多纖維"],
     steps: [
       "蝦米泡軟，地瓜葉摘取嫩葉嫩莖",
