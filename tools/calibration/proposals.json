@@ -1,7 +1,7 @@
 [
  {
-  "id": "egg-tomato",
-  "name": "番茄炒蛋",
+  "id": "egg-chive",
+  "name": "韭菜炒蛋",
   "ingredient": "雞蛋",
   "unit": "顆",
   "from": 3,
@@ -10,44 +10,594 @@
   "n": 5
  },
  {
-  "id": "chicken-thigh-three-cup",
-  "name": "三杯雞腿",
-  "ingredient": "九層塔",
-  "unit": "把",
-  "from": 0.5,
-  "to": 1.0,
-  "median_per_serving": 0.42,
+  "id": "egg-miso-softboil",
+  "name": "味噌溏心蛋",
+  "ingredient": "雞蛋",
+  "unit": "顆",
+  "from": 6,
+  "to": 4,
+  "median_per_serving": 1.0,
+  "n": 3
+ },
+ {
+  "id": "tofu-braised",
+  "name": "紅燒豆腐",
+  "ingredient": "板豆腐",
+  "unit": "塊",
+  "from": 1,
+  "to": 0.5,
+  "median_per_serving": 0.25,
   "n": 2
  },
  {
-  "id": "clam-loofah-soup",
-  "name": "蛤蜊絲瓜湯",
-  "ingredient": "蛤蜊",
+  "id": "chicken-thigh-miso-bake",
+  "name": "味噌烤雞腿",
+  "ingredient": "雞腿肉",
   "unit": "克",
-  "from": 300,
+  "from": 400,
+  "to": 250,
+  "median_per_serving": 125.0,
+  "n": 3
+ },
+ {
+  "id": "chicken-diced-bell-pepper",
+  "name": "彩椒炒雞丁",
+  "ingredient": "甜椒",
+  "unit": "顆",
+  "from": 1,
+  "to": 2.5,
+  "median_per_serving": 1.17,
+  "n": 2
+ },
+ {
+  "id": "pork-mince-eggplant",
+  "name": "魚香茄子",
+  "ingredient": "豬絞肉",
+  "unit": "克",
+  "from": 100,
+  "to": 130,
+  "median_per_serving": 66.67,
+  "n": 5
+ },
+ {
+  "id": "pork-mince-bell-pepper",
+  "name": "青椒鑲肉",
+  "ingredient": "青椒",
+  "unit": "顆",
+  "from": 2,
+  "to": 3.5,
+  "median_per_serving": 1.83,
+  "n": 4
+ },
+ {
+  "id": "pork-mince-tomato-sauce",
+  "name": "番茄肉燥",
+  "ingredient": "番茄",
+  "unit": "顆",
+  "from": 2,
+  "to": 1.0,
+  "median_per_serving": 0.5,
+  "n": 3
+ },
+ {
+  "id": "pork-slice-moo-shu",
+  "name": "木須炒肉",
+  "ingredient": "豬肉片",
+  "unit": "克",
+  "from": 150,
+  "to": 60,
+  "median_per_serving": 28.75,
+  "n": 2
+ },
+ {
+  "id": "beef-scallion",
+  "name": "蔥爆牛肉",
+  "ingredient": "牛肉片",
+  "unit": "克",
+  "from": 250,
+  "to": 130,
+  "median_per_serving": 66.67,
+  "n": 3
+ },
+ {
+  "id": "beef-black-pepper",
+  "name": "黑胡椒牛柳",
+  "ingredient": "牛肉片",
+  "unit": "克",
+  "from": 250,
   "to": 150,
   "median_per_serving": 75.0,
   "n": 3
  },
  {
-  "id": "clam-loofah-soup",
-  "name": "蛤蜊絲瓜湯",
-  "ingredient": "絲瓜",
-  "unit": "條",
-  "from": 1,
+  "id": "beef-black-pepper",
+  "name": "黑胡椒牛柳",
+  "ingredient": "洋蔥",
+  "unit": "顆",
+  "from": 0.5,
   "to": 0.5,
-  "median_per_serving": 0.25,
+  "median_per_serving": 0.17,
+  "n": 3
+ },
+ {
+  "id": "salmon-pan-fried",
+  "name": "香煎鮭魚排",
+  "ingredient": "鮭魚",
+  "unit": "片",
+  "from": 2,
+  "to": 1,
+  "median_per_serving": 0.5,
+  "n": 3
+ },
+ {
+  "id": "salmon-miso-bake",
+  "name": "味噌烤鮭魚",
+  "ingredient": "鮭魚",
+  "unit": "片",
+  "from": 2,
+  "to": 1,
+  "median_per_serving": 0.42,
+  "n": 4
+ },
+ {
+  "id": "cabbage-dried-shrimp",
+  "name": "開陽高麗菜",
+  "ingredient": "高麗菜",
+  "unit": "克",
+  "from": 300,
+  "to": 210,
+  "median_per_serving": 104.17,
+  "n": 2
+ },
+ {
+  "id": "spinach-egg-soup",
+  "name": "菠菜蛋花湯",
+  "ingredient": "雞蛋",
+  "unit": "顆",
+  "from": 1,
+  "to": 1,
+  "median_per_serving": 0.67,
   "n": 5
  },
  {
-  "id": "noodle-zhajiang",
-  "name": "炸醬麵",
-  "ingredient": "豬絞肉",
+  "id": "eggplant-century-egg",
+  "name": "涼拌皮蛋茄子",
+  "ingredient": "皮蛋",
+  "unit": "顆",
+  "from": 2,
+  "to": 1,
+  "median_per_serving": 0.58,
+  "n": 4
+ },
+ {
+  "id": "potato-shred-vinegar",
+  "name": "醋溜馬鈴薯絲",
+  "ingredient": "馬鈴薯",
+  "unit": "顆",
+  "from": 2,
+  "to": 1.0,
+  "median_per_serving": 0.42,
+  "n": 2
+ },
+ {
+  "id": "potato-roasted",
+  "name": "烤馬鈴薯塊",
+  "ingredient": "馬鈴薯",
+  "unit": "顆",
+  "from": 3,
+  "to": 1.5,
+  "median_per_serving": 0.83,
+  "n": 4
+ },
+ {
+  "id": "carrot-egg",
+  "name": "紅蘿蔔炒蛋",
+  "ingredient": "雞蛋",
+  "unit": "顆",
+  "from": 3,
+  "to": 2,
+  "median_per_serving": 1.0,
+  "n": 4
+ },
+ {
+  "id": "tomato-tofu-egg-soup",
+  "name": "番茄豆腐蛋花湯",
+  "ingredient": "番茄",
+  "unit": "顆",
+  "from": 2,
+  "to": 1.0,
+  "median_per_serving": 0.5,
+  "n": 4
+ },
+ {
+  "id": "tomato-vegetable-stew",
+  "name": "義式番茄燉菜",
+  "ingredient": "櫛瓜",
+  "unit": "條",
+  "from": 1,
+  "to": 0.5,
+  "median_per_serving": 0.33,
+  "n": 2
+ },
+ {
+  "id": "tomato-vegetable-stew",
+  "name": "義式番茄燉菜",
+  "ingredient": "洋蔥",
+  "unit": "顆",
+  "from": 0.5,
+  "to": 0.0,
+  "median_per_serving": 0.1,
+  "n": 2
+ },
+ {
+  "id": "shiitake-chicken-soup",
+  "name": "香菇雞湯",
+  "ingredient": "雞腿肉",
+  "unit": "克",
+  "from": 400,
+  "to": 190,
+  "median_per_serving": 62.5,
+  "n": 3
+ },
+ {
+  "id": "shiitake-chicken-soup",
+  "name": "香菇雞湯",
+  "ingredient": "乾香菇",
+  "unit": "朵",
+  "from": 6,
+  "to": 3,
+  "median_per_serving": 1.12,
+  "n": 2
+ },
+ {
+  "id": "tomato-pasta",
+  "name": "番茄義大利麵",
+  "ingredient": "番茄",
+  "unit": "顆",
+  "from": 3,
+  "to": 2.0,
+  "median_per_serving": 1.04,
+  "n": 2
+ },
+ {
+  "id": "tomato-pasta",
+  "name": "番茄義大利麵",
+  "ingredient": "洋蔥",
+  "unit": "顆",
+  "from": 0.5,
+  "to": 0.5,
+  "median_per_serving": 0.17,
+  "n": 4
+ },
+ {
+  "id": "japchae-glass-noodle",
+  "name": "韓式雜菜冬粉",
+  "ingredient": "冬粉",
+  "unit": "克",
+  "from": 80,
+  "to": 35,
+  "median_per_serving": 16.67,
+  "n": 3
+ },
+ {
+  "id": "japchae-glass-noodle",
+  "name": "韓式雜菜冬粉",
+  "ingredient": "紅蘿蔔",
+  "unit": "條",
+  "from": 0.5,
+  "to": 0.0,
+  "median_per_serving": 0.12,
+  "n": 2
+ },
+ {
+  "id": "okra-egg-stir",
+  "name": "秋葵炒蛋",
+  "ingredient": "雞蛋",
+  "unit": "顆",
+  "from": 3,
+  "to": 2,
+  "median_per_serving": 1.0,
+  "n": 5
+ },
+ {
+  "id": "beef-okra-stir",
+  "name": "秋葵炒牛肉",
+  "ingredient": "牛肉片",
   "unit": "克",
   "from": 200,
-  "to": 350,
-  "median_per_serving": 175.0,
+  "to": 100,
+  "median_per_serving": 51.25,
+  "n": 2
+ },
+ {
+  "id": "shrimp-tofu-braised",
+  "name": "蝦仁豆腐煲",
+  "ingredient": "蝦仁",
+  "unit": "克",
+  "from": 200,
+  "to": 110,
+  "median_per_serving": 56.88,
+  "n": 4
+ },
+ {
+  "id": "shrimp-egg-pancake",
+  "name": "蝦仁烘蛋",
+  "ingredient": "蝦仁",
+  "unit": "克",
+  "from": 150,
+  "to": 100,
+  "median_per_serving": 47.5,
+  "n": 2
+ },
+ {
+  "id": "shrimp-egg-pancake",
+  "name": "蝦仁烘蛋",
+  "ingredient": "雞蛋",
+  "unit": "顆",
+  "from": 4,
+  "to": 2,
+  "median_per_serving": 1.0,
+  "n": 5
+ },
+ {
+  "id": "water-spinach-fermented-tofu",
+  "name": "腐乳空心菜",
+  "ingredient": "空心菜",
+  "unit": "克",
+  "from": 300,
+  "to": 140,
+  "median_per_serving": 70.0,
+  "n": 2
+ },
+ {
+  "id": "water-spinach-beef",
+  "name": "空心菜炒牛肉",
+  "ingredient": "牛肉片",
+  "unit": "克",
+  "from": 200,
+  "to": 100,
+  "median_per_serving": 50.0,
+  "n": 2
+ },
+ {
+  "id": "doufugan-braised-egg",
+  "name": "豆干滷蛋",
+  "ingredient": "豆干",
+  "unit": "片",
+  "from": 6,
+  "to": 4,
+  "median_per_serving": 1.0,
+  "n": 4
+ },
+ {
+  "id": "mushroom-minced-pork-sauce",
+  "name": "香菇肉燥",
+  "ingredient": "乾香菇",
+  "unit": "朵",
+  "from": 6,
+  "to": 11,
+  "median_per_serving": 2.67,
   "n": 3
+ },
+ {
+  "id": "chicken-thigh-rice-cooker-braised",
+  "name": "電鍋香菇滷雞腿",
+  "ingredient": "雞腿肉",
+  "unit": "克",
+  "from": 500,
+  "to": 1000,
+  "median_per_serving": 250.0,
+  "n": 5
+ },
+ {
+  "id": "pork-belly-red-braised",
+  "name": "紅燒五花肉",
+  "ingredient": "豬五花",
+  "unit": "克",
+  "from": 600,
+  "to": 1150,
+  "median_per_serving": 287.5,
+  "n": 2
+ },
+ {
+  "id": "chicken-pumpkin-stew",
+  "name": "南瓜燉雞",
+  "ingredient": "雞腿肉",
+  "unit": "克",
+  "from": 500,
+  "to": 300,
+  "median_per_serving": 75.0,
+  "n": 3
+ },
+ {
+  "id": "chicken-pumpkin-stew",
+  "name": "南瓜燉雞",
+  "ingredient": "南瓜",
+  "unit": "克",
+  "from": 400,
+  "to": 280,
+  "median_per_serving": 68.75,
+  "n": 2
+ },
+ {
+  "id": "beef-tomato-ragu",
+  "name": "義式番茄肉醬",
+  "ingredient": "番茄",
+  "unit": "顆",
+  "from": 4,
+  "to": 2.5,
+  "median_per_serving": 0.6,
+  "n": 5
+ },
+ {
+  "id": "beef-tomato-ragu",
+  "name": "義式番茄肉醬",
+  "ingredient": "洋蔥",
+  "unit": "顆",
+  "from": 1,
+  "to": 0.5,
+  "median_per_serving": 0.12,
+  "n": 5
+ },
+ {
+  "id": "napa-cabbage-braised",
+  "name": "白菜滷",
+  "ingredient": "大白菜",
+  "unit": "克",
+  "from": 600,
+  "to": 420,
+  "median_per_serving": 103.75,
+  "n": 4
+ },
+ {
+  "id": "wings-honey-soy-roasted",
+  "name": "蜂蜜醬油烤雞翅",
+  "ingredient": "雞翅",
+  "unit": "支",
+  "from": 8,
+  "to": 13,
+  "median_per_serving": 3.33,
+  "n": 3
+ },
+ {
+  "id": "bitter-melon-rib-soup",
+  "name": "苦瓜排骨湯",
+  "ingredient": "苦瓜",
+  "unit": "條",
+  "from": 1,
+  "to": 0.5,
+  "median_per_serving": 0.33,
+  "n": 3
+ },
+ {
+  "id": "enoki-egg-tofu-soup",
+  "name": "金針菇雞蛋豆腐湯",
+  "ingredient": "雞蛋",
+  "unit": "顆",
+  "from": 1,
+  "to": 2,
+  "median_per_serving": 0.83,
+  "n": 2
+ },
+ {
+  "id": "celery-fish-soup",
+  "name": "芹菜魚片湯",
+  "ingredient": "魚片",
+  "unit": "克",
+  "from": 200,
+  "to": 128,
+  "median_per_serving": 63.75,
+  "n": 2
+ },
+ {
+  "id": "salmon-miso-soup",
+  "name": "鮭魚味噌湯",
+  "ingredient": "鮭魚",
+  "unit": "克",
+  "from": 150,
+  "to": 100,
+  "median_per_serving": 50.0,
+  "n": 2
+ },
+ {
+  "id": "hot-sour-soup",
+  "name": "酸辣湯",
+  "ingredient": "紅蘿蔔",
+  "unit": "條",
+  "from": 1,
+  "to": 0.5,
+  "median_per_serving": 0.17,
+  "n": 2
+ },
+ {
+  "id": "beef-udon-soup",
+  "name": "牛肉烏龍麵",
+  "ingredient": "牛肉片",
+  "unit": "克",
+  "from": 200,
+  "to": 330,
+  "median_per_serving": 165.0,
+  "n": 2
+ },
+ {
+  "id": "egg-tofu-minced-pork-steamed",
+  "name": "肉末蒸雞蛋豆腐",
+  "ingredient": "雞蛋豆腐",
+  "unit": "盒",
+  "from": 1,
+  "to": 0.5,
+  "median_per_serving": 0.3,
+  "n": 2
+ },
+ {
+  "id": "clam-steamed-egg",
+  "name": "蛤蜊蒸蛋",
+  "ingredient": "蛤蜊",
+  "unit": "克",
+  "from": 200,
+  "to": 120,
+  "median_per_serving": 60.0,
+  "n": 3
+ },
+ {
+  "id": "clam-steamed-egg",
+  "name": "蛤蜊蒸蛋",
+  "ingredient": "雞蛋",
+  "unit": "顆",
+  "from": 3,
+  "to": 1,
+  "median_per_serving": 0.67,
+  "n": 5
+ },
+ {
+  "id": "a-choy-shimeji",
+  "name": "鴻喜菇炒A菜",
+  "ingredient": "鴻喜菇",
+  "unit": "包",
+  "from": 1,
+  "to": 0.5,
+  "median_per_serving": 0.25,
+  "n": 4
+ },
+ {
+  "id": "gai-lan-beef",
+  "name": "芥藍炒牛肉",
+  "ingredient": "牛肉片",
+  "unit": "克",
+  "from": 200,
+  "to": 100,
+  "median_per_serving": 50.0,
+  "n": 2
+ },
+ {
+  "id": "bacon-egg-toast",
+  "name": "培根蛋吐司",
+  "ingredient": "吐司",
+  "unit": "片",
+  "from": 4,
+  "to": 2,
+  "median_per_serving": 1.0,
+  "n": 4
+ },
+ {
+  "id": "noodle-chive-sprout-stir",
+  "name": "韭菜豆芽炒麵",
+  "ingredient": "麵條",
+  "unit": "克",
+  "from": 200,
+  "to": 380,
+  "median_per_serving": 190.0,
+  "n": 2
+ },
+ {
+  "id": "noodle-chive-sprout-stir",
+  "name": "韭菜豆芽炒麵",
+  "ingredient": "豆芽菜",
+  "unit": "克",
+  "from": 150,
+  "to": 60,
+  "median_per_serving": 32.5,
+  "n": 2
  },
  {
   "id": "noodle-zhajiang",
@@ -60,13 +610,93 @@
   "n": 2
  },
  {
-  "id": "tteokbokki",
-  "name": "韓式辣炒年糕",
+  "id": "udon-pork-belly-stir",
+  "name": "五花肉炒烏龍麵",
+  "ingredient": "豬五花",
+  "unit": "克",
+  "from": 150,
+  "to": 400,
+  "median_per_serving": 200.0,
+  "n": 3
+ },
+ {
+  "id": "rice-cake-seaweed-egg-soup",
+  "name": "年糕海帶蛋湯",
   "ingredient": "年糕",
   "unit": "克",
-  "from": 300,
-  "to": 200,
-  "median_per_serving": 100.0,
+  "from": 200,
+  "to": 120,
+  "median_per_serving": 62.5,
   "n": 3
+ },
+ {
+  "id": "toast-pizza",
+  "name": "吐司披薩",
+  "ingredient": "吐司",
+  "unit": "片",
+  "from": 4,
+  "to": 2,
+  "median_per_serving": 1.0,
+  "n": 5
+ },
+ {
+  "id": "tofu-skin-fried-tofu-braised",
+  "name": "滷豆皮油豆腐",
+  "ingredient": "豆皮",
+  "unit": "片",
+  "from": 3,
+  "to": 2,
+  "median_per_serving": 0.38,
+  "n": 3
+ },
+ {
+  "id": "bitter-melon-egg",
+  "name": "苦瓜炒蛋",
+  "ingredient": "雞蛋",
+  "unit": "顆",
+  "from": 3,
+  "to": 2,
+  "median_per_serving": 0.75,
+  "n": 4
+ },
+ {
+  "id": "bitter-melon-dried-fish",
+  "name": "小魚乾炒苦瓜",
+  "ingredient": "苦瓜",
+  "unit": "條",
+  "from": 1,
+  "to": 0.5,
+  "median_per_serving": 0.33,
+  "n": 2
+ },
+ {
+  "id": "dried-fish-green-pepper",
+  "name": "小魚乾炒青椒",
+  "ingredient": "青椒",
+  "unit": "顆",
+  "from": 2,
+  "to": 0.5,
+  "median_per_serving": 0.25,
+  "n": 3
+ },
+ {
+  "id": "baby-corn-shimeji-zucchini",
+  "name": "玉米筍炒鴻喜菇",
+  "ingredient": "鴻喜菇",
+  "unit": "包",
+  "from": 1,
+  "to": 0.0,
+  "median_per_serving": 0.12,
+  "n": 3
+ },
+ {
+  "id": "wings-garlic-pan-fried",
+  "name": "蒜香煎雞翅",
+  "ingredient": "雞翅",
+  "unit": "支",
+  "from": 6,
+  "to": 4,
+  "median_per_serving": 2.0,
+  "n": 2
  }
 ]

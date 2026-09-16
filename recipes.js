@@ -102,7 +102,7 @@ const RECIPES = [
     baseServings: 2,
     ingredients: [
       { name: "韭菜", amount: 100, unit: "克" },
-      { name: "雞蛋", amount: 3, unit: "顆" }
+      { name: "雞蛋", amount: 2, unit: "顆" }
     ],
     method: "炒",
     cuisine: "中式",
@@ -122,7 +122,7 @@ const RECIPES = [
     name: "味噌溏心蛋",
     baseServings: 4,
     ingredients: [
-      { name: "雞蛋", amount: 6, unit: "顆" }
+      { name: "雞蛋", amount: 4, unit: "顆" }
     ],
     method: "滷",
     cuisine: "日式",
@@ -230,7 +230,7 @@ const RECIPES = [
     name: "紅燒豆腐",
     baseServings: 2,
     ingredients: [
-      { name: "板豆腐", amount: 1, unit: "塊" },
+      { name: "板豆腐", amount: 0.5, unit: "塊" },
       { name: "香菇", amount: 3, unit: "朵" }
     ],
     method: "燒",
@@ -404,7 +404,7 @@ const RECIPES = [
     name: "味噌烤雞腿",
     baseServings: 2,
     ingredients: [
-      { name: "雞腿肉", amount: 400, unit: "克" }
+      { name: "雞腿肉", amount: 300, unit: "克" }
     ],
     method: "烤",
     cuisine: "日式",
@@ -427,7 +427,7 @@ const RECIPES = [
     baseServings: 2,
     ingredients: [
       { name: "雞腿肉", amount: 350, unit: "克" },
-      { name: "甜椒", amount: 1, unit: "顆" }
+      { name: "甜椒", amount: 2, unit: "顆" }
     ],
     method: "炒",
     cuisine: "中式",
@@ -494,7 +494,7 @@ const RECIPES = [
     name: "魚香茄子",
     baseServings: 2,
     ingredients: [
-      { name: "豬絞肉", amount: 100, unit: "克" },
+      { name: "豬絞肉", amount: 130, unit: "克" },
       { name: "茄子", amount: 2, unit: "條" }
     ],
     method: "燒",
@@ -518,7 +518,7 @@ const RECIPES = [
     baseServings: 2,
     ingredients: [
       { name: "豬絞肉", amount: 200, unit: "克" },
-      { name: "青椒", amount: 2, unit: "顆" }
+      { name: "青椒", amount: 4, unit: "顆" }
     ],
     method: "煎",
     cuisine: "中式",
@@ -626,7 +626,7 @@ const RECIPES = [
     name: "木須炒肉",
     baseServings: 2,
     ingredients: [
-      { name: "豬肉片", amount: 150, unit: "克" },
+      { name: "豬肉片", amount: 100, unit: "克" },
       { name: "黑木耳", amount: 50, unit: "克" },
       { name: "雞蛋", amount: 2, unit: "顆" }
     ],
@@ -650,7 +650,7 @@ const RECIPES = [
     name: "蔥爆牛肉",
     baseServings: 2,
     ingredients: [
-      { name: "牛肉片", amount: 250, unit: "克" },
+      { name: "牛肉片", amount: 130, unit: "克" },
       { name: "蔥", amount: 3, unit: "根" }
     ],
     method: "炒",
@@ -672,7 +672,7 @@ const RECIPES = [
     name: "黑胡椒牛柳",
     baseServings: 2,
     ingredients: [
-      { name: "牛肉片", amount: 250, unit: "克" },
+      { name: "牛肉片", amount: 150, unit: "克" },
       { name: "洋蔥", amount: 0.5, unit: "顆" }
     ],
     method: "炒",
@@ -743,7 +743,7 @@ const RECIPES = [
     name: "香煎鮭魚排",
     baseServings: 2,
     ingredients: [
-      { name: "鮭魚", amount: 2, unit: "片" }
+      { name: "鮭魚", amount: 1, unit: "片" }
     ],
     method: "煎",
     cuisine: "西式",
@@ -763,7 +763,7 @@ const RECIPES = [
     name: "味噌烤鮭魚",
     baseServings: 2,
     ingredients: [
-      { name: "鮭魚", amount: 2, unit: "片" }
+      { name: "鮭魚", amount: 1, unit: "片" }
     ],
     method: "烤",
     cuisine: "日式",
@@ -980,7 +980,7 @@ const RECIPES = [
     name: "開陽高麗菜",
     baseServings: 2,
     ingredients: [
-      { name: "高麗菜", amount: 300, unit: "克" },
+      { name: "高麗菜", amount: 200, unit: "克" },
       { name: "蝦米", amount: 1, unit: "大匙" }
     ],
     method: "炒",
@@ -1336,7 +1336,7 @@ const RECIPES = [
     baseServings: 2,
     ingredients: [
       { name: "茄子", amount: 2, unit: "條" },
-      { name: "皮蛋", amount: 2, unit: "顆" }
+      { name: "皮蛋", amount: 1, unit: "顆" }
     ],
     method: "涼拌",
     cuisine: "中式",
@@ -1358,7 +1358,7 @@ const RECIPES = [
     name: "醋溜馬鈴薯絲",
     baseServings: 2,
     ingredients: [
-      { name: "馬鈴薯", amount: 2, unit: "顆" }
+      { name: "馬鈴薯", amount: 1, unit: "顆" }
     ],
     method: "炒",
     cuisine: "中式",
@@ -1402,7 +1402,7 @@ const RECIPES = [
     name: "烤馬鈴薯塊",
     baseServings: 2,
     ingredients: [
-      { name: "馬鈴薯", amount: 3, unit: "顆" }
+      { name: "馬鈴薯", amount: 1.5, unit: "顆" }
     ],
     method: "烤",
     cuisine: "西式",
@@ -1425,7 +1425,7 @@ const RECIPES = [
     baseServings: 2,
     ingredients: [
       { name: "紅蘿蔔", amount: 1, unit: "條" },
-      { name: "雞蛋", amount: 3, unit: "顆" }
+      { name: "雞蛋", amount: 2, unit: "顆" }
     ],
     method: "炒",
     cuisine: "中式",
@@ -1467,7 +1467,7 @@ const RECIPES = [
     name: "番茄豆腐蛋花湯",
     baseServings: 2,
     ingredients: [
-      { name: "番茄", amount: 2, unit: "顆" },
+      { name: "番茄", amount: 1, unit: "顆" },
       { name: "嫩豆腐", amount: 1, unit: "盒" },
       { name: "雞蛋", amount: 1, unit: "顆" }
     ],
@@ -1490,7 +1490,7 @@ const RECIPES = [
     baseServings: 2,
     ingredients: [
       { name: "番茄", amount: 2, unit: "顆" },
-      { name: "櫛瓜", amount: 1, unit: "條" },
+      { name: "櫛瓜", amount: 0.5, unit: "條" },
       { name: "洋蔥", amount: 0.5, unit: "顆" }
     ],
     method: "燉",
@@ -1601,8 +1601,8 @@ const RECIPES = [
     name: "香菇雞湯",
     baseServings: 3,
     ingredients: [
-      { name: "雞腿肉", amount: 400, unit: "克" },
-      { name: "乾香菇", amount: 6, unit: "朵" }
+      { name: "雞腿肉", amount: 200, unit: "克" },
+      { name: "乾香菇", amount: 3, unit: "朵" }
     ],
     method: "燉",
     cuisine: "中式",
@@ -1648,7 +1648,7 @@ const RECIPES = [
     baseServings: 2,
     ingredients: [
       { name: "義大利麵", amount: 180, unit: "克" },
-      { name: "番茄", amount: 3, unit: "顆" },
+      { name: "番茄", amount: 2, unit: "顆" },
       { name: "洋蔥", amount: 0.5, unit: "顆" }
     ],
     method: "煮",
@@ -1694,7 +1694,7 @@ const RECIPES = [
     name: "韓式雜菜冬粉",
     baseServings: 2,
     ingredients: [
-      { name: "冬粉", amount: 80, unit: "克" },
+      { name: "冬粉", amount: 50, unit: "克" },
       { name: "菠菜", amount: 100, unit: "克" },
       { name: "紅蘿蔔", amount: 0.5, unit: "條" },
       { name: "豬肉片", amount: 100, unit: "克" }
@@ -1825,7 +1825,7 @@ const RECIPES = [
     baseServings: 2,
     ingredients: [
       { name: "秋葵", amount: 10, unit: "條" },
-      { name: "雞蛋", amount: 3, unit: "顆" }
+      { name: "雞蛋", amount: 2, unit: "顆" }
     ],
     method: "炒",
     cuisine: "中式",
@@ -1845,7 +1845,7 @@ const RECIPES = [
     name: "秋葵炒牛肉",
     baseServings: 2,
     ingredients: [
-      { name: "牛肉片", amount: 200, unit: "克" },
+      { name: "牛肉片", amount: 120, unit: "克" },
       { name: "秋葵", amount: 10, unit: "條" }
     ],
     method: "炒",
@@ -1934,7 +1934,7 @@ const RECIPES = [
     name: "蝦仁豆腐煲",
     baseServings: 2,
     ingredients: [
-      { name: "蝦仁", amount: 200, unit: "克" },
+      { name: "蝦仁", amount: 110, unit: "克" },
       { name: "嫩豆腐", amount: 1, unit: "盒" }
     ],
     method: "燒",
@@ -1956,8 +1956,8 @@ const RECIPES = [
     name: "蝦仁烘蛋",
     baseServings: 2,
     ingredients: [
-      { name: "蝦仁", amount: 150, unit: "克" },
-      { name: "雞蛋", amount: 4, unit: "顆" }
+      { name: "蝦仁", amount: 100, unit: "克" },
+      { name: "雞蛋", amount: 2, unit: "顆" }
     ],
     method: "煎",
     cuisine: "中式",
@@ -1999,7 +1999,7 @@ const RECIPES = [
     name: "腐乳空心菜",
     baseServings: 2,
     ingredients: [
-      { name: "空心菜", amount: 300, unit: "克" }
+      { name: "空心菜", amount: 200, unit: "克" }
     ],
     method: "炒",
     cuisine: "中式",
@@ -2060,7 +2060,7 @@ const RECIPES = [
     baseServings: 2,
     ingredients: [
       { name: "空心菜", amount: 250, unit: "克" },
-      { name: "牛肉片", amount: 200, unit: "克" }
+      { name: "牛肉片", amount: 120, unit: "克" }
     ],
     method: "炒",
     cuisine: "泰式",
@@ -2234,7 +2234,7 @@ const RECIPES = [
     name: "豆干滷蛋",
     baseServings: 4,
     ingredients: [
-      { name: "豆干", amount: 6, unit: "片" },
+      { name: "豆干", amount: 4, unit: "片" },
       { name: "雞蛋", amount: 4, unit: "顆" }
     ],
     method: "滷",
@@ -2258,7 +2258,7 @@ const RECIPES = [
     baseServings: 4,
     ingredients: [
       { name: "豬絞肉", amount: 400, unit: "克" },
-      { name: "乾香菇", amount: 6, unit: "朵" },
+      { name: "乾香菇", amount: 10, unit: "朵" },
       { name: "油豆腐", amount: 8, unit: "塊" }
     ],
     method: "滷",
@@ -2281,7 +2281,7 @@ const RECIPES = [
     name: "電鍋香菇滷雞腿",
     baseServings: 4,
     ingredients: [
-      { name: "雞腿肉", amount: 500, unit: "克" },
+      { name: "雞腿肉", amount: 800, unit: "克" },
       { name: "乾香菇", amount: 4, unit: "朵" },
       { name: "白蘿蔔", amount: 1, unit: "條" }
     ],
@@ -2308,7 +2308,7 @@ const RECIPES = [
     name: "紅燒五花肉",
     baseServings: 4,
     ingredients: [
-      { name: "豬五花", amount: 600, unit: "克" },
+      { name: "豬五花", amount: 900, unit: "克" },
       { name: "雞蛋", amount: 4, unit: "顆" }
     ],
     method: "燒",
@@ -2355,8 +2355,8 @@ const RECIPES = [
     name: "南瓜燉雞",
     baseServings: 4,
     ingredients: [
-      { name: "雞腿肉", amount: 500, unit: "克" },
-      { name: "南瓜", amount: 400, unit: "克" },
+      { name: "雞腿肉", amount: 300, unit: "克" },
+      { name: "南瓜", amount: 280, unit: "克" },
       { name: "洋蔥", amount: 1, unit: "顆" }
     ],
     method: "燉",
@@ -2380,8 +2380,8 @@ const RECIPES = [
     baseServings: 4,
     ingredients: [
       { name: "牛絞肉", amount: 400, unit: "克" },
-      { name: "番茄", amount: 4, unit: "顆" },
-      { name: "洋蔥", amount: 1, unit: "顆" }
+      { name: "番茄", amount: 2.5, unit: "顆" },
+      { name: "洋蔥", amount: 0.5, unit: "顆" }
     ],
     method: "燉",
     cuisine: "西式",
@@ -2403,7 +2403,7 @@ const RECIPES = [
     name: "白菜滷",
     baseServings: 4,
     ingredients: [
-      { name: "大白菜", amount: 600, unit: "克" },
+      { name: "大白菜", amount: 400, unit: "克" },
       { name: "乾香菇", amount: 4, unit: "朵" },
       { name: "蝦米", amount: 2, unit: "大匙" },
       { name: "豆皮", amount: 2, unit: "片" }
@@ -2452,7 +2452,7 @@ const RECIPES = [
     name: "蜂蜜醬油烤雞翅",
     baseServings: 4,
     ingredients: [
-      { name: "雞翅", amount: 8, unit: "支" }
+      { name: "雞翅", amount: 12, unit: "支" }
     ],
     method: "烤",
     cuisine: "中式",
@@ -2616,7 +2616,7 @@ const RECIPES = [
     baseServings: 2,
     ingredients: [
       { name: "排骨", amount: 300, unit: "克" },
-      { name: "苦瓜", amount: 1, unit: "條" }
+      { name: "苦瓜", amount: 0.5, unit: "條" }
     ],
     method: "湯",
     cuisine: "中式",
@@ -2638,7 +2638,7 @@ const RECIPES = [
     ingredients: [
       { name: "金針菇", amount: 1, unit: "包" },
       { name: "雞蛋豆腐", amount: 1, unit: "盒" },
-      { name: "雞蛋", amount: 1, unit: "顆" }
+      { name: "雞蛋", amount: 2, unit: "顆" }
     ],
     method: "湯",
     cuisine: "中式",
@@ -2679,7 +2679,7 @@ const RECIPES = [
     name: "芹菜魚片湯",
     baseServings: 2,
     ingredients: [
-      { name: "魚片", amount: 200, unit: "克" },
+      { name: "魚片", amount: 130, unit: "克" },
       { name: "芹菜", amount: 2, unit: "根" }
     ],
     method: "湯",
@@ -2700,7 +2700,7 @@ const RECIPES = [
     name: "鮭魚味噌湯",
     baseServings: 2,
     ingredients: [
-      { name: "鮭魚", amount: 150, unit: "克" },
+      { name: "鮭魚", amount: 100, unit: "克" },
       { name: "嫩豆腐", amount: 1, unit: "盒" },
       { name: "海帶芽", amount: 1, unit: "大匙" }
     ],
@@ -2724,7 +2724,7 @@ const RECIPES = [
     ingredients: [
       { name: "黑木耳", amount: 3, unit: "朵" },
       { name: "嫩豆腐", amount: 1, unit: "盒" },
-      { name: "紅蘿蔔", amount: 1, unit: "條" },
+      { name: "紅蘿蔔", amount: 0.5, unit: "條" },
       { name: "雞蛋", amount: 1, unit: "顆" }
     ],
     method: "湯",
@@ -2747,7 +2747,7 @@ const RECIPES = [
     baseServings: 2,
     ingredients: [
       { name: "烏龍麵", amount: 2, unit: "包" },
-      { name: "牛肉片", amount: 200, unit: "克" },
+      { name: "牛肉片", amount: 300, unit: "克" },
       { name: "洋蔥", amount: 1, unit: "顆" }
     ],
     method: "湯",
@@ -2792,7 +2792,7 @@ const RECIPES = [
     name: "肉末蒸雞蛋豆腐",
     baseServings: 2,
     ingredients: [
-      { name: "雞蛋豆腐", amount: 1, unit: "盒" },
+      { name: "雞蛋豆腐", amount: 0.5, unit: "盒" },
       { name: "豬絞肉", amount: 100, unit: "克" }
     ],
     method: "蒸",
@@ -2814,8 +2814,8 @@ const RECIPES = [
     name: "蛤蜊蒸蛋",
     baseServings: 2,
     ingredients: [
-      { name: "蛤蜊", amount: 200, unit: "克" },
-      { name: "雞蛋", amount: 3, unit: "顆" }
+      { name: "蛤蜊", amount: 120, unit: "克" },
+      { name: "雞蛋", amount: 2, unit: "顆" }
     ],
     method: "蒸",
     cuisine: "中式",
@@ -2988,7 +2988,7 @@ const RECIPES = [
     baseServings: 2,
     ingredients: [
       { name: "A菜", amount: 250, unit: "克" },
-      { name: "鴻喜菇", amount: 1, unit: "包" }
+      { name: "鴻喜菇", amount: 0.5, unit: "包" }
     ],
     method: "炒", cuisine: "中式", diet: "素",
     time: 6, bento: false, tags: ["健康", "多纖維"],
@@ -3038,7 +3038,7 @@ const RECIPES = [
     baseServings: 2,
     ingredients: [
       { name: "芥藍", amount: 250, unit: "克" },
-      { name: "牛肉片", amount: 200, unit: "克" }
+      { name: "牛肉片", amount: 120, unit: "克" }
     ],
     method: "炒", cuisine: "中式", diet: "葷",
     time: 8, bento: true, tags: ["健康", "高蛋白", "多纖維"],
@@ -3169,7 +3169,7 @@ const RECIPES = [
     baseServings: 2,
     ingredients: [
       { name: "麵條", amount: 200, unit: "克" },
-      { name: "豆芽菜", amount: 150, unit: "克" },
+      { name: "豆芽菜", amount: 60, unit: "克" },
       { name: "韭菜", amount: 1, unit: "把" }
     ],
     method: "炒", cuisine: "中式", diet: "素",
@@ -3244,7 +3244,7 @@ const RECIPES = [
     baseServings: 2,
     ingredients: [
       { name: "烏龍麵", amount: 2, unit: "包" },
-      { name: "豬五花", amount: 150, unit: "克" },
+      { name: "豬五花", amount: 250, unit: "克" },
       { name: "高麗菜", amount: 200, unit: "克" }
     ],
     method: "炒", cuisine: "日式", diet: "葷",
@@ -3299,7 +3299,7 @@ const RECIPES = [
     name: "年糕海帶蛋湯",
     baseServings: 2,
     ingredients: [
-      { name: "年糕", amount: 200, unit: "克" },
+      { name: "年糕", amount: 120, unit: "克" },
       { name: "海帶芽", amount: 1, unit: "大匙" },
       { name: "雞蛋", amount: 2, unit: "顆" }
     ],
@@ -3319,7 +3319,7 @@ const RECIPES = [
     name: "吐司披薩",
     baseServings: 2,
     ingredients: [
-      { name: "吐司", amount: 4, unit: "片" },
+      { name: "吐司", amount: 2, unit: "片" },
       { name: "番茄", amount: 1, unit: "顆" },
       { name: "玉米粒", amount: 0.5, unit: "杯" }
     ],
@@ -3377,7 +3377,7 @@ const RECIPES = [
     name: "滷豆皮油豆腐",
     baseServings: 4,
     ingredients: [
-      { name: "豆皮", amount: 3, unit: "片" },
+      { name: "豆皮", amount: 2, unit: "片" },
       { name: "油豆腐", amount: 8, unit: "塊" }
     ],
     method: "滷", cuisine: "中式", diet: "素",
@@ -3464,7 +3464,7 @@ const RECIPES = [
     baseServings: 2,
     ingredients: [
       { name: "苦瓜", amount: 1, unit: "條" },
-      { name: "雞蛋", amount: 3, unit: "顆" }
+      { name: "雞蛋", amount: 2, unit: "顆" }
     ],
     method: "炒", cuisine: "中式", diet: "葷",
     time: 8, bento: true, tags: ["健康", "高蛋白"],
@@ -3480,7 +3480,7 @@ const RECIPES = [
     name: "小魚乾炒苦瓜",
     baseServings: 2,
     ingredients: [
-      { name: "苦瓜", amount: 1, unit: "條" },
+      { name: "苦瓜", amount: 0.5, unit: "條" },
       { name: "小魚乾", amount: 30, unit: "克" }
     ],
     method: "炒", cuisine: "中式", diet: "葷",
@@ -3515,7 +3515,7 @@ const RECIPES = [
     baseServings: 2,
     ingredients: [
       { name: "小魚乾", amount: 30, unit: "克" },
-      { name: "青椒", amount: 2, unit: "顆" }
+      { name: "青椒", amount: 1, unit: "顆" }
     ],
     method: "炒", cuisine: "中式", diet: "葷",
     time: 6, bento: true, tags: ["健康", "多纖維"],
@@ -3640,7 +3640,7 @@ const RECIPES = [
     id: "wings-garlic-pan-fried",
     name: "蒜香煎雞翅",
     baseServings: 2,
-    ingredients: [{ name: "雞翅", amount: 6, unit: "支" }],
+    ingredients: [{ name: "雞翅", amount: 4, unit: "支" }],
     method: "煎", cuisine: "中式", diet: "葷",
     time: 10, bento: true, tags: ["高蛋白"],
     steps: [

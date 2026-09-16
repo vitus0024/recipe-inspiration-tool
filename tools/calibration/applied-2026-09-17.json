@@ -1,0 +1,362 @@
+[
+ {
+  "name": "韭菜炒蛋",
+  "ingredient": "雞蛋",
+  "from": 3,
+  "to": 2
+ },
+ {
+  "name": "味噌溏心蛋",
+  "ingredient": "雞蛋",
+  "from": 6,
+  "to": 4
+ },
+ {
+  "name": "紅燒豆腐",
+  "ingredient": "板豆腐",
+  "from": 1,
+  "to": 0.5
+ },
+ {
+  "name": "味噌烤雞腿",
+  "ingredient": "雞腿肉",
+  "from": 400,
+  "to": 300
+ },
+ {
+  "name": "彩椒炒雞丁",
+  "ingredient": "甜椒",
+  "from": 1,
+  "to": 2
+ },
+ {
+  "name": "魚香茄子",
+  "ingredient": "豬絞肉",
+  "from": 100,
+  "to": 130
+ },
+ {
+  "name": "青椒鑲肉",
+  "ingredient": "青椒",
+  "from": 2,
+  "to": 4
+ },
+ {
+  "name": "木須炒肉",
+  "ingredient": "豬肉片",
+  "from": 150,
+  "to": 100
+ },
+ {
+  "name": "蔥爆牛肉",
+  "ingredient": "牛肉片",
+  "from": 250,
+  "to": 130
+ },
+ {
+  "name": "黑胡椒牛柳",
+  "ingredient": "牛肉片",
+  "from": 250,
+  "to": 150
+ },
+ {
+  "name": "香煎鮭魚排",
+  "ingredient": "鮭魚",
+  "from": 2,
+  "to": 1
+ },
+ {
+  "name": "味噌烤鮭魚",
+  "ingredient": "鮭魚",
+  "from": 2,
+  "to": 1
+ },
+ {
+  "name": "開陽高麗菜",
+  "ingredient": "高麗菜",
+  "from": 300,
+  "to": 200
+ },
+ {
+  "name": "涼拌皮蛋茄子",
+  "ingredient": "皮蛋",
+  "from": 2,
+  "to": 1
+ },
+ {
+  "name": "醋溜馬鈴薯絲",
+  "ingredient": "馬鈴薯",
+  "from": 2,
+  "to": 1.0
+ },
+ {
+  "name": "烤馬鈴薯塊",
+  "ingredient": "馬鈴薯",
+  "from": 3,
+  "to": 1.5
+ },
+ {
+  "name": "紅蘿蔔炒蛋",
+  "ingredient": "雞蛋",
+  "from": 3,
+  "to": 2
+ },
+ {
+  "name": "番茄豆腐蛋花湯",
+  "ingredient": "番茄",
+  "from": 2,
+  "to": 1.0
+ },
+ {
+  "name": "義式番茄燉菜",
+  "ingredient": "櫛瓜",
+  "from": 1,
+  "to": 0.5
+ },
+ {
+  "name": "香菇雞湯",
+  "ingredient": "雞腿肉",
+  "from": 400,
+  "to": 200
+ },
+ {
+  "name": "香菇雞湯",
+  "ingredient": "乾香菇",
+  "from": 6,
+  "to": 3
+ },
+ {
+  "name": "番茄義大利麵",
+  "ingredient": "番茄",
+  "from": 3,
+  "to": 2.0
+ },
+ {
+  "name": "韓式雜菜冬粉",
+  "ingredient": "冬粉",
+  "from": 80,
+  "to": 50
+ },
+ {
+  "name": "秋葵炒蛋",
+  "ingredient": "雞蛋",
+  "from": 3,
+  "to": 2
+ },
+ {
+  "name": "秋葵炒牛肉",
+  "ingredient": "牛肉片",
+  "from": 200,
+  "to": 120
+ },
+ {
+  "name": "蝦仁豆腐煲",
+  "ingredient": "蝦仁",
+  "from": 200,
+  "to": 110
+ },
+ {
+  "name": "蝦仁烘蛋",
+  "ingredient": "蝦仁",
+  "from": 150,
+  "to": 100
+ },
+ {
+  "name": "蝦仁烘蛋",
+  "ingredient": "雞蛋",
+  "from": 4,
+  "to": 2
+ },
+ {
+  "name": "腐乳空心菜",
+  "ingredient": "空心菜",
+  "from": 300,
+  "to": 200
+ },
+ {
+  "name": "空心菜炒牛肉",
+  "ingredient": "牛肉片",
+  "from": 200,
+  "to": 120
+ },
+ {
+  "name": "豆干滷蛋",
+  "ingredient": "豆干",
+  "from": 6,
+  "to": 4
+ },
+ {
+  "name": "香菇肉燥",
+  "ingredient": "乾香菇",
+  "from": 6,
+  "to": 10
+ },
+ {
+  "name": "電鍋香菇滷雞腿",
+  "ingredient": "雞腿肉",
+  "from": 500,
+  "to": 800
+ },
+ {
+  "name": "紅燒五花肉",
+  "ingredient": "豬五花",
+  "from": 600,
+  "to": 900
+ },
+ {
+  "name": "南瓜燉雞",
+  "ingredient": "雞腿肉",
+  "from": 500,
+  "to": 300
+ },
+ {
+  "name": "南瓜燉雞",
+  "ingredient": "南瓜",
+  "from": 400,
+  "to": 280
+ },
+ {
+  "name": "義式番茄肉醬",
+  "ingredient": "番茄",
+  "from": 4,
+  "to": 2.5
+ },
+ {
+  "name": "義式番茄肉醬",
+  "ingredient": "洋蔥",
+  "from": 1,
+  "to": 0.5
+ },
+ {
+  "name": "白菜滷",
+  "ingredient": "大白菜",
+  "from": 600,
+  "to": 400
+ },
+ {
+  "name": "蜂蜜醬油烤雞翅",
+  "ingredient": "雞翅",
+  "from": 8,
+  "to": 12
+ },
+ {
+  "name": "苦瓜排骨湯",
+  "ingredient": "苦瓜",
+  "from": 1,
+  "to": 0.5
+ },
+ {
+  "name": "金針菇雞蛋豆腐湯",
+  "ingredient": "雞蛋",
+  "from": 1,
+  "to": 2
+ },
+ {
+  "name": "芹菜魚片湯",
+  "ingredient": "魚片",
+  "from": 200,
+  "to": 130
+ },
+ {
+  "name": "鮭魚味噌湯",
+  "ingredient": "鮭魚",
+  "from": 150,
+  "to": 100
+ },
+ {
+  "name": "酸辣湯",
+  "ingredient": "紅蘿蔔",
+  "from": 1,
+  "to": 0.5
+ },
+ {
+  "name": "牛肉烏龍麵",
+  "ingredient": "牛肉片",
+  "from": 200,
+  "to": 300
+ },
+ {
+  "name": "肉末蒸雞蛋豆腐",
+  "ingredient": "雞蛋豆腐",
+  "from": 1,
+  "to": 0.5
+ },
+ {
+  "name": "蛤蜊蒸蛋",
+  "ingredient": "蛤蜊",
+  "from": 200,
+  "to": 120
+ },
+ {
+  "name": "蛤蜊蒸蛋",
+  "ingredient": "雞蛋",
+  "from": 3,
+  "to": 2
+ },
+ {
+  "name": "鴻喜菇炒A菜",
+  "ingredient": "鴻喜菇",
+  "from": 1,
+  "to": 0.5
+ },
+ {
+  "name": "芥藍炒牛肉",
+  "ingredient": "牛肉片",
+  "from": 200,
+  "to": 120
+ },
+ {
+  "name": "韭菜豆芽炒麵",
+  "ingredient": "豆芽菜",
+  "from": 150,
+  "to": 60
+ },
+ {
+  "name": "五花肉炒烏龍麵",
+  "ingredient": "豬五花",
+  "from": 150,
+  "to": 250
+ },
+ {
+  "name": "年糕海帶蛋湯",
+  "ingredient": "年糕",
+  "from": 200,
+  "to": 120
+ },
+ {
+  "name": "吐司披薩",
+  "ingredient": "吐司",
+  "from": 4,
+  "to": 2
+ },
+ {
+  "name": "滷豆皮油豆腐",
+  "ingredient": "豆皮",
+  "from": 3,
+  "to": 2
+ },
+ {
+  "name": "苦瓜炒蛋",
+  "ingredient": "雞蛋",
+  "from": 3,
+  "to": 2
+ },
+ {
+  "name": "小魚乾炒苦瓜",
+  "ingredient": "苦瓜",
+  "from": 1,
+  "to": 0.5
+ },
+ {
+  "name": "小魚乾炒青椒",
+  "ingredient": "青椒",
+  "from": 2,
+  "to": 1
+ },
+ {
+  "name": "蒜香煎雞翅",
+  "ingredient": "雞翅",
+  "from": 6,
+  "to": 4
+ }
+]
