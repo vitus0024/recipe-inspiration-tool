@@ -7,6 +7,15 @@
  * 每道食譜的 ingredients 是主要食材陣列，每項為 { name, amount, unit }：
  *   - amount / unit 是「baseServings 人份」的份量，畫面上會依使用者選的人數等比例換算。
  *   - 常備調味料（鹽、糖、醬油、蒜、薑、蔥少許等）不列入 ingredients，只會出現在 steps 文字裡。
+ *   - ingredients[].name 一律用 ingredients.js 目錄裡的正規名稱。
+ *
+ * 定位標記（給「下班十分鐘開飯」排序與篩選用，定義見 EXPANSION-PLAN.md）：
+ *   - time  ：實際動手分鐘數，等待不計（電鍋按下去、烤箱烤、醃、燉、冷藏都不算）。≤10 進首頁清單。
+ *   - bento ：隔天便當 OK —— 冷了不難吃、重複加熱不出水不變硬、沒有生食。
+ *             葉菜快炒（空心菜、地瓜葉、菠菜、青江菜）重熱會黑會出水 → false；湯品 → false；生菜涼拌、溏心蛋 → false。
+ *   - tags  ：健康（有蔬菜或菇＋油 ≤1 大匙／2 人份＋不用咖哩塊等現成醬料包，三條都要）、高蛋白、多纖維、一鍋
+ *   - tool  ：（選填）電鍋、氣炸鍋、烤箱、免開火 —— 器具是篩選條件，method 仍是動作
+ *   - prep  ：（選填）"weekend" ＝ 週末備料型，一次做一鍋分裝 3 天便當；bento 必為 true
  */
 
 const PANTRY_STAPLES = [
@@ -27,6 +36,9 @@ const RECIPES = [
     method: "炒",
     cuisine: "中式",
     diet: "葷",
+    time: 8,
+    bento: true,
+    tags: ["健康", "高蛋白"],
     steps: [
       "番茄切滾刀塊，雞蛋打散加一點鹽",
       "熱油鍋，蛋液下鍋炒至半凝固盛起",
@@ -46,6 +58,9 @@ const RECIPES = [
     method: "煎",
     cuisine: "中式",
     diet: "葷",
+    time: 5,
+    bento: true,
+    tags: ["高蛋白"],
     steps: [
       "雞蛋打散，加蔥花、鹽拌勻",
       "熱鍋下油，倒入蛋液",
@@ -66,6 +81,10 @@ const RECIPES = [
     method: "蒸",
     cuisine: "日式",
     diet: "葷",
+    time: 5,
+    bento: false,
+    tags: ["高蛋白"],
+    tool: "電鍋",
     steps: [
       "雞蛋打散，加 2 倍高湯（或水）過篩",
       "香菇切片、雞胸肉切小丁，加入蛋液",
@@ -85,6 +104,9 @@ const RECIPES = [
     method: "炒",
     cuisine: "中式",
     diet: "葷",
+    time: 6,
+    bento: false,
+    tags: ["健康", "高蛋白"],
     steps: [
       "韭菜洗淨切段，雞蛋打散",
       "熱油鍋，倒入蛋液炒至半熟盛起",
@@ -102,6 +124,9 @@ const RECIPES = [
     method: "滷",
     cuisine: "日式",
     diet: "葷",
+    time: 5,
+    bento: false,
+    tags: ["高蛋白"],
     steps: [
       "雞蛋放入滾水中煮 6.5 分鐘，撈起冰鎮剝殼",
       "醬油、味醂、水以 1:1:1 混合煮滾放涼",
@@ -122,6 +147,9 @@ const RECIPES = [
     method: "燒",
     cuisine: "中式",
     diet: "葷",
+    time: 10,
+    bento: true,
+    tags: ["高蛋白", "一鍋"],
     steps: [
       "豆腐切丁，滾水汆燙撈起備用",
       "熱油爆香蒜末、薑末、辣椒",
@@ -142,6 +170,10 @@ const RECIPES = [
     method: "涼拌",
     cuisine: "中式",
     diet: "葷",
+    time: 3,
+    bento: false,
+    tags: ["高蛋白"],
+    tool: "免開火",
     steps: [
       "嫩豆腐切塊擺盤，皮蛋切瓣鋪上",
       "醬油、香油、糖調成醬汁",
@@ -160,6 +192,9 @@ const RECIPES = [
     method: "煮",
     cuisine: "日式",
     diet: "素",
+    time: 5,
+    bento: false,
+    tags: ["健康", "一鍋"],
     steps: [
       "水煮滾，放入豆腐丁、海帶芽",
       "轉小火，取一勺熱湯調開味噌醬",
@@ -177,6 +212,9 @@ const RECIPES = [
     method: "煎",
     cuisine: "中式",
     diet: "素",
+    time: 8,
+    bento: true,
+    tags: ["高蛋白"],
     steps: [
       "板豆腐切片，用廚房紙巾吸乾水分",
       "熱油鍋，豆腐片煎至兩面金黃",
@@ -195,6 +233,9 @@ const RECIPES = [
     method: "燒",
     cuisine: "中式",
     diet: "素",
+    time: 10,
+    bento: true,
+    tags: ["健康", "高蛋白", "一鍋"],
     steps: [
       "豆腐切塊，煎至表面微金黃盛起",
       "爆香蒜末、香菇片",
@@ -215,6 +256,9 @@ const RECIPES = [
     method: "煎",
     cuisine: "中式",
     diet: "葷",
+    time: 8,
+    bento: true,
+    tags: ["高蛋白"],
     steps: [
       "雞胸肉切薄片，用鹽、米酒、太白粉抓醃 10 分鐘",
       "熱油鍋，蒜末爆香",
@@ -233,6 +277,9 @@ const RECIPES = [
     method: "涼拌",
     cuisine: "中式",
     diet: "葷",
+    time: 8,
+    bento: false,
+    tags: ["健康", "高蛋白"],
     steps: [
       "雞胸肉水煮至熟（約 15 分鐘），放涼後撕絲",
       "小黃瓜切絲",
@@ -250,6 +297,11 @@ const RECIPES = [
     method: "烤",
     cuisine: "日式",
     diet: "葷",
+    time: 5,
+    bento: true,
+    tags: ["高蛋白"],
+    tool: "烤箱",
+    prep: "weekend",
     steps: [
       "雞胸肉用味噌、米酒醃 30 分鐘以上",
       "烤箱預熱 200°C",
@@ -268,6 +320,9 @@ const RECIPES = [
     method: "炒",
     cuisine: "中式",
     diet: "葷",
+    time: 8,
+    bento: true,
+    tags: ["高蛋白"],
     steps: [
       "雞胸肉切片，鹽、太白粉抓醃",
       "蔥切段，蔥白蔥綠分開",
@@ -287,6 +342,9 @@ const RECIPES = [
     method: "煎",
     cuisine: "西式",
     diet: "葷",
+    time: 8,
+    bento: true,
+    tags: ["高蛋白"],
     steps: [
       "雞胸肉拍鬆，用鹽、黑胡椒調味",
       "熱油鍋，雞胸肉煎至兩面金黃熟透",
@@ -306,6 +364,9 @@ const RECIPES = [
     method: "煎",
     cuisine: "西式",
     diet: "葷",
+    time: 10,
+    bento: true,
+    tags: ["高蛋白"],
     steps: [
       "雞腿肉用鹽、黑胡椒醃 10 分鐘，皮面劃刀",
       "冷鍋皮面朝下，開中火慢煎逼油",
@@ -324,6 +385,10 @@ const RECIPES = [
     method: "炒",
     cuisine: "中式",
     diet: "葷",
+    time: 10,
+    bento: true,
+    tags: ["高蛋白", "一鍋"],
+    prep: "weekend",
     steps: [
       "雞腿肉切塊，香油爆香薑片、蒜頭",
       "下雞腿塊炒至變色",
@@ -341,6 +406,11 @@ const RECIPES = [
     method: "烤",
     cuisine: "日式",
     diet: "葷",
+    time: 5,
+    bento: true,
+    tags: ["高蛋白"],
+    tool: "烤箱",
+    prep: "weekend",
     steps: [
       "雞腿肉用味噌、味醂、米酒醃 1 小時以上",
       "烤箱預熱 200°C",
@@ -359,6 +429,9 @@ const RECIPES = [
     method: "炒",
     cuisine: "中式",
     diet: "葷",
+    time: 10,
+    bento: true,
+    tags: ["健康", "高蛋白"],
     steps: [
       "雞腿肉切丁，鹽、太白粉抓醃",
       "甜椒切塊",
@@ -380,6 +453,9 @@ const RECIPES = [
     method: "炒",
     cuisine: "中式",
     diet: "葷",
+    time: 10,
+    bento: true,
+    tags: ["高蛋白", "一鍋"],
     steps: [
       "冬粉泡軟剪短",
       "爆香蒜末、辣椒，下豬絞肉炒散",
@@ -399,6 +475,9 @@ const RECIPES = [
     method: "炒",
     cuisine: "中式",
     diet: "葷",
+    time: 10,
+    bento: true,
+    tags: ["健康", "高蛋白", "一鍋"],
     steps: [
       "四季豆切段",
       "爆香蒜末，下豬絞肉炒至變色",
@@ -418,6 +497,9 @@ const RECIPES = [
     method: "燒",
     cuisine: "中式",
     diet: "葷",
+    time: 12,
+    bento: true,
+    tags: ["高蛋白"],
     steps: [
       "茄子切長段，過油或乾煎至軟身盛起",
       "爆香蒜末、薑末、辣椒",
@@ -438,6 +520,9 @@ const RECIPES = [
     method: "煎",
     cuisine: "中式",
     diet: "葷",
+    time: 12,
+    bento: true,
+    tags: ["健康", "高蛋白"],
     steps: [
       "青椒對半切開去籽",
       "豬絞肉加鹽、太白粉、蔥花拌至有黏性",
@@ -457,6 +542,10 @@ const RECIPES = [
     method: "燒",
     cuisine: "中式",
     diet: "葷",
+    time: 8,
+    bento: true,
+    tags: ["高蛋白", "一鍋"],
+    prep: "weekend",
     steps: [
       "番茄切小塊",
       "爆香蒜末，下豬絞肉炒散炒香",
@@ -477,6 +566,9 @@ const RECIPES = [
     method: "炒",
     cuisine: "日式",
     diet: "葷",
+    time: 8,
+    bento: true,
+    tags: ["高蛋白"],
     steps: [
       "豬肉片用醬油、味醂、薑泥醃 10 分鐘",
       "熱油鍋，豬肉片下鍋煎至變色",
@@ -494,6 +586,9 @@ const RECIPES = [
     method: "煎",
     cuisine: "中式",
     diet: "葷",
+    time: 10,
+    bento: true,
+    tags: ["高蛋白"],
     steps: [
       "豬里肌切塊，鹽、太白粉抓醃",
       "熱油鍋，肉塊煎至兩面金黃熟透盛起",
@@ -512,6 +607,9 @@ const RECIPES = [
     method: "炒",
     cuisine: "中式",
     diet: "葷",
+    time: 8,
+    bento: true,
+    tags: ["高蛋白"],
     steps: [
       "豬肉絲用醬油、太白粉抓醃",
       "韭黃切段",
@@ -532,6 +630,9 @@ const RECIPES = [
     method: "炒",
     cuisine: "中式",
     diet: "葷",
+    time: 10,
+    bento: true,
+    tags: ["健康", "高蛋白"],
     steps: [
       "豬肉絲醃太白粉、醬油；木耳切絲；蛋打散炒熟盛起",
       "熱油鍋，肉絲炒至變色",
@@ -552,6 +653,9 @@ const RECIPES = [
     method: "炒",
     cuisine: "中式",
     diet: "葷",
+    time: 8,
+    bento: true,
+    tags: ["高蛋白"],
     steps: [
       "牛肉片用醬油、太白粉、米酒抓醃",
       "蔥切段，蔥白蔥綠分開",
@@ -571,6 +675,9 @@ const RECIPES = [
     method: "炒",
     cuisine: "中式",
     diet: "葷",
+    time: 8,
+    bento: true,
+    tags: ["高蛋白"],
     steps: [
       "牛肉片用醬油、太白粉抓醃",
       "洋蔥切絲",
@@ -590,6 +697,9 @@ const RECIPES = [
     method: "炒",
     cuisine: "中式",
     diet: "葷",
+    time: 8,
+    bento: true,
+    tags: ["健康", "高蛋白"],
     steps: [
       "牛肉片用醬油、太白粉抓醃",
       "青椒切絲",
@@ -610,6 +720,10 @@ const RECIPES = [
     method: "燉",
     cuisine: "西式",
     diet: "葷",
+    time: 15,
+    bento: true,
+    tags: ["健康", "高蛋白", "一鍋"],
+    prep: "weekend",
     steps: [
       "牛肋條切塊，汆燙去血水",
       "番茄、馬鈴薯切塊",
@@ -631,6 +745,9 @@ const RECIPES = [
     method: "煎",
     cuisine: "西式",
     diet: "葷",
+    time: 8,
+    bento: true,
+    tags: ["高蛋白"],
     steps: [
       "鮭魚用鹽、黑胡椒醃 10 分鐘，擦乾表面水分",
       "熱油鍋，魚皮朝下煎至酥脆",
@@ -648,6 +765,10 @@ const RECIPES = [
     method: "烤",
     cuisine: "日式",
     diet: "葷",
+    time: 5,
+    bento: true,
+    tags: ["高蛋白"],
+    tool: "烤箱",
     steps: [
       "鮭魚用味噌、味醂醃 30 分鐘",
       "烤箱預熱 200°C",
@@ -667,6 +788,10 @@ const RECIPES = [
     method: "煮",
     cuisine: "日式",
     diet: "葷",
+    time: 5,
+    bento: true,
+    tags: ["健康", "高蛋白", "一鍋"],
+    tool: "電鍋",
     steps: [
       "白米洗淨放入電鍋內鍋，紅蘿蔔切丁",
       "鮭魚、紅蘿蔔丁鋪在米上",
@@ -687,6 +812,9 @@ const RECIPES = [
     method: "炒",
     cuisine: "中式",
     diet: "葷",
+    time: 6,
+    bento: true,
+    tags: ["高蛋白"],
     steps: [
       "蝦仁去腸泥，用鹽、太白粉抓醃",
       "熱油鍋，蒜末爆香",
@@ -705,6 +833,9 @@ const RECIPES = [
     method: "炒",
     cuisine: "中式",
     diet: "葷",
+    time: 6,
+    bento: true,
+    tags: ["高蛋白"],
     steps: [
       "蝦仁去腸泥，雞蛋打散加鹽",
       "熱油鍋，蝦仁炒至變色盛起",
@@ -723,6 +854,9 @@ const RECIPES = [
     method: "涼拌",
     cuisine: "泰式",
     diet: "葷",
+    time: 8,
+    bento: false,
+    tags: ["健康", "高蛋白"],
     steps: [
       "蝦仁川燙至熟，冰鎮",
       "小黃瓜切片",
@@ -741,6 +875,9 @@ const RECIPES = [
     method: "煮",
     cuisine: "中式",
     diet: "葷",
+    time: 8,
+    bento: true,
+    tags: ["高蛋白", "一鍋"],
     steps: [
       "冬粉泡軟剪短，鋪於鍋底",
       "蝦仁鋪在冬粉上",
@@ -761,6 +898,10 @@ const RECIPES = [
     method: "蒸",
     cuisine: "中式",
     diet: "葷",
+    time: 5,
+    bento: false,
+    tags: ["健康", "高蛋白"],
+    tool: "電鍋",
     steps: [
       "魚片鋪盤，鋪上薑絲、破布子",
       "電鍋外鍋加水，蒸 10~12 分鐘至熟",
@@ -778,6 +919,9 @@ const RECIPES = [
     method: "燒",
     cuisine: "中式",
     diet: "葷",
+    time: 10,
+    bento: true,
+    tags: ["高蛋白"],
     steps: [
       "魚片用太白粉薄薄拍粉",
       "熱油鍋，魚片煎至兩面微金盛起",
@@ -796,6 +940,9 @@ const RECIPES = [
     method: "煎",
     cuisine: "西式",
     diet: "葷",
+    time: 8,
+    bento: true,
+    tags: ["高蛋白"],
     steps: [
       "魚片用鹽、黑胡椒調味",
       "熱油鍋，魚片煎至兩面金黃熟透",
@@ -815,6 +962,9 @@ const RECIPES = [
     method: "炒",
     cuisine: "中式",
     diet: "素",
+    time: 5,
+    bento: true,
+    tags: ["健康", "多纖維"],
     steps: [
       "高麗菜洗淨剝片",
       "熱油鍋，蒜末爆香",
@@ -833,6 +983,9 @@ const RECIPES = [
     method: "炒",
     cuisine: "中式",
     diet: "葷",
+    time: 6,
+    bento: true,
+    tags: ["健康", "多纖維"],
     steps: [
       "蝦米泡軟，高麗菜剝片",
       "熱油鍋，爆香蝦米、蒜末",
@@ -850,6 +1003,10 @@ const RECIPES = [
     method: "涼拌",
     cuisine: "中式",
     diet: "素",
+    time: 8,
+    bento: false,
+    tags: ["健康", "多纖維"],
+    tool: "免開火",
     steps: [
       "高麗菜切細絲，加鹽抓醃出水後擠乾",
       "白醋、糖、香油調成醬汁",
@@ -867,6 +1024,9 @@ const RECIPES = [
     method: "煮",
     cuisine: "日式",
     diet: "素",
+    time: 5,
+    bento: false,
+    tags: ["健康", "一鍋"],
     steps: [
       "高麗菜切片",
       "水煮滾，放入高麗菜煮軟",
@@ -885,6 +1045,9 @@ const RECIPES = [
     method: "炒",
     cuisine: "中式",
     diet: "葷",
+    time: 8,
+    bento: true,
+    tags: ["健康", "高蛋白", "多纖維"],
     steps: [
       "豬肉絲用醬油、太白粉抓醃",
       "高麗菜剝片",
@@ -905,6 +1068,9 @@ const RECIPES = [
     method: "炒",
     cuisine: "中式",
     diet: "素",
+    time: 6,
+    bento: true,
+    tags: ["健康", "多纖維"],
     steps: [
       "花椰菜切小朵，滾水汆燙 1 分鐘撈起",
       "熱油鍋，蒜末爆香",
@@ -923,6 +1089,9 @@ const RECIPES = [
     method: "炒",
     cuisine: "中式",
     diet: "葷",
+    time: 8,
+    bento: true,
+    tags: ["健康", "高蛋白", "多纖維"],
     steps: [
       "花椰菜切小朵汆燙備用",
       "蝦仁去腸泥，太白粉抓醃",
@@ -941,6 +1110,9 @@ const RECIPES = [
     method: "涼拌",
     cuisine: "日式",
     diet: "素",
+    time: 6,
+    bento: true,
+    tags: ["健康", "多纖維"],
     steps: [
       "花椰菜切小朵，滾水汆燙後冰鎮瀝乾",
       "醬油、芥末、糖調成醬汁",
@@ -959,6 +1131,9 @@ const RECIPES = [
     method: "炒",
     cuisine: "中式",
     diet: "素",
+    time: 5,
+    bento: false,
+    tags: ["健康", "多纖維"],
     steps: [
       "青江菜洗淨對切",
       "熱油鍋，蒜末爆香",
@@ -976,6 +1151,9 @@ const RECIPES = [
     method: "煮",
     cuisine: "中式",
     diet: "葷",
+    time: 5,
+    bento: false,
+    tags: ["健康", "多纖維"],
     steps: [
       "青江菜滾水汆燙 30 秒撈起排盤",
       "蠔油、少許水、糖煮滾成醬汁",
@@ -994,6 +1172,9 @@ const RECIPES = [
     method: "炒",
     cuisine: "中式",
     diet: "葷",
+    time: 6,
+    bento: false,
+    tags: ["健康", "多纖維"],
     steps: [
       "蝦米泡軟，青江菜對切",
       "熱油鍋，爆香蝦米、蒜末",
@@ -1013,6 +1194,9 @@ const RECIPES = [
     method: "涼拌",
     cuisine: "日式",
     diet: "素",
+    time: 5,
+    bento: false,
+    tags: ["健康", "多纖維"],
     steps: [
       "菠菜滾水汆燙 30 秒，冰鎮瀝乾切段",
       "醬油、香油、白芝麻拌勻",
@@ -1029,6 +1213,9 @@ const RECIPES = [
     method: "炒",
     cuisine: "中式",
     diet: "素",
+    time: 5,
+    bento: false,
+    tags: ["健康", "多纖維"],
     steps: [
       "菠菜洗淨切段",
       "熱油鍋，蒜末爆香",
@@ -1047,6 +1234,9 @@ const RECIPES = [
     method: "煮",
     cuisine: "中式",
     diet: "葷",
+    time: 5,
+    bento: false,
+    tags: ["健康", "一鍋"],
     steps: [
       "菠菜洗淨切段，雞蛋打散",
       "水煮滾，放入菠菜煮軟",
@@ -1067,6 +1257,9 @@ const RECIPES = [
     method: "炒",
     cuisine: "中式",
     diet: "葷",
+    time: 10,
+    bento: true,
+    tags: ["高蛋白"],
     steps: [
       "四季豆去頭尾，煎或炸至表皮起皺盛起",
       "爆香蒜末、辣椒，下豬絞肉炒香",
@@ -1084,6 +1277,9 @@ const RECIPES = [
     method: "炒",
     cuisine: "中式",
     diet: "素",
+    time: 6,
+    bento: true,
+    tags: ["健康", "多纖維"],
     steps: [
       "四季豆去頭尾切段",
       "熱油鍋，蒜末爆香",
@@ -1101,6 +1297,9 @@ const RECIPES = [
     method: "涼拌",
     cuisine: "中式",
     diet: "素",
+    time: 5,
+    bento: true,
+    tags: ["健康", "多纖維"],
     steps: [
       "四季豆去頭尾，滾水汆燙 3 分鐘至熟，冰鎮",
       "切段，加醬油、香油、蒜末拌勻即可"
@@ -1118,6 +1317,9 @@ const RECIPES = [
     method: "燒",
     cuisine: "中式",
     diet: "素",
+    time: 8,
+    bento: true,
+    tags: ["健康", "多纖維"],
     steps: [
       "茄子切長段",
       "熱油鍋，蒜末爆香",
@@ -1136,6 +1338,9 @@ const RECIPES = [
     method: "涼拌",
     cuisine: "中式",
     diet: "葷",
+    time: 6,
+    bento: true,
+    tags: ["健康"],
     steps: [
       "茄子整條蒸 10 分鐘至軟，放涼撕條",
       "皮蛋切丁",
@@ -1155,6 +1360,9 @@ const RECIPES = [
     method: "炒",
     cuisine: "中式",
     diet: "素",
+    time: 8,
+    bento: true,
+    tags: ["健康"],
     steps: [
       "馬鈴薯切細絲，泡水去澱粉後瀝乾",
       "熱油鍋，乾辣椒、蒜末爆香",
@@ -1174,6 +1382,10 @@ const RECIPES = [
     method: "燉",
     cuisine: "日式",
     diet: "葷",
+    time: 10,
+    bento: true,
+    tags: ["一鍋"],
+    prep: "weekend",
     steps: [
       "馬鈴薯、紅蘿蔔切塊",
       "熱油鍋，豬肉片炒至變色",
@@ -1192,6 +1404,10 @@ const RECIPES = [
     method: "烤",
     cuisine: "西式",
     diet: "素",
+    time: 5,
+    bento: true,
+    tags: ["健康"],
+    tool: "烤箱",
     steps: [
       "馬鈴薯切塊，用油、鹽、黑胡椒拌勻",
       "烤箱預熱 200°C",
@@ -1211,6 +1427,9 @@ const RECIPES = [
     method: "炒",
     cuisine: "中式",
     diet: "葷",
+    time: 6,
+    bento: true,
+    tags: ["健康", "高蛋白"],
     steps: [
       "紅蘿蔔切細絲，雞蛋打散",
       "熱油鍋，紅蘿蔔絲炒軟",
@@ -1228,6 +1447,10 @@ const RECIPES = [
     method: "涼拌",
     cuisine: "中式",
     diet: "素",
+    time: 6,
+    bento: false,
+    tags: ["健康"],
+    tool: "免開火",
     steps: [
       "紅蘿蔔切細絲，加鹽抓醃出水後擠乾",
       "白醋、糖、香油調成醬汁",
@@ -1248,6 +1471,9 @@ const RECIPES = [
     method: "煮",
     cuisine: "中式",
     diet: "葷",
+    time: 6,
+    bento: false,
+    tags: ["健康", "一鍋"],
     steps: [
       "番茄切塊，豆腐切丁，雞蛋打散",
       "水煮滾，加入番茄煮軟出色",
@@ -1267,6 +1493,10 @@ const RECIPES = [
     method: "燉",
     cuisine: "西式",
     diet: "素",
+    time: 8,
+    bento: true,
+    tags: ["健康", "多纖維", "一鍋"],
+    prep: "weekend",
     steps: [
       "番茄、櫛瓜、洋蔥切塊",
       "熱油鍋，洋蔥炒軟",
@@ -1287,6 +1517,10 @@ const RECIPES = [
     method: "涼拌",
     cuisine: "中式",
     diet: "素",
+    time: 5,
+    bento: false,
+    tags: ["健康"],
+    tool: "免開火",
     steps: [
       "小黃瓜拍裂切段，加鹽抓醃 10 分鐘後倒去水分",
       "蒜末、白醋、糖、香油調成醬汁",
@@ -1304,6 +1538,9 @@ const RECIPES = [
     method: "炒",
     cuisine: "中式",
     diet: "葷",
+    time: 6,
+    bento: true,
+    tags: ["健康", "高蛋白"],
     steps: [
       "小黃瓜切片，雞蛋打散",
       "熱油鍋，蛋液炒至半熟盛起",
@@ -1325,6 +1562,9 @@ const RECIPES = [
     method: "炒",
     cuisine: "中式",
     diet: "素",
+    time: 8,
+    bento: true,
+    tags: ["健康", "多纖維"],
     steps: [
       "香菇、杏鮑菇切片，紅蘿蔔切絲",
       "熱油鍋，蒜末爆香",
@@ -1343,6 +1583,9 @@ const RECIPES = [
     method: "煎",
     cuisine: "中式",
     diet: "葷",
+    time: 6,
+    bento: true,
+    tags: ["健康"],
     steps: [
       "杏鮑菇切厚片",
       "熱油鍋，杏鮑菇煎至兩面金黃",
@@ -1361,6 +1604,9 @@ const RECIPES = [
     method: "燉",
     cuisine: "中式",
     diet: "葷",
+    time: 8,
+    bento: false,
+    tags: ["高蛋白", "一鍋"],
     steps: [
       "乾香菇泡軟切片，雞腿肉切塊汆燙去血水",
       "所有食材放入鍋中，加水蓋過食材",
@@ -1382,6 +1628,9 @@ const RECIPES = [
     method: "炒",
     cuisine: "中式",
     diet: "葷",
+    time: 8,
+    bento: true,
+    tags: ["一鍋"],
     steps: [
       "白飯（隔夜飯較佳）用飯匙打散，雞蛋打散",
       "熱油鍋，倒入蛋液快速炒散",
@@ -1402,6 +1651,9 @@ const RECIPES = [
     method: "煮",
     cuisine: "西式",
     diet: "素",
+    time: 10,
+    bento: true,
+    tags: ["健康"],
     steps: [
       "義大利麵依包裝時間煮熟撈起，留半碗煮麵水",
       "番茄切塊，洋蔥切碎",
@@ -1423,6 +1675,10 @@ const RECIPES = [
     method: "煮",
     cuisine: "中式",
     diet: "素",
+    time: 5,
+    bento: true,
+    tags: ["健康", "多纖維", "一鍋"],
+    tool: "電鍋",
     steps: [
       "白米洗淨放入電鍋內鍋，紅蘿蔔、香菇切丁",
       "所有食材鋪在米上，加醬油、水（比平常略少）",
@@ -1443,6 +1699,9 @@ const RECIPES = [
     method: "炒",
     cuisine: "韓式",
     diet: "葷",
+    time: 15,
+    bento: true,
+    tags: ["健康", "多纖維"],
     steps: [
       "冬粉泡軟煮熟剪短；菠菜汆燙；紅蘿蔔切絲",
       "豬肉絲用醬油、糖抓醃",
@@ -1464,6 +1723,9 @@ const RECIPES = [
     method: "炒",
     cuisine: "中式",
     diet: "素",
+    time: 5,
+    bento: false,
+    tags: ["健康", "多纖維"],
     steps: [
       "豆芽菜洗淨瀝乾，韭菜切段",
       "熱油鍋，蒜末爆香",
@@ -1483,6 +1745,9 @@ const RECIPES = [
     method: "涼拌",
     cuisine: "日式",
     diet: "素",
+    time: 5,
+    bento: true,
+    tags: ["健康", "多纖維"],
     steps: [
       "秋葵去蒂，滾水汆燙 2 分鐘後冰鎮",
       "切片，淋上醬油、柴魚片",
@@ -1499,6 +1764,9 @@ const RECIPES = [
     method: "炒",
     cuisine: "中式",
     diet: "素",
+    time: 5,
+    bento: true,
+    tags: ["健康", "多纖維"],
     steps: [
       "秋葵去蒂，斜切成片",
       "熱油鍋，蒜末爆香",
@@ -1516,6 +1784,10 @@ const RECIPES = [
     method: "烤",
     cuisine: "西式",
     diet: "素",
+    time: 3,
+    bento: true,
+    tags: ["健康", "多纖維"],
+    tool: "烤箱",
     steps: [
       "秋葵去蒂，用油、鹽拌勻",
       "烤箱預熱 200°C",
@@ -1534,6 +1806,9 @@ const RECIPES = [
     method: "煮",
     cuisine: "日式",
     diet: "素",
+    time: 5,
+    bento: false,
+    tags: ["健康", "一鍋"],
     steps: [
       "秋葵去蒂切片，豆腐切丁",
       "水煮滾，放入秋葵、豆腐煮 2 分鐘",
@@ -1552,6 +1827,9 @@ const RECIPES = [
     method: "炒",
     cuisine: "中式",
     diet: "葷",
+    time: 6,
+    bento: true,
+    tags: ["健康", "高蛋白"],
     steps: [
       "秋葵去蒂切片，雞蛋打散加鹽",
       "熱油鍋，蛋液炒至半凝固盛起",
@@ -1570,6 +1848,9 @@ const RECIPES = [
     method: "炒",
     cuisine: "中式",
     diet: "葷",
+    time: 8,
+    bento: true,
+    tags: ["健康", "高蛋白"],
     steps: [
       "牛肉片用醬油、太白粉抓醃",
       "秋葵去蒂切片",
@@ -1590,6 +1871,9 @@ const RECIPES = [
     method: "煮",
     cuisine: "日式",
     diet: "葷",
+    time: 8,
+    bento: true,
+    tags: ["高蛋白", "一鍋"],
     steps: [
       "秋葵去蒂，滾水汆燙 1 分鐘後切片",
       "醬油、味醂、糖、水調成醬汁",
@@ -1610,6 +1894,10 @@ const RECIPES = [
     method: "烤",
     cuisine: "西式",
     diet: "葷",
+    time: 5,
+    bento: true,
+    tags: ["高蛋白"],
+    tool: "烤箱",
     steps: [
       "蝦仁去腸泥，用鹽、黑胡椒調味",
       "蒜末、少許油拌入蝦仁",
@@ -1628,6 +1916,9 @@ const RECIPES = [
     method: "燒",
     cuisine: "日式",
     diet: "葷",
+    time: 8,
+    bento: true,
+    tags: ["高蛋白", "一鍋"],
     steps: [
       "蝦仁去腸泥，洋蔥切絲",
       "熱油鍋，洋蔥炒軟",
@@ -1646,6 +1937,9 @@ const RECIPES = [
     method: "燒",
     cuisine: "中式",
     diet: "葷",
+    time: 8,
+    bento: true,
+    tags: ["高蛋白", "一鍋"],
     steps: [
       "蝦仁去腸泥，豆腐切塊",
       "熱油鍋，蒜末爆香，蝦仁炒至變色盛起",
@@ -1665,6 +1959,9 @@ const RECIPES = [
     method: "煎",
     cuisine: "中式",
     diet: "葷",
+    time: 8,
+    bento: true,
+    tags: ["高蛋白"],
     steps: [
       "蝦仁去腸泥，雞蛋打散加鹽",
       "熱油鍋，蝦仁炒至半熟",
@@ -1684,6 +1981,9 @@ const RECIPES = [
     method: "炒",
     cuisine: "中式",
     diet: "素",
+    time: 5,
+    bento: false,
+    tags: ["健康", "多纖維"],
     steps: [
       "空心菜洗淨切段，梗葉分開",
       "熱油鍋，蒜末爆香",
@@ -1701,6 +2001,9 @@ const RECIPES = [
     method: "炒",
     cuisine: "中式",
     diet: "素",
+    time: 5,
+    bento: false,
+    tags: ["健康", "多纖維"],
     steps: [
       "空心菜洗淨切段",
       "豆腐乳用少許水調開備用",
@@ -1718,6 +2021,9 @@ const RECIPES = [
     method: "涼拌",
     cuisine: "中式",
     diet: "素",
+    time: 5,
+    bento: false,
+    tags: ["健康", "多纖維"],
     steps: [
       "空心菜切段，滾水汆燙 30 秒後冰鎮瀝乾",
       "醬油、蒜末、香油、糖調成醬汁",
@@ -1735,6 +2041,9 @@ const RECIPES = [
     method: "炒",
     cuisine: "中式",
     diet: "葷",
+    time: 6,
+    bento: false,
+    tags: ["健康", "多纖維"],
     steps: [
       "蝦米泡軟，空心菜切段",
       "熱油鍋，爆香蝦米、蒜末",
@@ -1753,6 +2062,9 @@ const RECIPES = [
     method: "炒",
     cuisine: "泰式",
     diet: "葷",
+    time: 8,
+    bento: false,
+    tags: ["健康", "高蛋白"],
     steps: [
       "牛肉片用醬油、太白粉抓醃，空心菜切段",
       "大火熱油鍋，牛肉片快炒至變色盛起",
@@ -1772,6 +2084,9 @@ const RECIPES = [
     method: "炒",
     cuisine: "中式",
     diet: "素",
+    time: 5,
+    bento: false,
+    tags: ["健康", "多纖維"],
     steps: [
       "地瓜葉洗淨摘取嫩葉嫩莖",
       "熱油鍋，蒜末爆香",
@@ -1790,6 +2105,9 @@ const RECIPES = [
     method: "炒",
     cuisine: "中式",
     diet: "葷",
+    time: 6,
+    bento: false,
+    tags: ["健康", "多纖維"],
     steps: [
       "小魚乾泡水稍軟，地瓜葉摘取嫩葉嫩莖",
       "熱油鍋，爆香小魚乾、蒜末",
@@ -1807,6 +2125,9 @@ const RECIPES = [
     method: "涼拌",
     cuisine: "中式",
     diet: "素",
+    time: 5,
+    bento: false,
+    tags: ["健康", "多纖維"],
     steps: [
       "地瓜葉滾水汆燙 1 分鐘後冰鎮瀝乾",
       "醬油、蒜末、香油調成醬汁",
@@ -1823,6 +2144,9 @@ const RECIPES = [
     method: "煮",
     cuisine: "日式",
     diet: "素",
+    time: 5,
+    bento: false,
+    tags: ["健康", "一鍋"],
     steps: [
       "地瓜葉洗淨切段",
       "水煮滾，放入地瓜葉煮軟",
@@ -1841,6 +2165,9 @@ const RECIPES = [
     method: "炒",
     cuisine: "中式",
     diet: "葷",
+    time: 6,
+    bento: false,
+    tags: ["健康", "多纖維"],
     steps: [
       "蝦米泡軟，地瓜葉摘取嫩葉嫩莖",
       "熱油鍋，爆香蝦米、蒜末",
