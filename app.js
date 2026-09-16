@@ -131,8 +131,9 @@
     const scaled = amount * ratio;
     let rounded;
     if (WHOLE_INGREDIENTS.has(name) && unit !== "克") {
-      // 雞蛋、雞翅這類只能一顆一顆算：四捨五入成整數、最少 1
-      rounded = Math.max(1, Math.round(scaled));
+      // 雞蛋、雞翅這類只能一顆一顆算：無條件捨去成整數、最少 1
+      // （3 顆／2 人 → 1 人份是 1 顆不是 2 顆；寧可少一點，2026-09-17 Bryant 定）
+      rounded = Math.max(1, Math.floor(scaled + 1e-9));
     } else if (DISCRETE_UNITS.indexOf(unit) !== -1) {
       rounded = Math.round(scaled * 2) / 2; // 最小到 0.5
       if (rounded < 0.5) rounded = 0.5;
