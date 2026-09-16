@@ -12,7 +12,7 @@
  * 定位標記（給「下班十分鐘開飯」排序與篩選用，定義見 EXPANSION-PLAN.md）：
  *   - time  ：實際動手分鐘數，等待不計（電鍋按下去、烤箱烤、醃、燉、冷藏都不算）。≤10 進首頁清單。
  *   - bento ：隔天便當 OK。Bryant 2026-09-16 定的原則：
- *             ・葉菜快炒 → true（便當要有足夠蔬菜量與種類才均衡；新食譜優先挑蒸過／微波過不易變色的青菜）
+ *             ・葉菜快炒 → true（便當要有足夠蔬菜量與種類才均衡；只有便當取向的新食譜才挑蒸過／微波過不易變色的青菜，現煮現吃的不限）
  *             ・涼拌菜 → true（便當分開放就好，生菜涼拌也算）
  *             ・湯品 → false
  *             ・茶碗蒸、溏心蛋（整顆不切）、蒸魚 → true；韭菜炒蛋、涼拌皮蛋豆腐 → false（他不喜歡帶便當）
@@ -2177,7 +2177,414 @@ const RECIPES = [
       "加入地瓜葉大火快炒",
       "加鹽調味即可"
     ]
+  },
+  // ══════════════════════════════════════════════════
+  // 第一批（2026-09-16）：週末備料型 —— 一次做一鍋，分裝 3 天便當
+  // ══════════════════════════════════════════════════
+
+  // ── 滷 ──────────────────────────────
+  {
+    id: "ribs-braised-radish",
+    name: "白蘿蔔滷排骨",
+    baseServings: 4,
+    ingredients: [
+      { name: "排骨", amount: 600, unit: "克" },
+      { name: "白蘿蔔", amount: 1, unit: "條" }
+    ],
+    method: "滷",
+    cuisine: "中式",
+    diet: "葷",
+    time: 10,
+    bento: true,
+    tags: ["健康", "高蛋白", "一鍋"],
+    prep: "weekend",
+    steps: [
+      "排骨冷水下鍋汆燙去血水，撈起沖淨；白蘿蔔去皮切大塊",
+      "熱少許油爆香薑片、蔥段，下排骨略炒",
+      "加醬油 4 大匙、米酒 2 大匙、糖 1 小匙、水蓋過食材",
+      "煮滾後放白蘿蔔，蓋鍋小火滷 40 分鐘（電鍋外鍋 1.5 杯水亦可）",
+      "放涼分裝，冷藏可放 3 天，隔夜更入味"
+    ]
+  },
+  {
+    id: "wings-soy-braised",
+    name: "醬滷雞翅滷蛋",
+    baseServings: 4,
+    ingredients: [
+      { name: "雞翅", amount: 8, unit: "支" },
+      { name: "雞蛋", amount: 4, unit: "顆" }
+    ],
+    method: "滷",
+    cuisine: "中式",
+    diet: "葷",
+    time: 8,
+    bento: true,
+    tags: ["高蛋白", "一鍋"],
+    prep: "weekend",
+    steps: [
+      "雞蛋水煮 8 分鐘剝殼；雞翅擦乾，熱鍋少油煎至兩面上色",
+      "加蒜頭、薑片、醬油 4 大匙、米酒 2 大匙、糖 1 小匙、水 1.5 杯",
+      "放入水煮蛋，煮滾後蓋鍋小火滷 20 分鐘",
+      "開蓋轉中火收汁至濃稠",
+      "放涼分裝，便當時雞翅、滷蛋各一份"
+    ]
+  },
+  {
+    id: "doufugan-braised-egg",
+    name: "豆干滷蛋",
+    baseServings: 4,
+    ingredients: [
+      { name: "豆干", amount: 6, unit: "片" },
+      { name: "雞蛋", amount: 4, unit: "顆" }
+    ],
+    method: "滷",
+    cuisine: "中式",
+    diet: "葷",
+    time: 8,
+    bento: true,
+    tags: ["高蛋白", "一鍋"],
+    prep: "weekend",
+    steps: [
+      "雞蛋水煮 8 分鐘剝殼；豆干對切成三角",
+      "鍋中放醬油 4 大匙、糖 1 大匙、八角 1 顆、蒜頭、蔥段、水 2 杯煮滾",
+      "放入豆干、水煮蛋，小火滷 25 分鐘",
+      "熄火浸泡 30 分鐘以上更入味",
+      "豆干切片、滷蛋對切，分裝進便當"
+    ]
+  },
+  {
+    id: "mushroom-minced-pork-sauce",
+    name: "香菇肉燥",
+    baseServings: 4,
+    ingredients: [
+      { name: "豬絞肉", amount: 400, unit: "克" },
+      { name: "乾香菇", amount: 6, unit: "朵" },
+      { name: "油豆腐", amount: 8, unit: "塊" }
+    ],
+    method: "滷",
+    cuisine: "中式",
+    diet: "葷",
+    time: 10,
+    bento: true,
+    tags: ["高蛋白", "一鍋"],
+    prep: "weekend",
+    steps: [
+      "乾香菇泡軟切丁，香菇水留著；油豆腐對切",
+      "熱鍋少油，豬絞肉炒散至出油上色，下紅蔥頭（或蒜末）、香菇丁炒香",
+      "加醬油 4 大匙、米酒 2 大匙、糖 1 大匙、五香粉少許，炒出醬香",
+      "加香菇水＋清水共 2 杯，放油豆腐，煮滾後小火滷 30 分鐘",
+      "分裝冷藏；便當淋飯、拌麵、配燙青菜都可以"
+    ]
+  },
+  {
+    id: "chicken-thigh-rice-cooker-braised",
+    name: "電鍋香菇滷雞腿",
+    baseServings: 4,
+    ingredients: [
+      { name: "雞腿肉", amount: 500, unit: "克" },
+      { name: "乾香菇", amount: 4, unit: "朵" },
+      { name: "白蘿蔔", amount: 1, unit: "條" }
+    ],
+    method: "滷",
+    cuisine: "中式",
+    diet: "葷",
+    time: 8,
+    bento: true,
+    tags: ["健康", "高蛋白", "一鍋"],
+    tool: "電鍋",
+    prep: "weekend",
+    steps: [
+      "雞腿肉切大塊；乾香菇泡軟；白蘿蔔去皮切塊",
+      "全部放入電鍋內鍋，加薑片、醬油 3 大匙、米酒 1 大匙、糖 1 小匙、水 1 杯",
+      "外鍋 1.5 杯水，按下開關，跳起後燜 15 分鐘",
+      "開蓋翻拌讓上下入味均勻",
+      "分裝冷藏；雞腿不會柴，重熱也好吃"
+    ]
+  },
+
+  // ── 燒／燉 ──────────────────────────────
+  {
+    id: "pork-belly-red-braised",
+    name: "紅燒五花肉",
+    baseServings: 4,
+    ingredients: [
+      { name: "豬五花", amount: 600, unit: "克" },
+      { name: "雞蛋", amount: 4, unit: "顆" }
+    ],
+    method: "燒",
+    cuisine: "中式",
+    diet: "葷",
+    time: 12,
+    bento: true,
+    tags: ["高蛋白", "一鍋"],
+    prep: "weekend",
+    steps: [
+      "五花肉切 3 公分塊，冷水下鍋汆燙撈起；雞蛋水煮 8 分鐘剝殼",
+      "熱鍋少油，五花肉煎至四面上色、逼出多餘油脂倒掉",
+      "下蒜頭、薑片、蔥段炒香，加醬油 4 大匙、米酒 3 大匙、糖 1 大匙炒勻",
+      "加水蓋過肉，放入水煮蛋，煮滾後蓋鍋小火燒 50 分鐘",
+      "開蓋收汁至濃稠；放涼冷藏後可先撇掉表面凝固的油再帶便當"
+    ]
+  },
+  {
+    id: "beef-brisket-radish-stew",
+    name: "蘿蔔燉牛肋條",
+    baseServings: 4,
+    ingredients: [
+      { name: "牛肋條", amount: 600, unit: "克" },
+      { name: "白蘿蔔", amount: 1, unit: "條" },
+      { name: "紅蘿蔔", amount: 1, unit: "條" }
+    ],
+    method: "燉",
+    cuisine: "中式",
+    diet: "葷",
+    time: 12,
+    bento: true,
+    tags: ["健康", "高蛋白", "一鍋"],
+    prep: "weekend",
+    steps: [
+      "牛肋條切塊汆燙去血水；白蘿蔔、紅蘿蔔去皮切滾刀塊",
+      "熱鍋少油爆香薑片、蔥段，下牛肉略炒",
+      "加醬油 3 大匙、米酒 2 大匙、水蓋過食材，煮滾後小火燉 60 分鐘",
+      "放入白蘿蔔、紅蘿蔔續燉 20 分鐘至軟",
+      "加鹽調味；分裝冷藏，牛肉隔夜更軟"
+    ]
+  },
+  {
+    id: "chicken-pumpkin-stew",
+    name: "南瓜燉雞",
+    baseServings: 4,
+    ingredients: [
+      { name: "雞腿肉", amount: 500, unit: "克" },
+      { name: "南瓜", amount: 400, unit: "克" },
+      { name: "洋蔥", amount: 1, unit: "顆" }
+    ],
+    method: "燉",
+    cuisine: "中式",
+    diet: "葷",
+    time: 10,
+    bento: true,
+    tags: ["健康", "高蛋白", "一鍋"],
+    prep: "weekend",
+    steps: [
+      "雞腿肉切塊，鹽、米酒抓醃；南瓜帶皮切塊；洋蔥切絲",
+      "熱鍋少油，雞皮面朝下煎至上色，下洋蔥炒軟",
+      "加南瓜、醬油 2 大匙、水 1 杯，煮滾後蓋鍋小火燉 15 分鐘",
+      "南瓜軟了但還成塊時熄火，加鹽、黑胡椒調味",
+      "分裝冷藏；南瓜重熱不出水，很適合便當"
+    ]
+  },
+  {
+    id: "beef-tomato-ragu",
+    name: "義式番茄肉醬",
+    baseServings: 4,
+    ingredients: [
+      { name: "牛絞肉", amount: 400, unit: "克" },
+      { name: "番茄", amount: 4, unit: "顆" },
+      { name: "洋蔥", amount: 1, unit: "顆" }
+    ],
+    method: "燉",
+    cuisine: "西式",
+    diet: "葷",
+    time: 10,
+    bento: true,
+    tags: ["健康", "高蛋白", "一鍋"],
+    prep: "weekend",
+    steps: [
+      "番茄切丁，洋蔥切碎",
+      "熱鍋 1 大匙油，洋蔥炒軟，下牛絞肉炒散至上色",
+      "加番茄丁、鹽、黑胡椒、少許糖，煮滾後小火燉 25 分鐘至濃稠",
+      "有義式香料或番茄糊可加，沒有也可以",
+      "分裝冷藏；配義大利麵、拌飯、夾吐司都行"
+    ]
+  },
+  {
+    id: "napa-cabbage-braised",
+    name: "白菜滷",
+    baseServings: 4,
+    ingredients: [
+      { name: "大白菜", amount: 600, unit: "克" },
+      { name: "乾香菇", amount: 4, unit: "朵" },
+      { name: "蝦米", amount: 2, unit: "大匙" },
+      { name: "豆皮", amount: 2, unit: "片" }
+    ],
+    method: "燒",
+    cuisine: "中式",
+    diet: "葷",
+    time: 12,
+    bento: true,
+    tags: ["健康", "多纖維", "一鍋"],
+    prep: "weekend",
+    steps: [
+      "大白菜切大片；乾香菇泡軟切絲；蝦米泡軟；豆皮切段",
+      "熱鍋 1 大匙油，爆香蝦米、香菇絲、蒜末",
+      "下白菜梗先炒軟，再加葉子，加醬油 2 大匙、香菇水 1 杯",
+      "放豆皮，蓋鍋小火燒 20 分鐘至白菜軟爛",
+      "加鹽、白胡椒調味，喜歡可勾薄芡；分裝冷藏"
+    ]
+  },
+  {
+    id: "mackerel-miso-simmered",
+    name: "味噌煮鯖魚",
+    baseServings: 4,
+    ingredients: [
+      { name: "鯖魚", amount: 2, unit: "片" }
+    ],
+    method: "燒",
+    cuisine: "日式",
+    diet: "葷",
+    time: 8,
+    bento: true,
+    tags: ["高蛋白", "一鍋"],
+    prep: "weekend",
+    steps: [
+      "鯖魚切段（若用鹽漬鯖魚，醬汁鹽量減半）",
+      "鍋中放味噌 2 大匙、味醂 2 大匙、醬油 1 大匙、糖 1 小匙、薑絲、水 1 杯煮滾",
+      "魚皮朝上放入，蓋上鋁箔紙（落蓋）小火煮 12 分鐘",
+      "開蓋，湯匙舀醬汁淋魚身，收汁至濃稠",
+      "分裝冷藏；冷了也好吃，帶便當不用重熱"
+    ]
+  },
+
+  // ── 烤箱／氣炸鍋 ──────────────────────────────
+  {
+    id: "wings-honey-soy-roasted",
+    name: "蜂蜜醬油烤雞翅",
+    baseServings: 4,
+    ingredients: [
+      { name: "雞翅", amount: 8, unit: "支" }
+    ],
+    method: "烤",
+    cuisine: "中式",
+    diet: "葷",
+    time: 5,
+    bento: true,
+    tags: ["高蛋白"],
+    tool: "烤箱",
+    prep: "weekend",
+    steps: [
+      "雞翅擦乾，用醬油 2 大匙、蜂蜜 1 大匙、蒜末、米酒 1 大匙醃 30 分鐘以上（隔夜更好）",
+      "烤箱預熱 200°C，雞翅排在鋪鋁箔的烤盤上",
+      "烤 20 分鐘，翻面刷剩餘醃醬再烤 5 分鐘至上色",
+      "放涼分裝，冷的也好吃"
+    ]
+  },
+  {
+    id: "ribs-garlic-roasted",
+    name: "蒜香烤排骨",
+    baseServings: 4,
+    ingredients: [
+      { name: "排骨", amount: 600, unit: "克" }
+    ],
+    method: "烤",
+    cuisine: "中式",
+    diet: "葷",
+    time: 5,
+    bento: true,
+    tags: ["高蛋白"],
+    tool: "烤箱",
+    prep: "weekend",
+    steps: [
+      "排骨用醬油 3 大匙、蒜末 1 大匙、米酒 1 大匙、糖 1 小匙、黑胡椒醃 1 小時以上",
+      "烤箱預熱 200°C，排骨平鋪烤盤",
+      "烤 25 分鐘，翻面再烤 10 分鐘至表面焦香",
+      "放涼分裝；便當重熱前噴一點水就不會乾"
+    ]
+  },
+  {
+    id: "roasted-vegetable-tray",
+    name: "烤箱烤蔬菜盤",
+    baseServings: 4,
+    ingredients: [
+      { name: "南瓜", amount: 300, unit: "克" },
+      { name: "甜椒", amount: 2, unit: "顆" },
+      { name: "鴻喜菇", amount: 1, unit: "包" }
+    ],
+    method: "烤",
+    cuisine: "西式",
+    diet: "素",
+    time: 8,
+    bento: true,
+    tags: ["健康", "多纖維"],
+    tool: "烤箱",
+    prep: "weekend",
+    steps: [
+      "南瓜帶皮切 1 公分厚片；甜椒切塊；鴻喜菇剝散",
+      "全部用 1 大匙油、鹽、黑胡椒、蒜末拌勻，平鋪烤盤",
+      "烤箱 200°C 烤 20 分鐘，中途翻一次",
+      "分裝冷藏；三天份的便當配菜一次搞定，重熱不變色"
+    ]
+  },
+  {
+    id: "pork-belly-air-fried",
+    name: "氣炸脆皮五花",
+    baseServings: 4,
+    ingredients: [
+      { name: "豬五花", amount: 500, unit: "克" }
+    ],
+    method: "烤",
+    cuisine: "中式",
+    diet: "葷",
+    time: 5,
+    bento: true,
+    tags: ["高蛋白"],
+    tool: "氣炸鍋",
+    prep: "weekend",
+    steps: [
+      "五花肉整條，用鹽、五香粉、蒜末抹勻醃 30 分鐘，皮面擦乾",
+      "氣炸鍋 180°C 炸 15 分鐘，翻面",
+      "轉 200°C 再炸 10 分鐘至皮酥",
+      "放涼切片分裝；便當重熱 1 分鐘就好，不要熱太久"
+    ]
+  },
+
+  // ── 便當常備小菜 ──────────────────────────────
+  {
+    id: "edamame-doufugan-stir",
+    name: "毛豆炒豆干",
+    baseServings: 4,
+    ingredients: [
+      { name: "毛豆", amount: 200, unit: "克" },
+      { name: "豆干", amount: 5, unit: "片" },
+      { name: "紅蘿蔔", amount: 1, unit: "條" }
+    ],
+    method: "炒",
+    cuisine: "中式",
+    diet: "素",
+    time: 8,
+    bento: true,
+    tags: ["健康", "高蛋白", "多纖維"],
+    prep: "weekend",
+    steps: [
+      "毛豆仁滾水燙 3 分鐘撈起；豆干、紅蘿蔔切小丁",
+      "熱鍋 1 大匙油，豆干丁煎至微黃",
+      "加紅蘿蔔丁炒軟，再下毛豆",
+      "加醬油 1 大匙、鹽、白胡椒拌炒均勻",
+      "分裝冷藏，可放 3 天；冷熱都好吃"
+    ]
+  },
+  {
+    id: "edamame-garlic-salad",
+    name: "蒜香涼拌毛豆",
+    baseServings: 4,
+    ingredients: [
+      { name: "毛豆", amount: 300, unit: "克" }
+    ],
+    method: "涼拌",
+    cuisine: "中式",
+    diet: "素",
+    time: 5,
+    bento: true,
+    tags: ["健康", "高蛋白"],
+    prep: "weekend",
+    steps: [
+      "毛豆仁滾水加鹽燙 4 分鐘，撈起冰鎮瀝乾",
+      "蒜末、醬油 1 大匙、香油 1 小匙、辣椒（可省）拌勻",
+      "毛豆拌入醬汁，冷藏 30 分鐘入味",
+      "分裝，便當分開放一格"
+    ]
   }
+
 ];
 
 if (typeof module !== "undefined" && module.exports) {
