@@ -334,3 +334,103 @@ main {
 .modal-body li {
   margin-bottom: 0.4rem;
 }
+
+
+/* ── 篩選 chips 與分類標籤（功能版，樣式待美化階段） ── */
+.filter-section {
+  margin-bottom: 1rem;
+}
+
+.chip-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+}
+
+.chip {
+  font-family: inherit;
+  font-size: 0.85rem;
+  padding: 0.4rem 0.8rem;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--text);
+  cursor: pointer;
+  line-height: 1.2;
+}
+
+.chip.active {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #fff;
+  font-weight: 600;
+}
+
+.chip.category.active {
+  background: var(--accent-soft);
+  border-color: var(--accent);
+  color: var(--accent-dark);
+}
+
+.chip.ingredient.active {
+  background: var(--green);
+  border-color: var(--green);
+  color: #fff;
+}
+
+.select-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+  margin-top: 0.6rem;
+}
+
+.select-row select {
+  font-family: inherit;
+  font-size: 0.85rem;
+  padding: 0.4rem 0.6rem;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--text);
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.category-row {
+  margin-top: 0.85rem;
+}
+
+.ingredient-row {
+  margin-top: 0.6rem;
+  padding-top: 0.6rem;
+  border-top: 1px dashed var(--border);
+}
+
+.meta-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  font-size: 0.82rem;
+  color: var(--text-muted);
+}
+
+.meta-row .time {
+  font-weight: 700;
+  color: var(--accent-dark);
+}
+
+.result-group.default h2 {
+  color: var(--accent-dark);
+}
+
+.result-count {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  font-weight: 400;
+  margin-left: 0.4rem;
+}
+
+.chip-row[hidden] {
+  display: none;
+}

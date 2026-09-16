@@ -6,6 +6,18 @@
   const modalBody = document.getElementById("modal-body");
   const modalBackdrop = document.getElementById("modal-backdrop");
   const closeModalBtn = document.getElementById("close-modal");
+  const quickFilterEl = document.getElementById("quick-filters");
+  const methodSel = document.getElementById("filter-method");
+  const toolSel = document.getElementById("filter-tool");
+  const dietSel = document.getElementById("filter-diet");
+  const cuisineSel = document.getElementById("filter-cuisine");
+  const categoryChipsEl = document.getElementById("category-chips");
+  const ingredientChipsEl = document.getElementById("ingredient-chips");
+
+  const QUICK_MAX_MINUTES = 10;
+  // 篩選狀態：quick/bento/weekend/onepot/healthy 是開關；其餘是下拉
+  const filters = { quick: false, bento: false, weekend: false, onepot: false, healthy: false };
+  let activeCategory = null;
 
   const MIN_SERVINGS = 1;
   const MAX_SERVINGS = 10;
@@ -14,15 +26,27 @@
   let currentRecipe = null;
   let currentServings = 1;
 
+  function metaRow(recipe) {
+    const parts = ['<span class="time">⏱ ' + recipe.time + " 分</span>"];
+    if (recipe.prep === "weekend") parts.push("<span>📅 週末做一鍋</span>");
+    if (recipe.bento) parts.push("<span>🍱 便當 OK</span>");
+    if (recipe.tool) parts.push("<span>" + recipe.tool + "</span>");
+    return '<div class="meta-row">' + parts.join("") + "</div>";
+  }
+
   function tagRow(recipe, servingsOverride) {
     const dietClass = recipe.diet === "素" ? "veg" : "";
     const servingsLabel = (servingsOverride || recipe.baseServings) + "人份";
+    const extra = (recipe.tags || [])
+      .map((t) => '<span class="tag veg">' + t + "</span>")
+      .join("");
     return (
       '<div class="tag-row">' +
       '<span class="tag">' + recipe.cuisine + "</span>" +
       '<span class="tag">' + recipe.method + "</span>" +
       '<span class="tag ' + dietClass + '">' + recipe.diet + "</span>" +
       '<span class="tag">' + servingsLabel + "</span>" +
+      extra +
       "</div>"
     );
   }
@@ -38,6 +62,7 @@
       '<button class="recipe-card" data-id="' + recipe.id + '">' +
       comboHtml +
       '<div class="name">' + recipe.name + "</div>" +
+      metaRow(recipe) +
       tagRow(recipe) +
       missingHtml +
       "</button>"
@@ -49,7 +74,7 @@
     const cards = recipes.map((r) => cardHtml(r, showMissing)).join("");
     return (
       '<div class="result-group ' + className + '">' +
-      "<h2>" + title + "</h2>" +
+      "<h2>" + title + '<span class="result-count">' + recipes.length + " 道</span></h2>" +
       '<div class="card-grid">' + cards + "</div>" +
       "</div>"
     );
@@ -119,6 +144,7 @@
 
     modalBody.innerHTML =
       "<h2>" + recipe.name + "</h2>" +
+      metaRow(recipe) +
       tagRow(recipe, currentServings) +
       '<div class="servings-control">' +
       "<span>份量</span>" +
@@ -144,20 +170,148 @@
     currentRecipe = null;
   }
 
+  // ── 篩選 ──────────────────────────────
+  function passesFilters(r) {
+    if (filters.quick && !(r.time <= QUICK_MAX_MINUTES && r.prep !== "weekend")) return false;
+    if (filters.bento && !r.bento) return false;
+    if (filters.weekend && r.prep !== "weekend") return false;
+    if (filters.onepot && !(r.tags || []).includes("一鍋")) return false;
+    if (filters.healthy && !(r.tags || []).includes("健康")) return false;
+    if (methodSel.value && r.method !== methodSel.value) return false;
+    if (toolSel.value && r.tool !== toolSel.value) return false;
+    if (dietSel.value && r.diet !== dietSel.value) return false;
+    if (cuisineSel.value && r.cuisine !== cuisineSel.value) return false;
+    return true;
+  }
+
+  function anyFilterOn() {
+    return Object.keys(filters).some((k) => filters[k]) ||
+      methodSel.value || toolSel.value || dietSel.value || cuisineSel.value;
+  }
+
+  // 沒輸入食材時的預設清單：平日快煮型（動手 ≤10 分、非週末備料），時間短的排前面
+  function defaultList() {
+    const base = anyFilterOn()
+      ? RECIPES.filter(passesFilters)
+      : RECIPES.filter((r) => r.time <= QUICK_MAX_MINUTES && r.prep !== "weekend");
+    const sorted = base.slice().sort((a, b) => a.time - b.time);
+    return diversify(sorted);
+  }
+
+  function renderDefault() {
+    const list = defaultList();
+    if (!list.length) {
+      resultsEl.innerHTML = '<p class="no-result">這組篩選條件沒有料理，放寬一點試試。</p>';
+      return;
+    }
+    const title = anyFilterOn() ? "符合條件的料理" : "⏱ 10 分鐘開飯";
+    resultsEl.innerHTML = groupHtml(title, "default", list, false);
+  }
+
   function runSearch() {
     const userIngredients = parseInput(input.value);
+    syncIngredientChips(userIngredients);
     if (!userIngredients.length) {
-      resultsEl.innerHTML =
-        '<p class="empty-state">先輸入手邊的食材，按「找料理」看看今晚能煮什麼 🍳</p>';
+      renderDefault();
       return;
     }
     const { exact, near } = matchRecipes(userIngredients, RECIPES);
-    renderResults(exact, near);
+    renderResults(exact.filter(passesFilters), near.filter(passesFilters));
   }
+
+  // ── 篩選 chips 與下拉 ──────────────────────────────
+  function fillSelect(sel, values) {
+    values.forEach((v) => {
+      const opt = document.createElement("option");
+      opt.value = v;
+      opt.textContent = v;
+      sel.appendChild(opt);
+    });
+  }
+  function uniq(list) {
+    return Array.from(new Set(list.filter(Boolean)));
+  }
+  fillSelect(methodSel, uniq(RECIPES.map((r) => r.method)));
+  fillSelect(toolSel, uniq(RECIPES.map((r) => r.tool)));
+  fillSelect(dietSel, ["葷", "素"]);
+  fillSelect(cuisineSel, uniq(RECIPES.map((r) => r.cuisine)));
+
+  quickFilterEl.addEventListener("click", (e) => {
+    const chip = e.target.closest(".chip");
+    if (!chip) return;
+    const key = chip.dataset.filter;
+    filters[key] = !filters[key];
+    // 「10 分鐘」跟「週末備料」互斥
+    if (key === "quick" && filters.quick) filters.weekend = false;
+    if (key === "weekend" && filters.weekend) filters.quick = false;
+    quickFilterEl.querySelectorAll(".chip").forEach((c) => {
+      c.classList.toggle("active", !!filters[c.dataset.filter]);
+    });
+    runSearch();
+  });
+  [methodSel, toolSel, dietSel, cuisineSel].forEach((sel) => sel.addEventListener("change", runSearch));
+
+  // ── 食材分類標籤 ──────────────────────────────
+  function renderCategoryChips() {
+    categoryChipsEl.innerHTML = INGREDIENT_CATEGORIES.map((c) =>
+      '<button type="button" class="chip category' + (c === activeCategory ? " active" : "") +
+      '" data-category="' + c + '">' + c + "</button>"
+    ).join("");
+  }
+
+  function renderIngredientChips() {
+    if (!activeCategory) {
+      ingredientChipsEl.hidden = true;
+      ingredientChipsEl.innerHTML = "";
+      return;
+    }
+    const chosen = new Set(parseInput(input.value));
+    ingredientChipsEl.innerHTML = INGREDIENT_CATALOG
+      .filter((i) => i.category === activeCategory)
+      .map((i) =>
+        '<button type="button" class="chip ingredient' + (chosen.has(i.name) ? " active" : "") +
+        '" data-ingredient="' + i.name + '">' + i.name + "</button>"
+      ).join("");
+    ingredientChipsEl.hidden = false;
+  }
+
+  function syncIngredientChips(userIngredients) {
+    const chosen = new Set(userIngredients);
+    ingredientChipsEl.querySelectorAll(".chip").forEach((c) => {
+      c.classList.toggle("active", chosen.has(c.dataset.ingredient));
+    });
+  }
+
+  categoryChipsEl.addEventListener("click", (e) => {
+    const chip = e.target.closest(".chip");
+    if (!chip) return;
+    activeCategory = activeCategory === chip.dataset.category ? null : chip.dataset.category;
+    renderCategoryChips();
+    renderIngredientChips();
+  });
+
+  ingredientChipsEl.addEventListener("click", (e) => {
+    const chip = e.target.closest(".chip");
+    if (!chip) return;
+    const name = chip.dataset.ingredient;
+    const current = parseInput(input.value);
+    const next = current.includes(name) ? current.filter((n) => n !== name) : current.concat(name);
+    input.value = next.join("、");
+    runSearch();
+  });
+
+  renderCategoryChips();
+  renderDefault();
 
   searchBtn.addEventListener("click", runSearch);
   input.addEventListener("keydown", (e) => {
     if (e.key === "Enter") runSearch();
+  });
+  // 邊打邊找（清空時立刻回到預設清單）
+  let inputTimer = null;
+  input.addEventListener("input", () => {
+    clearTimeout(inputTimer);
+    inputTimer = setTimeout(runSearch, 250);
   });
 
   resultsEl.addEventListener("click", (e) => {

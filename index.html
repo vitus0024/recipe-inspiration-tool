@@ -19,6 +19,22 @@
 </header>
 
 <main>
+  <section class="filter-section" aria-label="篩選">
+    <div class="chip-row" id="quick-filters">
+      <button type="button" class="chip" data-filter="quick">⏱ 10 分鐘</button>
+      <button type="button" class="chip" data-filter="bento">🍱 便當 OK</button>
+      <button type="button" class="chip" data-filter="weekend">📅 週末備料</button>
+      <button type="button" class="chip" data-filter="onepot">🍲 一鍋</button>
+      <button type="button" class="chip" data-filter="healthy">🥗 健康</button>
+    </div>
+    <div class="select-row">
+      <select id="filter-method" aria-label="做法"><option value="">做法：全部</option></select>
+      <select id="filter-tool" aria-label="器具"><option value="">器具：全部</option></select>
+      <select id="filter-diet" aria-label="葷素"><option value="">葷素：全部</option></select>
+      <select id="filter-cuisine" aria-label="菜系"><option value="">菜系：全部</option></select>
+    </div>
+  </section>
+
   <section class="input-section">
     <label for="ingredient-input">你手邊有的食材</label>
     <div class="input-row">
@@ -31,12 +47,12 @@
       >
       <button id="search-btn" type="button">找料理</button>
     </div>
-    <p class="hint">用逗號或空白分開食材；鹽、糖、醬油、蒜、薑、蔥等常備調味料不用輸入</p>
+    <p class="hint">用逗號或空白分開食材，或從下面點選；鹽、糖、醬油、蒜、薑等常備調味料不用輸入</p>
+    <div class="chip-row category-row" id="category-chips"></div>
+    <div class="chip-row ingredient-row" id="ingredient-chips" hidden></div>
   </section>
 
-  <section id="results" class="results" aria-live="polite">
-    <p class="empty-state">先輸入手邊的食材，按「找料理」看看今晚能煮什麼 🍳</p>
-  </section>
+  <section id="results" class="results" aria-live="polite"></section>
 </main>
 
 <div id="detail-modal" class="modal hidden">
