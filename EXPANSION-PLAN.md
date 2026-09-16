@@ -39,12 +39,12 @@
 - 新增 51 道分配：湯 12、電鍋 8、蒸 +7、滷 +6、氣炸 6、炸 +4、燴 +4、燉 +3、煎 +2、烤 +1；其中週末備料型約 30 道
 
 ## 資料結構改動
-1. `recipes.js` 新增 `INGREDIENT_CATALOG`：`{ name, category, aliases: [] }` × 80
+1. ✅ `ingredients.js`（獨立檔，09-16 完成）`INGREDIENT_CATALOG`：`{ name, category, aliases: [], plant? }` × 80
    - category：蔬菜、瓜果根莖、菇類、肉類、海鮮、蛋豆製品、主食、其他
    - `match.js` 的 SYNONYMS 改由 catalog 的 aliases 生成（保留一份手動補充表給非食材詞）
 2. 每道食譜加 `time`、`bento`、`tags`，選填 `tool`、`prep`
 3. **現有 99 道回頭補標記**（比新寫更重要，排序全靠它）：AI 依步驟估 time，Bryant 抽查
-4. 驗證腳本 `tools/validate.js`（node）：id 唯一、ingredients 全在 catalog、method／tool 在白名單、每食材 ≥3 道、每 method ≥4 道、time／bento 必填、weekend 型 bento 必為 true、快煮型佔比 ≥65%
+4. ✅ 驗證腳本 `tools/validate.js`（node，09-16 完成；`--strict` 才把覆蓋率警告算失敗）：id 唯一、ingredients 全在 catalog、method／tool 在白名單、每食材 ≥3 道、每 method ≥4 道、time／bento 必填、weekend 型 bento 必為 true、快煮型佔比 ≥65%
 
 ## UI（②，功能先行、樣式留給③）
 - **首頁預設＝「10 分鐘開飯」清單**（time ≤10 且非 weekend），不輸入食材也有東西看
@@ -54,7 +54,7 @@
 - `service-worker.js` cache 版號 +1
 
 ## 執行順序與存檔點
-1. commit 存檔點 → 加 INGREDIENT_CATALOG＋validate.js → commit
+1. ✅ commit 存檔點 `206c34a` → 目錄＋validate.js → commit `66ccf71`
 2. 現有 99 道補 time／bento／tags → validate → commit
 3. 分批寫 51 道（按食材段落，每批 ~15 道）→ 每批跑 validate → commit
 4. Bryant 抽查 10 道口味／份量／時間估計（AI 寫的食譜一定要人看過）
