@@ -2583,6 +2583,385 @@ const RECIPES = [
       "毛豆拌入醬汁，冷藏 30 分鐘入味",
       "分裝，便當分開放一格"
     ]
+  },
+  // ══════════════════════════════════════════════════
+  // 第二批（2026-09-16）：平日快煮型 —— 湯／蒸／燴／炸＋海鮮
+  // ══════════════════════════════════════════════════
+
+  // ── 湯（現煮現喝，不進便當）──────────────────────────────
+  {
+    id: "clam-loofah-soup",
+    name: "蛤蜊絲瓜湯",
+    baseServings: 2,
+    ingredients: [
+      { name: "蛤蜊", amount: 300, unit: "克" },
+      { name: "絲瓜", amount: 1, unit: "條" }
+    ],
+    method: "湯",
+    cuisine: "中式",
+    diet: "葷",
+    time: 8,
+    bento: false,
+    tags: ["健康", "一鍋"],
+    steps: [
+      "蛤蜊泡鹽水吐沙 30 分鐘；絲瓜去皮切滾刀塊",
+      "水 3 杯加薑絲煮滾，放絲瓜煮 2 分鐘",
+      "下蛤蜊，開口即熄火（煮久肉會縮）",
+      "加鹽、米酒少許調味即可"
+    ]
+  },
+  {
+    id: "bitter-melon-rib-soup",
+    name: "苦瓜排骨湯",
+    baseServings: 2,
+    ingredients: [
+      { name: "排骨", amount: 300, unit: "克" },
+      { name: "苦瓜", amount: 1, unit: "條" }
+    ],
+    method: "湯",
+    cuisine: "中式",
+    diet: "葷",
+    time: 10,
+    bento: false,
+    tags: ["健康", "高蛋白", "一鍋"],
+    steps: [
+      "排骨冷水下鍋汆燙撈起沖淨；苦瓜去籽切塊",
+      "排骨加水 5 杯、薑片，煮滾後小火燉 30 分鐘",
+      "放苦瓜續煮 15 分鐘至軟",
+      "加鹽調味；喜歡可放幾顆蛤蜊或小魚乾提鮮"
+    ]
+  },
+  {
+    id: "enoki-egg-tofu-soup",
+    name: "金針菇雞蛋豆腐湯",
+    baseServings: 2,
+    ingredients: [
+      { name: "金針菇", amount: 1, unit: "包" },
+      { name: "雞蛋豆腐", amount: 1, unit: "盒" },
+      { name: "雞蛋", amount: 1, unit: "顆" }
+    ],
+    method: "湯",
+    cuisine: "中式",
+    diet: "葷",
+    time: 6,
+    bento: false,
+    tags: ["健康", "高蛋白", "一鍋"],
+    steps: [
+      "金針菇去根剝散；雞蛋豆腐切塊；雞蛋打散",
+      "水 3 杯煮滾，放金針菇煮 1 分鐘",
+      "放雞蛋豆腐，加鹽、白胡椒調味",
+      "淋入蛋液成蛋花，滴幾滴香油即可"
+    ]
+  },
+  {
+    id: "corn-egg-drop-soup",
+    name: "玉米蛋花湯",
+    baseServings: 2,
+    ingredients: [
+      { name: "玉米粒", amount: 1, unit: "杯" },
+      { name: "雞蛋", amount: 2, unit: "顆" }
+    ],
+    method: "湯",
+    cuisine: "中式",
+    diet: "葷",
+    time: 5,
+    bento: false,
+    tags: ["健康", "一鍋"],
+    steps: [
+      "雞蛋打散",
+      "水 3 杯煮滾，放玉米粒煮 2 分鐘",
+      "加鹽、白胡椒，太白粉水勾薄芡",
+      "淋入蛋液攪成蛋花，撒蔥花即可"
+    ]
+  },
+  {
+    id: "celery-fish-soup",
+    name: "芹菜魚片湯",
+    baseServings: 2,
+    ingredients: [
+      { name: "魚片", amount: 200, unit: "克" },
+      { name: "芹菜", amount: 2, unit: "根" }
+    ],
+    method: "湯",
+    cuisine: "中式",
+    diet: "葷",
+    time: 6,
+    bento: false,
+    tags: ["健康", "高蛋白", "一鍋"],
+    steps: [
+      "魚片切塊，用鹽、米酒、少許太白粉抓醃；芹菜切末",
+      "水 3 杯加薑絲煮滾",
+      "放魚片，轉小火煮 2 分鐘至熟（不要翻攪）",
+      "加鹽、白胡椒，撒芹菜末、滴香油即可"
+    ]
+  },
+  {
+    id: "salmon-miso-soup",
+    name: "鮭魚味噌湯",
+    baseServings: 2,
+    ingredients: [
+      { name: "鮭魚", amount: 150, unit: "克" },
+      { name: "嫩豆腐", amount: 1, unit: "盒" },
+      { name: "海帶芽", amount: 1, unit: "大匙" }
+    ],
+    method: "湯",
+    cuisine: "日式",
+    diet: "葷",
+    time: 6,
+    bento: false,
+    tags: ["健康", "高蛋白", "一鍋"],
+    steps: [
+      "鮭魚切塊（可用煎鮭魚剩的邊角）；豆腐切丁",
+      "水 3 杯煮滾，放鮭魚煮 3 分鐘",
+      "放豆腐、海帶芽煮 1 分鐘",
+      "轉小火，取一勺熱湯調開味噌 1.5 大匙倒回鍋中，撒蔥花即可"
+    ]
+  },
+  {
+    id: "hot-sour-soup",
+    name: "酸辣湯",
+    baseServings: 2,
+    ingredients: [
+      { name: "黑木耳", amount: 3, unit: "朵" },
+      { name: "嫩豆腐", amount: 1, unit: "盒" },
+      { name: "紅蘿蔔", amount: 1, unit: "條" },
+      { name: "雞蛋", amount: 1, unit: "顆" }
+    ],
+    method: "湯",
+    cuisine: "中式",
+    diet: "葷",
+    time: 10,
+    bento: false,
+    tags: ["健康", "一鍋"],
+    steps: [
+      "黑木耳、紅蘿蔔切絲；豆腐切條；雞蛋打散",
+      "水 3 杯煮滾，放木耳、紅蘿蔔煮 3 分鐘",
+      "放豆腐，加醬油 1 大匙、鹽調味，太白粉水勾芡",
+      "淋入蛋液成蛋花，熄火",
+      "加烏醋 2 大匙、白胡椒粉 1 小匙（酸辣味在這一步，起鍋才加）"
+    ]
+  },
+  {
+    id: "beef-udon-soup",
+    name: "牛肉烏龍麵",
+    baseServings: 2,
+    ingredients: [
+      { name: "烏龍麵", amount: 2, unit: "包" },
+      { name: "牛肉片", amount: 200, unit: "克" },
+      { name: "洋蔥", amount: 1, unit: "顆" }
+    ],
+    method: "湯",
+    cuisine: "日式",
+    diet: "葷",
+    time: 8,
+    bento: false,
+    tags: ["高蛋白", "一鍋"],
+    steps: [
+      "洋蔥切絲",
+      "水 3 杯、醬油 2 大匙、味醂 2 大匙、糖 1 小匙煮滾，放洋蔥煮軟",
+      "放烏龍麵煮 2 分鐘鬆開",
+      "牛肉片一片片下鍋，變色即熄火",
+      "撒蔥花、七味粉即可"
+    ]
+  },
+
+  // ── 蒸（電鍋按下去等）──────────────────────────────
+  {
+    id: "cod-steamed",
+    name: "清蒸鱈魚",
+    baseServings: 2,
+    ingredients: [
+      { name: "鱈魚", amount: 1, unit: "片" }
+    ],
+    method: "蒸",
+    cuisine: "中式",
+    diet: "葷",
+    time: 5,
+    bento: true,
+    tags: ["健康", "高蛋白"],
+    tool: "電鍋",
+    steps: [
+      "鱈魚擦乾，兩面抹少許鹽、米酒，鋪薑絲",
+      "電鍋外鍋 1 杯水，蒸 10 分鐘至魚肉可撥開",
+      "倒掉盤中蒸出的水，淋醬油 1 大匙",
+      "鋪蔥絲，燒 1 大匙熱油淋上即可"
+    ]
+  },
+  {
+    id: "egg-tofu-minced-pork-steamed",
+    name: "肉末蒸雞蛋豆腐",
+    baseServings: 2,
+    ingredients: [
+      { name: "雞蛋豆腐", amount: 1, unit: "盒" },
+      { name: "豬絞肉", amount: 100, unit: "克" }
+    ],
+    method: "蒸",
+    cuisine: "中式",
+    diet: "葷",
+    time: 6,
+    bento: true,
+    tags: ["高蛋白"],
+    tool: "電鍋",
+    steps: [
+      "雞蛋豆腐切厚片排盤",
+      "豬絞肉加醬油 1 大匙、米酒、太白粉、蒜末拌勻，鋪在豆腐上",
+      "電鍋外鍋 1 杯水，蒸 12 分鐘",
+      "撒蔥花，淋一點醬油即可"
+    ]
+  },
+  {
+    id: "clam-steamed-egg",
+    name: "蛤蜊蒸蛋",
+    baseServings: 2,
+    ingredients: [
+      { name: "蛤蜊", amount: 200, unit: "克" },
+      { name: "雞蛋", amount: 3, unit: "顆" }
+    ],
+    method: "蒸",
+    cuisine: "中式",
+    diet: "葷",
+    time: 5,
+    bento: true,
+    tags: ["高蛋白"],
+    tool: "電鍋",
+    steps: [
+      "蛤蜊泡鹽水吐沙；雞蛋打散，加 1.5 倍溫水、少許鹽，過篩",
+      "蛤蜊排在深盤中，倒入蛋液",
+      "蓋保鮮膜或盤子，電鍋外鍋 1 杯水，蒸至蛋液凝固、蛤蜊開口（約 12 分鐘）",
+      "撒蔥花、滴香油即可"
+    ]
+  },
+  {
+    id: "chicken-mushroom-steamed",
+    name: "香菇木耳蒸雞",
+    baseServings: 2,
+    ingredients: [
+      { name: "雞腿肉", amount: 300, unit: "克" },
+      { name: "香菇", amount: 3, unit: "朵" },
+      { name: "黑木耳", amount: 2, unit: "朵" }
+    ],
+    method: "蒸",
+    cuisine: "中式",
+    diet: "葷",
+    time: 8,
+    bento: true,
+    tags: ["健康", "高蛋白", "一鍋"],
+    tool: "電鍋",
+    steps: [
+      "雞腿肉切塊，用醬油 1 大匙、米酒 1 大匙、太白粉、薑絲抓醃 10 分鐘",
+      "香菇切片、木耳撕小片，跟雞肉拌勻鋪盤",
+      "電鍋外鍋 1 杯水，蒸 15 分鐘",
+      "撒蔥花即可；盤底湯汁拌飯很香"
+    ]
+  },
+
+  // ── 燴（勾芡淋飯）──────────────────────────────
+  {
+    id: "mixed-veg-egg-rice-bowl",
+    name: "三色豆滑蛋燴飯",
+    baseServings: 2,
+    ingredients: [
+      { name: "冷凍三色豆", amount: 1, unit: "杯" },
+      { name: "雞蛋", amount: 3, unit: "顆" },
+      { name: "白飯", amount: 2, unit: "碗" }
+    ],
+    method: "燴",
+    cuisine: "中式",
+    diet: "葷",
+    time: 8,
+    bento: true,
+    tags: ["高蛋白", "一鍋"],
+    steps: [
+      "三色豆免解凍；雞蛋打散加少許鹽",
+      "熱鍋 1 大匙油，蛋液炒至半熟盛起",
+      "同鍋放三色豆，加水 1 杯、醬油 1 大匙、鹽煮滾，太白粉水勾芡",
+      "倒回滑蛋輕拌，淋在白飯上即可"
+    ]
+  },
+  {
+    id: "cod-tomato-braised",
+    name: "番茄燴鱈魚",
+    baseServings: 2,
+    ingredients: [
+      { name: "鱈魚", amount: 1, unit: "片" },
+      { name: "番茄", amount: 2, unit: "顆" }
+    ],
+    method: "燴",
+    cuisine: "中式",
+    diet: "葷",
+    time: 8,
+    bento: true,
+    tags: ["健康", "高蛋白"],
+    steps: [
+      "鱈魚擦乾拍薄薄太白粉；番茄切丁",
+      "熱鍋 1 大匙油，鱈魚煎至兩面微黃盛起",
+      "同鍋下蒜末、番茄丁炒出汁，加水半杯、醬油 1 大匙、糖少許",
+      "放回鱈魚小火燴 3 分鐘，湯汁收濃即可"
+    ]
+  },
+  {
+    id: "enoki-tofu-braised",
+    name: "金針菇燴豆腐",
+    baseServings: 2,
+    ingredients: [
+      { name: "金針菇", amount: 1, unit: "包" },
+      { name: "嫩豆腐", amount: 1, unit: "盒" }
+    ],
+    method: "燴",
+    cuisine: "中式",
+    diet: "素",
+    time: 8,
+    bento: true,
+    tags: ["健康", "一鍋"],
+    steps: [
+      "金針菇去根剝散；豆腐切塊",
+      "熱鍋 1 大匙油，蒜末爆香，下金針菇炒軟",
+      "加水半杯、醬油 1 大匙、蠔油（素蠔油）1 小匙煮滾",
+      "放豆腐煮 2 分鐘，太白粉水勾芡，撒蔥花即可"
+    ]
+  },
+
+  // ── 炸 ──────────────────────────────
+  {
+    id: "squid-crispy-fried",
+    name: "香酥炸透抽",
+    baseServings: 2,
+    ingredients: [
+      { name: "透抽", amount: 300, unit: "克" }
+    ],
+    method: "炸",
+    cuisine: "中式",
+    diet: "葷",
+    time: 10,
+    bento: true,
+    tags: ["高蛋白"],
+    steps: [
+      "透抽去內臟切圈，擦乾，用鹽、米酒、蒜末醃 5 分鐘",
+      "均勻沾裹地瓜粉（或太白粉），靜置 2 分鐘回潮",
+      "油燒到 170°C（筷子插入冒小泡），下鍋炸 2 分鐘至金黃酥脆",
+      "撒胡椒鹽、九層塔（有就加）即可"
+    ]
+  },
+  {
+    id: "chicken-karaage",
+    name: "日式唐揚炸雞",
+    baseServings: 2,
+    ingredients: [
+      { name: "雞腿肉", amount: 300, unit: "克" }
+    ],
+    method: "炸",
+    cuisine: "日式",
+    diet: "葷",
+    time: 10,
+    bento: true,
+    tags: ["高蛋白"],
+    steps: [
+      "雞腿肉切一口大小，用醬油 1.5 大匙、米酒 1 大匙、薑泥、蒜泥醃 15 分鐘",
+      "沾裹太白粉，抖掉多餘的粉",
+      "油 170°C 炸 3 分鐘撈起，靜置 2 分鐘",
+      "油升溫至 190°C 回炸 1 分鐘逼油、更酥",
+      "擠檸檬汁；便當菜的經典，冷了也好吃"
+    ]
   }
 
 ];
