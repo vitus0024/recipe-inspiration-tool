@@ -3349,6 +3349,387 @@ const RECIPES = [
       "熱鍋放一小塊奶油或少許油，中小火煎至兩面金黃",
       "淋蜂蜜或撒糖粉即可"
     ]
+  },
+  // ══════════════════════════════════════════════════
+  // 第四批（2026-09-16）：補齊覆蓋率 —— 瓜類、豆製品、絞肉、鯖魚鱈魚、炸物
+  // ══════════════════════════════════════════════════
+
+  // ── 豆製品 ──────────────────────────────
+  {
+    id: "napa-fried-tofu-stir",
+    name: "白菜炒油豆腐",
+    baseServings: 2,
+    ingredients: [
+      { name: "大白菜", amount: 300, unit: "克" },
+      { name: "油豆腐", amount: 6, unit: "塊" }
+    ],
+    method: "炒", cuisine: "中式", diet: "素",
+    time: 8, bento: true, tags: ["健康", "多纖維", "一鍋"],
+    steps: [
+      "大白菜切片，梗葉分開；油豆腐對切",
+      "熱鍋 1 大匙油，蒜末爆香，下白菜梗炒軟",
+      "加白菜葉、油豆腐、醬油 1.5 大匙、水 3 大匙",
+      "蓋鍋燜 3 分鐘，加鹽、白胡椒拌勻即可"
+    ]
+  },
+  {
+    id: "tofu-skin-fried-tofu-braised",
+    name: "滷豆皮油豆腐",
+    baseServings: 4,
+    ingredients: [
+      { name: "豆皮", amount: 3, unit: "片" },
+      { name: "油豆腐", amount: 8, unit: "塊" }
+    ],
+    method: "滷", cuisine: "中式", diet: "素",
+    time: 6, bento: true, tags: ["高蛋白", "一鍋"],
+    prep: "weekend",
+    steps: [
+      "豆皮切段；油豆腐用熱水沖掉表面油",
+      "鍋中放醬油 4 大匙、糖 1 大匙、八角 1 顆、蒜頭、薑片、水 2 杯煮滾",
+      "放豆皮、油豆腐，小火滷 20 分鐘，中途翻面",
+      "熄火浸泡入味；分裝冷藏，便當的素蛋白質來源"
+    ]
+  },
+  {
+    id: "tofu-skin-chive-egg",
+    name: "豆皮韭黃炒蛋",
+    baseServings: 2,
+    ingredients: [
+      { name: "豆皮", amount: 2, unit: "片" },
+      { name: "韭黃", amount: 1, unit: "把" },
+      { name: "雞蛋", amount: 2, unit: "顆" }
+    ],
+    method: "炒", cuisine: "中式", diet: "素",
+    time: 8, bento: true, tags: ["健康", "高蛋白"],
+    steps: [
+      "豆皮切條；韭黃切段；雞蛋打散",
+      "熱鍋 1 大匙油，豆皮煎至微黃",
+      "倒入蛋液炒至半熟，下韭黃快炒",
+      "加醬油 1 大匙、鹽拌勻即可"
+    ]
+  },
+  {
+    id: "egg-tofu-pan-fried",
+    name: "香煎雞蛋豆腐",
+    baseServings: 2,
+    ingredients: [{ name: "雞蛋豆腐", amount: 1, unit: "盒" }],
+    method: "煎", cuisine: "中式", diet: "素",
+    time: 6, bento: true, tags: ["高蛋白"],
+    steps: [
+      "雞蛋豆腐切 1.5 公分厚片，用廚房紙巾吸乾",
+      "薄薄拍一層太白粉",
+      "熱鍋 1 大匙油，中小火煎至兩面金黃（翻面要輕）",
+      "淋醬油、撒蔥花、柴魚片即可"
+    ]
+  },
+
+  // ── 瓜類 ──────────────────────────────
+  {
+    id: "loofah-egg-stir",
+    name: "絲瓜炒蛋",
+    baseServings: 2,
+    ingredients: [
+      { name: "絲瓜", amount: 1, unit: "條" },
+      { name: "雞蛋", amount: 2, unit: "顆" }
+    ],
+    method: "炒", cuisine: "中式", diet: "葷",
+    time: 8, bento: false, tags: ["健康", "高蛋白"],
+    steps: [
+      "絲瓜去皮切滾刀塊；雞蛋打散",
+      "熱鍋 1 大匙油，蛋液炒至半熟盛起",
+      "同鍋蒜末、薑絲爆香，下絲瓜炒 1 分鐘，加水 2 大匙蓋鍋燜 2 分鐘",
+      "加回炒蛋，加鹽拌勻即可；絲瓜出水多，現煮現吃"
+    ]
+  },
+  {
+    id: "loofah-squid-braised",
+    name: "絲瓜燴透抽",
+    baseServings: 2,
+    ingredients: [
+      { name: "絲瓜", amount: 1, unit: "條" },
+      { name: "透抽", amount: 200, unit: "克" }
+    ],
+    method: "燴", cuisine: "中式", diet: "葷",
+    time: 8, bento: false, tags: ["健康", "高蛋白", "一鍋"],
+    steps: [
+      "絲瓜去皮切塊；透抽切圈",
+      "熱鍋 1 大匙油，薑絲爆香，下絲瓜炒 1 分鐘",
+      "加水半杯、鹽、米酒 1 大匙，蓋鍋燜 2 分鐘",
+      "下透抽煮 1 分鐘變白即熄火，太白粉水勾薄芡即可"
+    ]
+  },
+  {
+    id: "bitter-melon-egg",
+    name: "苦瓜炒蛋",
+    baseServings: 2,
+    ingredients: [
+      { name: "苦瓜", amount: 1, unit: "條" },
+      { name: "雞蛋", amount: 3, unit: "顆" }
+    ],
+    method: "炒", cuisine: "中式", diet: "葷",
+    time: 8, bento: true, tags: ["健康", "高蛋白"],
+    steps: [
+      "苦瓜去籽、刮掉白膜切薄片，用鹽抓 5 分鐘擠掉苦水；雞蛋打散",
+      "熱鍋 1 大匙油，蒜末爆香，下苦瓜炒 2 分鐘",
+      "倒入蛋液，待底部凝固再翻炒",
+      "加鹽、少許醬油拌勻即可"
+    ]
+  },
+  {
+    id: "bitter-melon-lemon-salad",
+    name: "涼拌檸檬苦瓜",
+    baseServings: 2,
+    ingredients: [
+      { name: "苦瓜", amount: 1, unit: "條" },
+      { name: "檸檬", amount: 1, unit: "顆" }
+    ],
+    method: "涼拌", cuisine: "中式", diet: "素",
+    time: 6, bento: true, tags: ["健康", "多纖維"],
+    steps: [
+      "苦瓜去籽刮白膜切薄片，滾水燙 30 秒立刻冰鎮",
+      "檸檬汁、蜂蜜（或糖）1 大匙、鹽少許拌勻",
+      "苦瓜瀝乾拌入醬汁，冷藏 30 分鐘",
+      "帶便當分開放一格"
+    ]
+  },
+  {
+    id: "pumpkin-rice-cooker-steamed",
+    name: "電鍋蒸南瓜",
+    baseServings: 2,
+    ingredients: [{ name: "南瓜", amount: 400, unit: "克" }],
+    method: "蒸", cuisine: "中式", diet: "素",
+    time: 3, bento: true, tags: ["健康", "多纖維"],
+    tool: "電鍋",
+    steps: [
+      "南瓜帶皮切 2 公分厚片（皮蒸過可吃）",
+      "排盤，撒少許鹽",
+      "電鍋外鍋 1 杯水，蒸至跳起（約 15 分鐘）",
+      "便當主食或配菜都行，重熱不變色不出水"
+    ]
+  },
+
+  // ── 快炒配菜 ──────────────────────────────
+  {
+    id: "dried-fish-green-pepper",
+    name: "小魚乾炒青椒",
+    baseServings: 2,
+    ingredients: [
+      { name: "小魚乾", amount: 30, unit: "克" },
+      { name: "青椒", amount: 2, unit: "顆" }
+    ],
+    method: "炒", cuisine: "中式", diet: "葷",
+    time: 6, bento: true, tags: ["健康", "多纖維"],
+    steps: [
+      "小魚乾沖水瀝乾；青椒去籽切條",
+      "熱鍋 1 大匙油，小火把小魚乾、蒜末、辣椒炒香酥",
+      "下青椒轉大火炒 1 分鐘",
+      "加醬油 1 小匙、少許糖拌勻即可"
+    ]
+  },
+  {
+    id: "edamame-shrimp-baby-corn",
+    name: "毛豆蝦仁炒玉米筍",
+    baseServings: 2,
+    ingredients: [
+      { name: "蝦仁", amount: 150, unit: "克" },
+      { name: "毛豆", amount: 100, unit: "克" },
+      { name: "玉米筍", amount: 6, unit: "根" }
+    ],
+    method: "炒", cuisine: "中式", diet: "葷",
+    time: 6, bento: true, tags: ["健康", "高蛋白", "多纖維"],
+    steps: [
+      "蝦仁去腸泥，鹽、太白粉抓醃；玉米筍斜切；毛豆仁燙 2 分鐘",
+      "熱鍋 1 大匙油，蝦仁炒至變色盛起",
+      "同鍋蒜末爆香，下玉米筍、毛豆炒 2 分鐘",
+      "加回蝦仁，加鹽、米酒拌炒即可"
+    ]
+  },
+  {
+    id: "baby-corn-shimeji-zucchini",
+    name: "玉米筍炒鴻喜菇",
+    baseServings: 2,
+    ingredients: [
+      { name: "玉米筍", amount: 6, unit: "根" },
+      { name: "鴻喜菇", amount: 1, unit: "包" },
+      { name: "櫛瓜", amount: 1, unit: "條" }
+    ],
+    method: "炒", cuisine: "中式", diet: "素",
+    time: 6, bento: true, tags: ["健康", "多纖維"],
+    steps: [
+      "玉米筍對剖；鴻喜菇剝散；櫛瓜切半月片",
+      "熱鍋 1 大匙油，蒜末爆香，下鴻喜菇炒至出香",
+      "加玉米筍、櫛瓜炒 2 分鐘",
+      "加鹽、黑胡椒、少許醬油拌勻即可"
+    ]
+  },
+  {
+    id: "celery-pork-stir",
+    name: "芹菜炒肉絲",
+    baseServings: 2,
+    ingredients: [
+      { name: "芹菜", amount: 4, unit: "根" },
+      { name: "豬肉片", amount: 150, unit: "克" }
+    ],
+    method: "炒", cuisine: "中式", diet: "葷",
+    time: 6, bento: true, tags: ["健康", "高蛋白"],
+    steps: [
+      "豬肉切絲，醬油、太白粉抓醃；芹菜去葉切段",
+      "熱鍋 1 大匙油，肉絲炒至變色盛起",
+      "同鍋蒜末、辣椒爆香，下芹菜炒 1 分鐘",
+      "加回肉絲，加鹽、米酒拌炒即可"
+    ]
+  },
+
+  // ── 絞肉／肉類 ──────────────────────────────
+  {
+    id: "beef-patty",
+    name: "牛肉漢堡排",
+    baseServings: 4,
+    ingredients: [
+      { name: "牛絞肉", amount: 500, unit: "克" },
+      { name: "洋蔥", amount: 1, unit: "顆" }
+    ],
+    method: "煎", cuisine: "西式", diet: "葷",
+    time: 10, bento: true, tags: ["高蛋白"],
+    prep: "weekend",
+    steps: [
+      "洋蔥切碎，炒軟放涼",
+      "牛絞肉加洋蔥、鹽 1 小匙、黑胡椒、蛋 1 顆（可省）摔打至有黏性，分 4 份壓成餅",
+      "熱鍋 1 大匙油，中火每面煎 3 分鐘，加水 2 大匙蓋鍋燜 2 分鐘",
+      "一次煎 4 片，分裝冷藏或冷凍；便當重熱前噴點水"
+    ]
+  },
+  {
+    id: "beef-basil-thai",
+    name: "打拋牛肉",
+    baseServings: 2,
+    ingredients: [
+      { name: "牛絞肉", amount: 250, unit: "克" },
+      { name: "番茄", amount: 1, unit: "顆" },
+      { name: "九層塔", amount: 1, unit: "把" }
+    ],
+    method: "炒", cuisine: "泰式", diet: "葷",
+    time: 8, bento: true, tags: ["高蛋白"],
+    steps: [
+      "番茄切丁；九層塔摘葉",
+      "熱鍋 1 大匙油，蒜末、辣椒爆香，下牛絞肉炒散至上色",
+      "加魚露 1 大匙、醬油 1 大匙、糖 1 小匙、番茄丁炒 1 分鐘",
+      "熄火拌入九層塔，配白飯"
+    ]
+  },
+  {
+    id: "beef-curry",
+    name: "咖哩牛肉",
+    baseServings: 4,
+    ingredients: [
+      { name: "牛肋條", amount: 500, unit: "克" },
+      { name: "馬鈴薯", amount: 2, unit: "顆" },
+      { name: "紅蘿蔔", amount: 1, unit: "條" }
+    ],
+    method: "燉", cuisine: "日式", diet: "葷",
+    time: 10, bento: true, tags: ["一鍋"],
+    prep: "weekend",
+    steps: [
+      "牛肋條切塊；馬鈴薯、紅蘿蔔切滾刀塊",
+      "熱鍋 1 大匙油，牛肉煎至上色，加水蓋過，煮滾後小火燉 40 分鐘",
+      "放馬鈴薯、紅蘿蔔續燉 15 分鐘",
+      "熄火加咖哩塊拌至融化，再小火煮 5 分鐘；分裝冷藏，隔夜更好吃"
+    ]
+  },
+  {
+    id: "wings-garlic-pan-fried",
+    name: "蒜香煎雞翅",
+    baseServings: 2,
+    ingredients: [{ name: "雞翅", amount: 6, unit: "支" }],
+    method: "煎", cuisine: "中式", diet: "葷",
+    time: 10, bento: true, tags: ["高蛋白"],
+    steps: [
+      "雞翅擦乾，兩面劃一刀，用鹽、黑胡椒、蒜末抓醃 10 分鐘",
+      "冷鍋少油，雞翅皮面朝下，中小火煎 5 分鐘至金黃",
+      "翻面加水 3 大匙蓋鍋燜 5 分鐘至熟透",
+      "開蓋淋醬油 1 小匙收乾即可"
+    ]
+  },
+
+  // ── 魚 ──────────────────────────────
+  {
+    id: "mackerel-pan-fried",
+    name: "香煎鯖魚",
+    baseServings: 2,
+    ingredients: [{ name: "鯖魚", amount: 1, unit: "片" }],
+    method: "煎", cuisine: "日式", diet: "葷",
+    time: 6, bento: true, tags: ["高蛋白"],
+    steps: [
+      "鯖魚擦乾（薄鹽鯖魚不用再加鹽），魚皮劃兩刀",
+      "熱鍋 1 小匙油，魚皮朝下中火煎 4 分鐘不要動它",
+      "翻面煎 2 分鐘至熟",
+      "擠檸檬汁、配蘿蔔泥即可"
+    ]
+  },
+  {
+    id: "mackerel-air-fried",
+    name: "氣炸鹽烤鯖魚",
+    baseServings: 2,
+    ingredients: [{ name: "鯖魚", amount: 1, unit: "片" }],
+    method: "烤", cuisine: "日式", diet: "葷",
+    time: 3, bento: true, tags: ["高蛋白"],
+    tool: "氣炸鍋",
+    steps: [
+      "鯖魚擦乾，兩面抹薄薄一層鹽（薄鹽鯖魚免抹）",
+      "氣炸鍋 180°C，魚皮朝上炸 10 分鐘",
+      "皮起泡微焦即可，擠檸檬汁",
+      "零油煙，便當魚首選"
+    ]
+  },
+  {
+    id: "cod-zucchini-pan-fried",
+    name: "香煎鱈魚佐櫛瓜",
+    baseServings: 2,
+    ingredients: [
+      { name: "鱈魚", amount: 1, unit: "片" },
+      { name: "櫛瓜", amount: 1, unit: "條" }
+    ],
+    method: "煎", cuisine: "西式", diet: "葷",
+    time: 8, bento: true, tags: ["健康", "高蛋白"],
+    steps: [
+      "鱈魚擦乾，鹽、黑胡椒調味，薄拍太白粉；櫛瓜切 1 公分圓片",
+      "熱鍋 1 大匙油，鱈魚中火每面煎 3 分鐘盛起",
+      "同鍋櫛瓜片煎至兩面微焦，撒鹽",
+      "擺盤，擠檸檬汁即可"
+    ]
+  },
+
+  // ── 炸 ──────────────────────────────
+  {
+    id: "pork-cutlet-fried",
+    name: "日式炸豬排",
+    baseServings: 2,
+    ingredients: [{ name: "豬里肌", amount: 2, unit: "片" }],
+    method: "炸", cuisine: "日式", diet: "葷",
+    time: 10, bento: true, tags: ["高蛋白"],
+    steps: [
+      "豬里肌片斷筋拍鬆，鹽、黑胡椒調味",
+      "依序沾麵粉→蛋液→麵包粉，壓緊",
+      "油 170°C 炸 3 分鐘翻面再 2 分鐘至金黃，起鍋瀝油靜置 2 分鐘再切",
+      "配高麗菜絲、豬排醬；便當冷了也不軟"
+    ]
+  },
+  {
+    id: "king-oyster-mushroom-fried",
+    name: "鹽酥杏鮑菇",
+    baseServings: 2,
+    ingredients: [
+      { name: "杏鮑菇", amount: 3, unit: "根" },
+      { name: "九層塔", amount: 1, unit: "把" }
+    ],
+    method: "炸", cuisine: "中式", diet: "素",
+    time: 8, bento: true, tags: [],
+    steps: [
+      "杏鮑菇用手撕成條，用醬油 1 大匙、蒜末、五香粉醃 5 分鐘",
+      "沾裹地瓜粉，靜置 2 分鐘回潮",
+      "油 170°C 炸 3 分鐘至金黃酥脆，起鍋前丟九層塔炸 5 秒",
+      "撒胡椒鹽即可"
+    ]
   }
 
 ];

@@ -35,7 +35,15 @@ const PREPS = ["weekend"];
 const UNITS = ["克", "顆", "條", "片", "塊", "根", "朵", "把", "碗", "盒", "杯", "大匙", "小匙", "包", "尾", "隻", "支"];
 
 // 目標門檻（EXPANSION-PLAN.md）
-const MIN_PER_INGREDIENT = 3;
+const MIN_PER_INGREDIENT = 2;      // 既有食材：至少 2 道
+const MIN_PER_NEW_INGREDIENT = 3;  // 2026-09-16 擴充新增的 30 種：至少 3 道
+const NEW_INGREDIENTS = [
+  "白蘿蔔", "大白菜", "絲瓜", "苦瓜", "南瓜", "芹菜", "A菜", "芥藍", "金針菇", "鴻喜菇", "冷凍三色豆",
+  "豬五花", "排骨", "雞翅", "牛絞肉", "培根", "香腸",
+  "蛤蜊", "透抽", "鯖魚", "鱈魚",
+  "豆干", "油豆腐", "豆皮", "雞蛋豆腐", "毛豆",
+  "麵條", "烏龍麵", "年糕", "吐司"
+];
 const MIN_PER_METHOD = 4;
 const QUICK_SHARE_MIN = 0.65; // 平日快煮型（time ≤10 且非 weekend）佔比
 const QUICK_MAX_MINUTES = 10;
@@ -134,7 +142,8 @@ RECIPES.forEach((r, idx) => {
 // ── 3. 覆蓋率 ──────────────────────────────
 INGREDIENT_CATALOG.forEach((item) => {
   const n = ingredientUse[item.name] || 0;
-  if (n < MIN_PER_INGREDIENT) warn("食材「" + item.name + "」只有 " + n + " 道（目標 ≥" + MIN_PER_INGREDIENT + "）");
+  const min = NEW_INGREDIENTS.includes(item.name) ? MIN_PER_NEW_INGREDIENT : MIN_PER_INGREDIENT;
+  if (n < min) warn("食材「" + item.name + "」只有 " + n + " 道（目標 ≥" + min + "）");
 });
 Object.keys(ingredientUse).forEach((name) => {
   if (!canonical.has(name)) return; // 已在上面報錯
