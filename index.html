@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="theme-color" content="#e2622a">
+<meta name="theme-color" content="#fff8f2">
 <title>今晚吃什麼｜料理靈感工具</title>
 <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%23e2622a'/%3E%3Ctext x='50' y='68' font-size='55' text-anchor='middle'%3E%F0%9F%A5%98%3C/text%3E%3C/svg%3E">
 <link rel="manifest" href="manifest.json">
@@ -13,19 +13,34 @@
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<header class="app-header">
-  <h1>今晚吃什麼？</h1>
-  <p class="subtitle">輸入家裡有的食材，看看能煮出哪些料理</p>
-</header>
-
 <main>
+  <header class="app-header">
+    <div class="app-title">
+      <h1>今晚吃什麼？</h1>
+      <p class="subtitle">下班十分鐘開飯，明天中午帶便當</p>
+    </div>
+    <div class="app-badge" aria-hidden="true">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"></circle><path d="M12 7v5l3 2"></path></svg>
+    </div>
+  </header>
+
   <section class="filter-section" aria-label="篩選">
-    <div class="chip-row" id="quick-filters">
-      <button type="button" class="chip" data-filter="quick">⏱ 10 分鐘</button>
-      <button type="button" class="chip" data-filter="bento">🍱 便當 OK</button>
-      <button type="button" class="chip" data-filter="weekend">📅 週末備料</button>
-      <button type="button" class="chip" data-filter="onepot">🍲 一鍋</button>
-      <button type="button" class="chip" data-filter="healthy">🥗 健康</button>
+    <div class="chip-row scroll-x" id="quick-filters">
+      <button type="button" class="chip" data-filter="quick">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="12" cy="12" r="9"></circle><path d="M12 7v5l3 2"></path></svg><span>10 分鐘</span>
+      </button>
+      <button type="button" class="chip" data-filter="bento">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="18" height="13" rx="2"></rect><path d="M3 12h18M9 7V4h6v3"></path></svg><span>便當 OK</span>
+      </button>
+      <button type="button" class="chip" data-filter="weekend">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="16" rx="2"></rect><path d="M3 10h18M8 3v4M16 3v4"></path></svg><span>週末備料</span>
+      </button>
+      <button type="button" class="chip" data-filter="onepot">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 10h16l-1.5 9a2 2 0 0 1-2 1.7h-9a2 2 0 0 1-2-1.7Z"></path><path d="M2 10h20M8 6c0-2 8-2 8 0"></path></svg><span>一鍋</span>
+      </button>
+      <button type="button" class="chip" data-filter="healthy">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 19c8 0 14-6 14-14-8 0-14 6-14 14Z"></path><path d="M5 19c3-5 7-8 11-11"></path></svg><span>健康</span>
+      </button>
     </div>
     <div class="select-row">
       <select id="filter-method" aria-label="做法"><option value="">做法：全部</option></select>
@@ -35,21 +50,29 @@
     </div>
   </section>
 
-  <section class="input-section">
-    <label for="ingredient-input">你手邊有的食材</label>
-    <div class="input-row">
-      <input
-        type="text"
-        id="ingredient-input"
-        inputmode="text"
-        placeholder="例如：雞蛋、番茄、高麗菜"
-        autocomplete="off"
-      >
-      <button id="search-btn" type="button">找料理</button>
+  <section class="picker" id="picker">
+    <button type="button" class="picker-bar" id="picker-bar" aria-expanded="false" aria-controls="picker-panel">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"></circle><path d="m20 20-3.5-3.5"></path></svg>
+      <span class="picker-summary" id="picker-summary">冰箱有什麼？點選或輸入食材</span>
+      <span class="picker-action" id="picker-action">選食材</span>
+    </button>
+    <div class="picker-panel" id="picker-panel" hidden>
+      <div class="token-row" id="token-row"></div>
+      <div class="input-row">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"></path></svg>
+        <input
+          type="text"
+          id="ingredient-input"
+          inputmode="text"
+          placeholder="再打字加食材，例如：豬肉絲"
+          autocomplete="off"
+        >
+        <button id="search-btn" type="button">找料理</button>
+      </div>
+      <p class="hint">鹽、糖、醬油、蒜、薑等常備調味料不用選；用逗號或空白分開</p>
+      <div class="chip-row scroll-x category-row" id="category-chips"></div>
+      <div class="ingredient-grid" id="ingredient-chips" hidden></div>
     </div>
-    <p class="hint">用逗號或空白分開食材，或從下面點選；鹽、糖、醬油、蒜、薑等常備調味料不用輸入</p>
-    <div class="chip-row category-row" id="category-chips"></div>
-    <div class="chip-row ingredient-row" id="ingredient-chips" hidden></div>
   </section>
 
   <section id="results" class="results" aria-live="polite"></section>

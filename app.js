@@ -13,6 +13,28 @@
   const cuisineSel = document.getElementById("filter-cuisine");
   const categoryChipsEl = document.getElementById("category-chips");
   const ingredientChipsEl = document.getElementById("ingredient-chips");
+  const pickerEl = document.getElementById("picker");
+  const pickerBar = document.getElementById("picker-bar");
+  const pickerPanel = document.getElementById("picker-panel");
+  const pickerSummary = document.getElementById("picker-summary");
+  const pickerAction = document.getElementById("picker-action");
+  const tokenRow = document.getElementById("token-row");
+
+  const PAGE_SIZE = 20; // 預設清單一次顯示幾道
+  let defaultShown = PAGE_SIZE;
+  // 已選食材（tokens）；輸入框只放「還在打的字」，按 Enter／找料理才併進來
+  let selected = [];
+
+  function currentIngredients() {
+    return uniqList(selected.concat(parseInput(input.value)));
+  }
+  function uniqList(list) {
+    return Array.from(new Set(list.filter(Boolean)));
+  }
+  function commitInput() {
+    selected = uniqList(selected.concat(parseInput(input.value)));
+    input.value = "";
+  }
 
   const QUICK_MAX_MINUTES = 10;
   // 篩選狀態：quick/bento/weekend/onepot/healthy 是開關；其餘是下拉
@@ -26,56 +48,63 @@
   let currentRecipe = null;
   let currentServings = 1;
 
-  function metaRow(recipe) {
-    const parts = ['<span class="time">⏱ ' + recipe.time + " 分</span>"];
-    if (recipe.prep === "weekend") parts.push("<span>📅 週末做一鍋</span>");
-    if (recipe.bento) parts.push("<span>🍱 便當 OK</span>");
-    if (recipe.tool) parts.push("<span>" + recipe.tool + "</span>");
-    return '<div class="meta-row">' + parts.join("") + "</div>";
-  }
+  const CHEVRON = '<svg class="card-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="m9 6 6 6-6 6"></path></svg>';
 
-  function tagRow(recipe, servingsOverride) {
-    const dietClass = recipe.diet === "素" ? "veg" : "";
-    const servingsLabel = (servingsOverride || recipe.baseServings) + "人份";
-    const extra = (recipe.tags || [])
-      .map((t) => '<span class="tag veg">' + t + "</span>")
-      .join("");
+  function timeBlock(recipe) {
+    const muted = recipe.bento ? "" : " muted";
     return (
-      '<div class="tag-row">' +
-      '<span class="tag">' + recipe.cuisine + "</span>" +
-      '<span class="tag">' + recipe.method + "</span>" +
-      '<span class="tag ' + dietClass + '">' + recipe.diet + "</span>" +
-      '<span class="tag">' + servingsLabel + "</span>" +
-      extra +
+      '<div class="time-block' + muted + '">' +
+      '<div class="n">' + recipe.time + "</div>" +
+      '<div class="u">分鐘</div>' +
       "</div>"
     );
   }
 
+  // 卡片上的小標籤：便當／週末優先，其餘做法、器具、葷素、tags
+  function pillRow(recipe, extraPills) {
+    const pills = [];
+    if (recipe.prep === "weekend") pills.push('<span class="pill weekend">週末做一鍋</span>');
+    if (recipe.bento) pills.push('<span class="pill bento">便當 OK</span>');
+    else if (recipe.method === "湯") pills.push('<span class="pill">現煮現喝</span>');
+    if (recipe.tool) pills.push('<span class="pill">' + recipe.tool + "</span>");
+    else pills.push('<span class="pill">' + recipe.method + "</span>");
+    if (recipe.diet === "素") pills.push('<span class="pill">素</span>');
+    (recipe.tags || []).forEach((t) => {
+      if (t !== "一鍋" || !recipe.tool) pills.push('<span class="pill">' + t + "</span>");
+    });
+    return '<div class="pill-row">' + pills.join("") + (extraPills || "") + "</div>";
+  }
+
   function cardHtml(recipe, showMissing) {
-    const missingHtml = showMissing && recipe._missing.length
-      ? '<div class="missing">還缺：<b>' + recipe._missing.join("、") + "</b></div>"
-      : "";
-    const comboHtml = recipe._isCombo
-      ? '<div class="combo-badge">🍽️ 一次用到你 ' + recipe._matchedCount + ' 樣食材</div>'
-      : "";
+    let extra = "";
+    if (showMissing && recipe._missing && recipe._missing.length) {
+      extra = '<span class="pill missing">還缺 ' + recipe._missing.join("、") + "</span>";
+    } else if (recipe._isCombo) {
+      extra = '<span class="pill match">用到你 ' + recipe._matchedCount + " 樣食材</span>";
+    }
     return (
       '<button class="recipe-card" data-id="' + recipe.id + '">' +
-      comboHtml +
+      timeBlock(recipe) +
+      '<div class="card-body">' +
       '<div class="name">' + recipe.name + "</div>" +
-      metaRow(recipe) +
-      tagRow(recipe) +
-      missingHtml +
+      pillRow(recipe, extra) +
+      "</div>" +
+      CHEVRON +
       "</button>"
     );
   }
 
-  function groupHtml(title, className, recipes, showMissing) {
+  function groupHtml(title, className, recipes, showMissing, note, footer) {
     if (!recipes.length) return "";
     const cards = recipes.map((r) => cardHtml(r, showMissing)).join("");
     return (
       '<div class="result-group ' + className + '">' +
+      '<div class="group-head">' +
       "<h2>" + title + '<span class="result-count">' + recipes.length + " 道</span></h2>" +
+      (note ? '<span class="group-note">' + note + "</span>" : "") +
+      "</div>" +
       '<div class="card-grid">' + cards + "</div>" +
+      (footer || "") +
       "</div>"
     );
   }
@@ -83,12 +112,12 @@
   function renderResults(exact, near) {
     if (!exact.length && !near.length) {
       resultsEl.innerHTML =
-        '<p class="no-result">沒有找到符合的料理，試試看少輸入一種食材，或換成其他常見食材。</p>';
+        '<p class="no-result">沒有找到符合的料理，試試看少選一種食材，或換成其他常見食材。</p>';
       return;
     }
     resultsEl.innerHTML =
-      groupHtml("可以直接煮 👍", "exact", exact, false) +
-      groupHtml("只差一兩樣 🛒", "near", near, true);
+      groupHtml("可以直接煮", "exact", exact, false) +
+      groupHtml("只差一兩樣", "near", near, true);
   }
 
   function findRecipeById(id) {
@@ -128,34 +157,63 @@
     return String(n);
   }
 
-  function ingredientListHtml(recipe, servings) {
+  function ingredientTableHtml(recipe, servings) {
     const ratio = servings / recipe.baseServings;
-    return recipe.ingredients
+    const rows = recipe.ingredients
       .map((ing) => {
         const amount = scaleAmount(ing.amount, ratio, ing.unit);
-        return "<li>" + ing.name + "　" + formatAmount(amount) + ing.unit + "</li>";
+        return '<div class="row"><span class="name">' + ing.name + '</span><span class="amount">' + formatAmount(amount) + " " + ing.unit + "</span></div>";
       })
       .join("");
+    return (
+      '<div class="ingredient-table">' + rows +
+      '<div class="pantry">常備調味料（鹽、糖、醬油、蒜、薑…）用量見步驟</div>' +
+      "</div>"
+    );
+  }
+
+  // 「動手時間」之外的等待提示：資料沒有 wait 欄位，依類型給一句
+  function waitNote(recipe) {
+    let text = "";
+    if (recipe.prep === "weekend") text = "週末做一鍋，分裝冷藏可放 3 天";
+    else if (recipe.tool === "電鍋") text = "電鍋按下去就不用顧，等它跳起來";
+    else if (recipe.tool === "烤箱" || recipe.tool === "氣炸鍋") text = "進" + recipe.tool + "之後不用顧火";
+    else if (recipe.method === "燉" || recipe.method === "滷") text = "動手之外還要小火慢燉，不用一直顧";
+    if (!text) return "";
+    return (
+      '<div class="wait-note">' +
+      '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"></circle><path d="M12 7v5l3 2"></path></svg>' +
+      "<span>" + text + "</span></div>"
+    );
   }
 
   function renderModalBody() {
     const recipe = currentRecipe;
-    const stepList = recipe.steps.map((s) => "<li>" + s + "</li>").join("");
+    const stepList = recipe.steps
+      .map((st, i) => '<li><span class="step-no">' + (i + 1) + '</span><span class="step-text">' + st + "</span></li>")
+      .join("");
+    const pills = [];
+    if (recipe.prep === "weekend") pills.push('<span class="pill weekend">週末做一鍋</span>');
+    if (recipe.bento) pills.push('<span class="pill bento">便當 OK</span>');
+    pills.push('<span class="pill">' + recipe.cuisine + "・" + recipe.method + "・" + recipe.diet + (recipe.tool ? "・" + recipe.tool : "") + "</span>");
 
     modalBody.innerHTML =
-      "<h2>" + recipe.name + "</h2>" +
-      metaRow(recipe) +
-      tagRow(recipe, currentServings) +
+      '<div class="sheet-handle"></div>' +
+      '<div class="detail-head">' +
+      '<div class="detail-title"><h2>' + recipe.name + "</h2>" +
+      '<div class="pill-row">' + pills.join("") + "</div></div>" +
+      '<div class="time-hero"><div class="n">' + recipe.time + '</div><div class="u">分鐘動手</div></div>' +
+      "</div>" +
+      waitNote(recipe) +
+      '<div class="section-head"><h3>準備材料</h3>' +
       '<div class="servings-control">' +
-      "<span>份量</span>" +
       '<button type="button" class="servings-btn" data-action="dec" aria-label="減少人份">－</button>' +
       '<span class="servings-count">' + currentServings + " 人份</span>" +
       '<button type="button" class="servings-btn" data-action="inc" aria-label="增加人份">＋</button>' +
-      "</div>" +
-      "<h3>準備材料</h3>" +
-      "<ul>" + ingredientListHtml(recipe, currentServings) + "</ul>" +
-      "<h3>步驟</h3>" +
-      "<ol>" + stepList + "</ol>";
+      "</div></div>" +
+      ingredientTableHtml(recipe, currentServings) +
+      '<h3 class="steps-title">步驟</h3>' +
+      '<ol class="steps">' + stepList + "</ol>";
   }
 
   function openDetail(recipe) {
@@ -204,13 +262,22 @@
       resultsEl.innerHTML = '<p class="no-result">這組篩選條件沒有料理，放寬一點試試。</p>';
       return;
     }
-    const title = anyFilterOn() ? "符合條件的料理" : "⏱ 10 分鐘開飯";
-    resultsEl.innerHTML = groupHtml(title, "default", list, false);
+    const title = anyFilterOn() ? "符合條件的料理" : "10 分鐘開飯";
+    const shown = list.slice(0, defaultShown);
+    const remaining = list.length - shown.length;
+    const footer = remaining > 0
+      ? '<div class="more-row"><button type="button" class="more-btn" id="more-btn">再看 ' + Math.min(PAGE_SIZE, remaining) + " 道</button></div>"
+      : "";
+    resultsEl.innerHTML = groupHtml(title, "default", shown, false, "時間短的在前", footer);
+    // 數量顯示用總數，不是本頁數
+    const count = resultsEl.querySelector(".result-count");
+    if (count) count.textContent = list.length + " 道";
   }
 
   function runSearch() {
-    const userIngredients = parseInput(input.value);
+    const userIngredients = currentIngredients();
     syncIngredientChips(userIngredients);
+    renderTokens(selected);
     if (!userIngredients.length) {
       renderDefault();
       return;
@@ -239,6 +306,7 @@
   quickFilterEl.addEventListener("click", (e) => {
     const chip = e.target.closest(".chip");
     if (!chip) return;
+    defaultShown = PAGE_SIZE;
     const key = chip.dataset.filter;
     filters[key] = !filters[key];
     // 「10 分鐘」跟「週末備料」互斥
@@ -249,7 +317,11 @@
     });
     runSearch();
   });
-  [methodSel, toolSel, dietSel, cuisineSel].forEach((sel) => sel.addEventListener("change", runSearch));
+  [methodSel, toolSel, dietSel, cuisineSel].forEach((sel) => sel.addEventListener("change", () => {
+    defaultShown = PAGE_SIZE;
+    sel.classList.toggle("set", !!sel.value);
+    runSearch();
+  }));
 
   // ── 食材分類標籤 ──────────────────────────────
   function renderCategoryChips() {
@@ -265,7 +337,7 @@
       ingredientChipsEl.innerHTML = "";
       return;
     }
-    const chosen = new Set(parseInput(input.value));
+    const chosen = new Set(currentIngredients());
     ingredientChipsEl.innerHTML = INGREDIENT_CATALOG
       .filter((i) => i.category === activeCategory)
       .map((i) =>
@@ -294,18 +366,64 @@
     const chip = e.target.closest(".chip");
     if (!chip) return;
     const name = chip.dataset.ingredient;
-    const current = parseInput(input.value);
-    const next = current.includes(name) ? current.filter((n) => n !== name) : current.concat(name);
-    input.value = next.join("、");
+    commitInput();
+    selected = selected.includes(name) ? selected.filter((n) => n !== name) : selected.concat(name);
     runSearch();
   });
 
+  // ── 食材選擇面板（收合條／已選 tokens） ──────────────────────────────
+  function renderTokens(tokens) {
+    const all = currentIngredients();
+    tokenRow.innerHTML = tokens
+      .map((n) =>
+        '<button type="button" class="token" data-ingredient="' + n + '" aria-label="移除 ' + n + '"><span>' + n + "</span>" +
+        '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"></path></svg></button>'
+      ).join("");
+    if (all.length) {
+      pickerSummary.textContent = all.join("、");
+      pickerSummary.classList.add("has-items");
+      pickerAction.textContent = "改食材";
+    } else {
+      pickerSummary.textContent = "冰箱有什麼？點選或輸入食材";
+      pickerSummary.classList.remove("has-items");
+      pickerAction.textContent = "選食材";
+    }
+  }
+
+  function setPickerOpen(open) {
+    pickerPanel.hidden = !open;
+    pickerBar.setAttribute("aria-expanded", open ? "true" : "false");
+    if (open && !activeCategory) {
+      activeCategory = INGREDIENT_CATEGORIES[0];
+      renderCategoryChips();
+      renderIngredientChips();
+    }
+  }
+
+  pickerBar.addEventListener("click", () => setPickerOpen(pickerPanel.hidden));
+
+  tokenRow.addEventListener("click", (e) => {
+    const t = e.target.closest(".token");
+    if (!t) return;
+    const name = t.dataset.ingredient;
+    selected = selected.filter((n) => n !== name);
+    runSearch();
+  });
+
+  resultsEl.addEventListener("click", (e) => {
+    if (e.target.closest("#more-btn")) {
+      defaultShown += PAGE_SIZE;
+      renderDefault();
+    }
+  });
+
   renderCategoryChips();
+  renderTokens([]);
   renderDefault();
 
-  searchBtn.addEventListener("click", runSearch);
+  searchBtn.addEventListener("click", () => { commitInput(); runSearch(); });
   input.addEventListener("keydown", (e) => {
-    if (e.key === "Enter") runSearch();
+    if (e.key === "Enter") { commitInput(); runSearch(); }
   });
   // 邊打邊找（清空時立刻回到預設清單）
   let inputTimer = null;
