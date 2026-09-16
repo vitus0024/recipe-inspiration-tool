@@ -34,7 +34,7 @@ const RECIPES = [
     baseServings: 2,
     ingredients: [
       { name: "番茄", amount: 2, unit: "顆" },
-      { name: "雞蛋", amount: 3, unit: "顆" }
+      { name: "雞蛋", amount: 2, unit: "顆" }
     ],
     method: "炒",
     cuisine: "中式",
@@ -157,7 +157,7 @@ const RECIPES = [
       "豆腐切丁，滾水汆燙撈起備用",
       "熱油爆香蒜末、薑末、辣椒",
       "下豬絞肉炒散炒香",
-      "加入豆瓣醬炒出紅油，加水或高湯煮滾",
+      "加豆瓣醬 1 大匙炒出紅油，加醬油 1 大匙、水或高湯半杯煮滾",
       "放入豆腐丁煮 3 分鐘，太白粉水勾芡",
       "撒蔥花、花椒粉即可"
     ]
@@ -383,7 +383,7 @@ const RECIPES = [
     baseServings: 2,
     ingredients: [
       { name: "雞腿肉", amount: 400, unit: "克" },
-      { name: "九層塔", amount: 0.5, unit: "把" }
+      { name: "九層塔", amount: 1, unit: "把" }
     ],
     method: "炒",
     cuisine: "中式",
@@ -395,7 +395,7 @@ const RECIPES = [
     steps: [
       "雞腿肉切塊，香油爆香薑片、蒜頭",
       "下雞腿塊炒至變色",
-      "加醬油、米酒、少許糖，蓋鍋燜煮 10 分鐘",
+      "加醬油 2 大匙、米酒 2 大匙、糖 2 小匙，蓋鍋燜煮 10 分鐘",
       "開蓋收汁，起鍋前加九層塔拌勻即可"
     ]
   },
@@ -2439,7 +2439,7 @@ const RECIPES = [
     prep: "weekend",
     steps: [
       "鯖魚切段（若用鹽漬鯖魚，醬汁鹽量減半）",
-      "鍋中放味噌 2 大匙、味醂 2 大匙、醬油 1 大匙、糖 1 小匙、薑絲、水 1 杯煮滾",
+      "鍋中放味噌 2.5 大匙、米酒 3 大匙、味醂 2 大匙、醬油 2 大匙、糖 1.5 大匙、薑絲、水 1.5 杯煮滾",
       "魚皮朝上放入，蓋上鋁箔紙（落蓋）小火煮 12 分鐘",
       "開蓋，湯匙舀醬汁淋魚身，收汁至濃稠",
       "分裝冷藏；冷了也好吃，帶便當不用重熱"
@@ -2594,8 +2594,8 @@ const RECIPES = [
     name: "蛤蜊絲瓜湯",
     baseServings: 2,
     ingredients: [
-      { name: "蛤蜊", amount: 300, unit: "克" },
-      { name: "絲瓜", amount: 1, unit: "條" }
+      { name: "蛤蜊", amount: 150, unit: "克" },
+      { name: "絲瓜", amount: 0.5, unit: "條" }
     ],
     method: "湯",
     cuisine: "中式",
@@ -3205,7 +3205,7 @@ const RECIPES = [
     baseServings: 2,
     ingredients: [
       { name: "麵條", amount: 200, unit: "克" },
-      { name: "豬絞肉", amount: 200, unit: "克" },
+      { name: "豬絞肉", amount: 350, unit: "克" },
       { name: "豆干", amount: 3, unit: "片" },
       { name: "小黃瓜", amount: 1, unit: "條" }
     ],
@@ -3263,7 +3263,7 @@ const RECIPES = [
     name: "韓式辣炒年糕",
     baseServings: 2,
     ingredients: [
-      { name: "年糕", amount: 300, unit: "克" },
+      { name: "年糕", amount: 200, unit: "克" },
       { name: "高麗菜", amount: 150, unit: "克" },
       { name: "雞蛋", amount: 2, unit: "顆" }
     ],
@@ -3271,7 +3271,7 @@ const RECIPES = [
     time: 8, bento: true, tags: ["一鍋"],
     steps: [
       "雞蛋水煮 8 分鐘剝殼；高麗菜切片；年糕泡水 5 分鐘",
-      "鍋中水 1.5 杯、韓式辣醬 2 大匙、醬油 1 大匙、糖 1 大匙煮滾",
+      "鍋中水 1 杯、韓式辣醬 1 大匙、醬油 1 小匙、糖 1 小匙煮滾",
       "放年糕、高麗菜煮 5 分鐘至醬汁濃稠",
       "放水煮蛋滾一下裹醬即可"
     ]

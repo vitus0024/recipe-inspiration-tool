@@ -1,0 +1,72 @@
+[
+ {
+  "id": "egg-tomato",
+  "name": "番茄炒蛋",
+  "ingredient": "雞蛋",
+  "unit": "顆",
+  "from": 3,
+  "to": 2,
+  "median_per_serving": 1.0,
+  "n": 5
+ },
+ {
+  "id": "chicken-thigh-three-cup",
+  "name": "三杯雞腿",
+  "ingredient": "九層塔",
+  "unit": "把",
+  "from": 0.5,
+  "to": 1.0,
+  "median_per_serving": 0.42,
+  "n": 2
+ },
+ {
+  "id": "clam-loofah-soup",
+  "name": "蛤蜊絲瓜湯",
+  "ingredient": "蛤蜊",
+  "unit": "克",
+  "from": 300,
+  "to": 150,
+  "median_per_serving": 75.0,
+  "n": 3
+ },
+ {
+  "id": "clam-loofah-soup",
+  "name": "蛤蜊絲瓜湯",
+  "ingredient": "絲瓜",
+  "unit": "條",
+  "from": 1,
+  "to": 0.5,
+  "median_per_serving": 0.25,
+  "n": 5
+ },
+ {
+  "id": "noodle-zhajiang",
+  "name": "炸醬麵",
+  "ingredient": "豬絞肉",
+  "unit": "克",
+  "from": 200,
+  "to": 350,
+  "median_per_serving": 175.0,
+  "n": 3
+ },
+ {
+  "id": "noodle-zhajiang",
+  "name": "炸醬麵",
+  "ingredient": "豆干",
+  "unit": "片",
+  "from": 3,
+  "to": 13,
+  "median_per_serving": 6.67,
+  "n": 2
+ },
+ {
+  "id": "tteokbokki",
+  "name": "韓式辣炒年糕",
+  "ingredient": "年糕",
+  "unit": "克",
+  "from": 300,
+  "to": 200,
+  "median_per_serving": 100.0,
+  "n": 3
+ }
+]
