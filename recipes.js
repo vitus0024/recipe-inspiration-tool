@@ -1559,7 +1559,7 @@ const RECIPES = [
     baseServings: 2,
     ingredients: [
       { name: "香菇", amount: 4, unit: "朵" },
-      { name: "杏鮑菇", amount: 2, unit: "條" },
+      { name: "杏鮑菇", amount: 2, unit: "根" },
       { name: "紅蘿蔔", amount: 0.5, unit: "條" }
     ],
     method: "炒",

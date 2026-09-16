@@ -124,11 +124,16 @@
     return RECIPES.find((r) => r.id === id);
   }
 
+  const WHOLE_INGREDIENTS = new Set(INGREDIENT_CATALOG.filter((i) => i.whole).map((i) => i.name));
+
   // 依人數比例換算食材份量，並四捨五入成看起來合理的數字
-  function scaleAmount(amount, ratio, unit) {
+  function scaleAmount(amount, ratio, unit, name) {
     const scaled = amount * ratio;
     let rounded;
-    if (DISCRETE_UNITS.indexOf(unit) !== -1) {
+    if (WHOLE_INGREDIENTS.has(name) && unit !== "克") {
+      // 雞蛋、雞翅這類只能一顆一顆算：四捨五入成整數、最少 1
+      rounded = Math.max(1, Math.round(scaled));
+    } else if (DISCRETE_UNITS.indexOf(unit) !== -1) {
       rounded = Math.round(scaled * 2) / 2; // 最小到 0.5
       if (rounded < 0.5) rounded = 0.5;
     } else if (unit === "克") {
@@ -161,7 +166,7 @@
     const ratio = servings / recipe.baseServings;
     const rows = recipe.ingredients
       .map((ing) => {
-        const amount = scaleAmount(ing.amount, ratio, ing.unit);
+        const amount = scaleAmount(ing.amount, ratio, ing.unit, ing.name);
         return '<div class="row"><span class="name">' + ing.name + '</span><span class="amount">' + formatAmount(amount) + " " + ing.unit + "</span></div>";
       })
       .join("");

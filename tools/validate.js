@@ -97,6 +97,8 @@ RECIPES.forEach((r, idx) => {
       }
       if (typeof ing.amount !== "number" || !(ing.amount > 0)) err(label + "：" + ing.name + " 的 amount 要是正數");
       if (!UNITS.includes(ing.unit)) err(label + "：" + ing.name + " 的單位「" + ing.unit + "」不在白名單");
+      const cat = INGREDIENT_CATALOG.find((x) => x.name === ing.name);
+      if (cat && cat.whole && ing.unit !== "克" && !Number.isInteger(ing.amount)) err(label + "：" + ing.name + " 只能整數計量，寫了 " + ing.amount);
       ingredientUse[ing.name] = (ingredientUse[ing.name] || 0) + 1;
     });
   }
