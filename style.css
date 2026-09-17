@@ -756,6 +756,19 @@ main {
   border-top: 1px solid var(--border-faint);
 }
 
+#modal-body h3.seasoning-title {
+  margin-top: 16px;
+}
+
+.seasoning-table .row {
+  padding: 9px 14px;
+  font-size: 14px;
+}
+
+.seasoning-table .row .name {
+  font-weight: 500;
+}
+
 .steps {
   display: flex;
   flex-direction: column;

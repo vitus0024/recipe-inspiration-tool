@@ -32,6 +32,7 @@ const CUISINES = ["中式", "日式", "西式", "泰式", "韓式"];
 const DIETS = ["葷", "素"];
 const TAGS = ["健康", "高蛋白", "多纖維", "一鍋"];
 const PREPS = ["weekend"];
+const SEASONING_UNITS = ["大匙", "小匙", "杯", "瓣", "片", "根", "顆", "塊", "小塊", "少許", "適量"];
 const UNITS = ["克", "顆", "條", "片", "塊", "根", "朵", "把", "碗", "盒", "杯", "大匙", "小匙", "包", "尾", "隻", "支"];
 
 // 目標門檻（EXPANSION-PLAN.md）
@@ -107,6 +108,31 @@ RECIPES.forEach((r, idx) => {
   if (!CUISINES.includes(r.cuisine)) err(label + "：cuisine「" + r.cuisine + "」不在白名單");
   if (!DIETS.includes(r.diet)) err(label + "：diet「" + r.diet + "」不在白名單");
   if (!Array.isArray(r.steps) || r.steps.length < 2) err(label + "：steps 至少 2 步");
+  // 調味料（2026-09-17 起必填）：名稱不可空、單位在白名單、少許／適量的 amount 必須是 null
+  if (!Array.isArray(r.seasonings) || !r.seasonings.length) err(label + "：seasonings 空的");
+  else {
+    const seen = new Set();
+    r.seasonings.forEach((s) => {
+      if (!s.name) err(label + "：seasonings 有項目缺 name");
+      if (seen.has(s.name)) err(label + "：調味料重複 " + s.name);
+      seen.add(s.name);
+      if (r.ingredients.some((i) => i.name === s.name)) err(label + "：" + s.name + " 同時在 ingredients 與 seasonings");
+      if (!SEASONING_UNITS.includes(s.unit)) err(label + "：調味料 " + s.name + " 的單位「" + s.unit + "」不在白名單");
+      if (s.unit === "少許" || s.unit === "適量") {
+        if (s.amount !== null) err(label + "：" + s.name + " 是少許／適量，amount 要是 null");
+      } else if (typeof s.amount !== "number" || !(s.amount > 0)) err(label + "：" + s.name + " 的 amount 不是正數");
+    });
+    // 步驟明寫的用量要跟 seasonings 一致（例：「醬油 2 大匙」）
+    const stepText = r.steps.join(" / ");
+    r.seasonings.forEach((s) => {
+      if (s.amount === null) return;
+      const m = stepText.match(new RegExp(s.name + "(?:末|頭|泥|片|絲|粉)?\\s*(\\d+(?:\\.\\d+)?|半)\\s*" + s.unit));
+      if (m) {
+        const n = m[1] === "半" ? 0.5 : parseFloat(m[1]);
+        if (n !== s.amount) err(label + "：" + s.name + " 步驟寫 " + n + " " + s.unit + "，seasonings 卻是 " + s.amount);
+      }
+    });
+  }
   if (!Number.isInteger(r.baseServings) || r.baseServings < 1) err(label + "：baseServings 要是正整數");
 
   // 選填欄位：有寫就要合法

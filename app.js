@@ -171,9 +171,34 @@
         return '<div class="row"><span class="name">' + ing.name + '</span><span class="amount">' + formatAmount(amount) + " " + ing.unit + "</span></div>";
       })
       .join("");
+    return '<div class="ingredient-table">' + rows + "</div>";
+  }
+
+  // 調味料：蒜瓣、薑片、辣椒這類論個的最少 1、取整；少許／適量（amount 為 null）不換算
+  const SEASONING_WHOLE_UNITS = ["瓣", "片", "根", "顆", "塊", "小塊", "段"];
+
+  function scaleSeasoning(item, ratio) {
+    if (item.amount === null || item.amount === undefined) return item.unit;
+    let n;
+    if (SEASONING_WHOLE_UNITS.indexOf(item.unit) !== -1) {
+      n = Math.max(1, Math.round(item.amount * ratio));
+    } else {
+      n = scaleAmount(item.amount, ratio, item.unit, item.name);
+    }
+    return formatAmount(n) + " " + item.unit;
+  }
+
+  function seasoningTableHtml(recipe, servings) {
+    const list = recipe.seasonings || [];
+    if (!list.length) return "";
+    const ratio = servings / recipe.baseServings;
+    const rows = list
+      .map((s) => '<div class="row"><span class="name">' + s.name + '</span><span class="amount">' + scaleSeasoning(s, ratio) + "</span></div>")
+      .join("");
     return (
-      '<div class="ingredient-table">' + rows +
-      '<div class="pantry">常備調味料（鹽、糖、醬油、蒜、薑…）用量見步驟</div>' +
+      '<h3 class="seasoning-title">調味料</h3>' +
+      '<div class="ingredient-table seasoning-table">' + rows +
+      '<div class="pantry">鹽、糖、醬油、蒜、薑這些常備品不用選就能找到食譜；用量以 1 大匙 = 15 ml、1 小匙 = 5 ml 計</div>' +
       "</div>"
     );
   }
@@ -218,6 +243,7 @@
       '<button type="button" class="servings-btn" data-action="inc" aria-label="增加人份">＋</button>' +
       "</div></div>" +
       ingredientTableHtml(recipe, currentServings) +
+      seasoningTableHtml(recipe, currentServings) +
       '<h3 class="steps-title">步驟</h3>' +
       '<ol class="steps">' + stepList + "</ol>";
   }
