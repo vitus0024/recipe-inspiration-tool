@@ -36,7 +36,10 @@
     input.value = "";
   }
 
-  const QUICK_MAX_MINUTES = 10;
+  // time 是「平日組合」分鐘（備料已在週末做好）；「平日 5 分內」chip 用這個門檻
+  const QUICK_MAX_MINUTES = 5;
+  // 首頁預設清單門檻：平日 ≤10 分（幾乎全部），排序看平日時間
+  const DEFAULT_MAX_MINUTES = 10;
   // 篩選狀態：quick/bento/weekend/onepot/healthy 是開關；其餘是下拉
   const filters = { quick: false, bento: false, weekend: false, onepot: false, healthy: false };
   let activeCategory = null;
@@ -50,20 +53,27 @@
 
   const CHEVRON = '<svg class="card-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="m9 6 6 6-6 6"></path></svg>';
 
+  // 卡片左側的分鐘數：一般＝平日組合時間；整道做好型＝週末動手時間（平日只是加熱）
   function timeBlock(recipe) {
     const muted = recipe.bento ? "" : " muted";
+    const batch = isBatch(recipe);
     return (
-      '<div class="time-block' + muted + '">' +
-      '<div class="n">' + recipe.time + "</div>" +
-      '<div class="u">分鐘</div>' +
+      '<div class="time-block' + muted + (batch ? " batch" : "") + '">' +
+      '<div class="n">' + (batch ? recipe.weekendMinutes : recipe.time) + "</div>" +
+      '<div class="u">' + (batch ? "分・週末" : "分鐘") + "</div>" +
       "</div>"
     );
+  }
+
+  function sortMinutes(r) {
+    return isBatch(r) ? r.weekendMinutes : r.time;
   }
 
   // 卡片上的小標籤：便當／週末優先，其餘做法、器具、葷素、tags
   function pillRow(recipe, extraPills) {
     const pills = [];
-    if (recipe.prep === "weekend") pills.push('<span class="pill weekend">週末做一鍋</span>');
+    if (isBatch(recipe)) pills.push('<span class="pill weekend">週末做一鍋</span>');
+    else if (recipe.weekendMinutes > 0) pills.push('<span class="pill prep">週末先備料</span>');
     if (recipe.bento) pills.push('<span class="pill bento">便當 OK</span>');
     else if (recipe.method === "湯") pills.push('<span class="pill">現煮現喝</span>');
     if (recipe.tool) pills.push('<span class="pill">' + recipe.tool + "</span>");
@@ -211,7 +221,7 @@
   // 「動手時間」之外的等待提示：資料沒有 wait 欄位，依類型給一句
   function waitNote(recipe) {
     let text = "";
-    if (recipe.prep === "weekend") text = "週末做一鍋，分裝冷藏可放 3 天";
+    if (isBatch(recipe)) text = "週末做一鍋，分裝冷藏可放 3 天；平日" + (recipe.weekday || "加熱就能吃");
     else if (recipe.tool === "電鍋") text = "電鍋按下去就不用顧，等它跳起來";
     else if (recipe.tool === "烤箱" || recipe.tool === "氣炸鍋") text = "進" + recipe.tool + "之後不用顧火";
     else if (recipe.method === "燉" || recipe.method === "滷") text = "動手之外還要小火慢燉，不用一直顧";
@@ -223,13 +233,54 @@
     );
   }
 
+  // 整道做好分裝的（滷、燉、常備小菜）：平日只是加熱或直接吃
+  function isBatch(recipe) {
+    return recipe.prep === "weekend" || ((recipe.prepAhead || []).some((p) => p.type === "整道"));
+  }
+
+  const PREP_TYPE_LABEL = { "肉": "肉／海鮮", "菜": "洗切", "醬": "醬汁", "蛋": "水煮蛋", "整道": "整道" };
+
+  function stepsHtml(recipe) {
+    const prep = recipe.prepAhead || [];
+    const prepSteps = new Set();
+    prep.forEach((p) => (p.steps || []).forEach((n) => prepSteps.add(n)));
+    const li = (text, i) => '<li><span class="step-no">' + i + '</span><span class="step-text">' + text + "</span></li>";
+
+    if (!prep.length) {
+      return (
+        '<h3 class="steps-title">步驟<span class="steps-sub">這道不用備料，全程 ' + recipe.time + " 分鐘</span></h3>" +
+        '<ol class="steps">' + recipe.steps.map((st, i) => li(st, i + 1)).join("") + "</ol>"
+      );
+    }
+    const prepList = prep
+      .map((p) =>
+        '<li class="prep-item"><span class="prep-type">' + (PREP_TYPE_LABEL[p.type] || p.type) + "</span>" +
+        '<span class="prep-body"><span class="prep-what">' + p.what + '</span><span class="prep-keep">' + p.keep + "</span></span></li>")
+      .join("");
+    let weekdayHtml;
+    if (isBatch(recipe)) {
+      weekdayHtml = '<p class="weekday-note">' + (recipe.weekday || "加熱就能吃") + "</p>";
+    } else {
+      let n = 0;
+      weekdayHtml = '<ol class="steps">' +
+        recipe.steps.map((st, i) => (prepSteps.has(i + 1) ? "" : li(st, ++n))).join("") + "</ol>";
+    }
+    return (
+      '<h3 class="steps-title weekend-title">週末先做<span class="steps-sub">約 ' + recipe.weekendMinutes + " 分鐘動手</span></h3>" +
+      '<ul class="prep-list">' + prepList + "</ul>" +
+      (isBatch(recipe)
+        ? '<details class="batch-steps" open><summary>怎麼做（' + recipe.steps.length + " 步）</summary>" +
+          '<ol class="steps">' + recipe.steps.map((st, i) => li(st, i + 1)).join("") + "</ol></details>"
+        : "") +
+      '<h3 class="steps-title">平日組合<span class="steps-sub">' + recipe.time + " 分鐘</span></h3>" +
+      weekdayHtml
+    );
+  }
+
   function renderModalBody() {
     const recipe = currentRecipe;
-    const stepList = recipe.steps
-      .map((st, i) => '<li><span class="step-no">' + (i + 1) + '</span><span class="step-text">' + st + "</span></li>")
-      .join("");
     const pills = [];
-    if (recipe.prep === "weekend") pills.push('<span class="pill weekend">週末做一鍋</span>');
+    if (isBatch(recipe)) pills.push('<span class="pill weekend">週末做一鍋</span>');
     if (recipe.bento) pills.push('<span class="pill bento">便當 OK</span>');
     pills.push('<span class="pill">' + recipe.cuisine + "・" + recipe.method + "・" + recipe.diet + (recipe.tool ? "・" + recipe.tool : "") + "</span>");
 
@@ -238,7 +289,7 @@
       '<div class="detail-head">' +
       '<div class="detail-title"><h2>' + recipe.name + "</h2>" +
       '<div class="pill-row">' + pills.join("") + "</div></div>" +
-      '<div class="time-hero"><div class="n">' + recipe.time + '</div><div class="u">分鐘動手</div></div>' +
+      '<div class="time-hero"><div class="n">' + recipe.time + '</div><div class="u">分鐘・平日</div></div>' +
       "</div>" +
       waitNote(recipe) +
       '<div class="section-head"><h3>準備材料</h3>' +
@@ -249,8 +300,7 @@
       "</div></div>" +
       ingredientTableHtml(recipe, currentServings) +
       seasoningTableHtml(recipe, currentServings) +
-      '<h3 class="steps-title">步驟</h3>' +
-      '<ol class="steps">' + stepList + "</ol>";
+      stepsHtml(recipe);
   }
 
   function openDetail(recipe) {
@@ -267,9 +317,9 @@
 
   // ── 篩選 ──────────────────────────────
   function passesFilters(r) {
-    if (filters.quick && !(r.time <= QUICK_MAX_MINUTES && r.prep !== "weekend")) return false;
+    if (filters.quick && !(r.time <= QUICK_MAX_MINUTES && !isBatch(r))) return false;
     if (filters.bento && !r.bento) return false;
-    if (filters.weekend && r.prep !== "weekend") return false;
+    if (filters.weekend && !isBatch(r)) return false;
     if (filters.onepot && !(r.tags || []).includes("一鍋")) return false;
     if (filters.healthy && !(r.tags || []).includes("健康")) return false;
     if (methodSel.value && r.method !== methodSel.value) return false;
@@ -288,8 +338,8 @@
   function defaultList() {
     const base = anyFilterOn()
       ? RECIPES.filter(passesFilters)
-      : RECIPES.filter((r) => r.time <= QUICK_MAX_MINUTES && r.prep !== "weekend");
-    const sorted = base.slice().sort((a, b) => a.time - b.time);
+      : RECIPES.filter((r) => r.time <= DEFAULT_MAX_MINUTES && !isBatch(r));
+    const sorted = base.slice().sort((a, b) => sortMinutes(a) - sortMinutes(b));
     return diversify(sorted);
   }
 
@@ -299,13 +349,15 @@
       resultsEl.innerHTML = '<p class="no-result">這組篩選條件沒有料理，放寬一點試試。</p>';
       return;
     }
-    const title = anyFilterOn() ? "符合條件的料理" : "10 分鐘開飯";
+    const title = anyFilterOn() ? "符合條件的料理" : "十分鐘開飯";
     const shown = list.slice(0, defaultShown);
     const remaining = list.length - shown.length;
     const footer = remaining > 0
       ? '<div class="more-row"><button type="button" class="more-btn" id="more-btn">再看 ' + Math.min(PAGE_SIZE, remaining) + " 道</button></div>"
       : "";
-    resultsEl.innerHTML = groupHtml(title, "default", shown, false, "時間短的在前", footer);
+    const explainer = anyFilterOn() ? "" :
+      '<p class="concept-note">「十分鐘」不是碼表：做法簡單、備料少。備料可以週末先做，平日只剩組合。卡片上的分鐘數就是平日那一段。</p>';
+    resultsEl.innerHTML = explainer + groupHtml(title, "default", shown, false, "平日時間短的在前", footer);
     // 數量顯示用總數，不是本頁數
     const count = resultsEl.querySelector(".result-count");
     if (count) count.textContent = list.length + " 道";

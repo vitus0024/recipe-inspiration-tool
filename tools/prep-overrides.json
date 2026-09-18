@@ -1,0 +1,102 @@
+{
+"egg-miso-softboil": {
+"prepAhead": [
+{
+"type": "整道",
+"what": "整道做好，泡在醬汁裡冷藏",
+"keep": "冷藏 4 天",
+"steps": [
+1,
+2,
+3
+]
+}
+],
+"weekendMinutes": 5,
+"time": 2,
+"weekday": "從冰箱拿出來就能吃"
+},
+"chicken-shiitake-rice": {
+"prepAhead": [
+{
+"type": "肉",
+"what": "雞腿肉切塊，用醬油、米酒醃好",
+"keep": "冷凍 2 週／冷藏 2 天",
+"steps": [
+1
+]
+},
+{
+"type": "菜",
+"what": "香菇切片",
+"keep": "冷藏 3 天",
+"steps": [
+2
+]
+}
+],
+"weekendMinutes": 3,
+"time": 2
+},
+"sukiyaki-easy": {
+"prepAhead": [
+{
+"type": "菜",
+"what": "大白菜切片、豆腐切塊、鴻喜菇剝散",
+"keep": "冷藏 3 天",
+"steps": [
+1
+]
+},
+{
+"type": "醬",
+"what": "醬油、味醂、糖、水調成醬汁",
+"keep": "冷藏 1 週",
+"steps": [
+2
+]
+}
+],
+"weekendMinutes": 5,
+"time": 5
+},
+"radish-pickled": {
+"prepAhead": [
+{
+"type": "整道",
+"what": "整道做好冷藏，當常備小菜",
+"keep": "冷藏 5 天",
+"steps": [
+1,
+2,
+3
+]
+}
+],
+"weekendMinutes": 5,
+"time": 2,
+"weekday": "從冰箱拿出來就能吃"
+},
+"chicken-scallion-salt": {
+"prepAhead": [
+{
+"type": "醬",
+"what": "蔥切末，加鹽、香油、白胡椒拌成蔥鹽醬",
+"keep": "冷藏 1 週",
+"steps": [
+1
+]
+},
+{
+"type": "肉",
+"what": "雞胸肉切厚片，用米酒、少許鹽抓醃",
+"keep": "冷凍 2 週／冷藏 2 天",
+"steps": [
+2
+]
+}
+],
+"weekendMinutes": 4,
+"time": 4
+}
+}

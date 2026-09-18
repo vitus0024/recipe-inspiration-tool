@@ -26,13 +26,16 @@ const { INGREDIENT_CATALOG, INGREDIENT_CATEGORIES } = require(path.join(ROOT, "i
 const { RECIPES, PANTRY_STAPLES } = loadRecipes();
 
 // ── 白名單 ──────────────────────────────
-const METHODS = ["炒", "煎", "蒸", "滷", "燒", "涼拌", "煮", "烤", "燉", "湯", "炸", "燴"];
+const METHODS = ["炒", "煎", "蒸", "滷", "燒", "涼拌", "煮", "烤", "燉", "湯", "燴"]; // 炸 2026-09-18 刪（不符「簡單」）
+const PREP_TYPES = ["肉", "菜", "醬", "蛋", "整道"];
 const TOOLS = ["電鍋", "氣炸鍋", "烤箱", "免開火"];
 const CUISINES = ["中式", "日式", "西式", "泰式", "韓式"];
 const DIETS = ["葷", "素"];
 const TAGS = ["健康", "高蛋白", "多纖維", "一鍋"];
 const PREPS = ["weekend"];
 const SEASONING_UNITS = ["大匙", "小匙", "杯", "瓣", "片", "根", "顆", "塊", "小塊", "少許", "適量"];
+const SIMPLE_MAX_INGREDIENTS = 4; // 「簡單」：食材 ≤4、步驟 ≤5（超過只警告）
+const SIMPLE_MAX_STEPS = 5;
 const UNITS = ["克", "顆", "條", "片", "塊", "根", "朵", "把", "碗", "盒", "杯", "大匙", "小匙", "包", "尾", "隻", "支"];
 
 // 目標門檻（EXPANSION-PLAN.md）
@@ -108,6 +111,29 @@ RECIPES.forEach((r, idx) => {
   if (!CUISINES.includes(r.cuisine)) err(label + "：cuisine「" + r.cuisine + "」不在白名單");
   if (!DIETS.includes(r.diet)) err(label + "：diet「" + r.diet + "」不在白名單");
   if (!Array.isArray(r.steps) || r.steps.length < 2) err(label + "：steps 至少 2 步");
+  // 週末備料（2026-09-18 起必填，可為空陣列）：type 白名單、steps 編號要對得上、整道型必須是 prep weekend 或 weekday 有字
+  if (!Array.isArray(r.prepAhead)) err(label + "：缺 prepAhead（沒有備料就給 []）");
+  else {
+    const used = new Set();
+    r.prepAhead.forEach((p) => {
+      if (!PREP_TYPES.includes(p.type)) err(label + "：prepAhead type「" + p.type + "」不在白名單");
+      if (!p.what || !p.keep) err(label + "：prepAhead 缺 what 或 keep");
+      if (!Array.isArray(p.steps) || !p.steps.length) err(label + "：prepAhead 缺 steps 編號");
+      else p.steps.forEach((n) => {
+        if (!Number.isInteger(n) || n < 1 || n > (r.steps || []).length) err(label + "：prepAhead steps 編號 " + n + " 超出範圍");
+        if (used.has(n)) err(label + "：步驟 " + n + " 被兩個 prepAhead 項目重複引用");
+        used.add(n);
+      });
+    });
+    const batch = r.prepAhead.some((p) => p.type === "整道");
+    if (r.prep === "weekend" && !batch) err(label + "：prep weekend 但 prepAhead 沒有整道項目");
+    if (batch && r.prepAhead.length !== 1) err(label + "：整道型只能有一個 prepAhead 項目");
+    if (!Number.isInteger(r.weekendMinutes) || r.weekendMinutes < 0) err(label + "：weekendMinutes 要是 ≥0 的整數");
+    if (r.prepAhead.length && r.weekendMinutes === 0) warn(label + "：有備料項目但 weekendMinutes 是 0");
+    if (!r.prepAhead.length && r.weekendMinutes > 0) err(label + "：沒有備料項目但 weekendMinutes > 0");
+  }
+  if ((r.ingredients || []).length > SIMPLE_MAX_INGREDIENTS) warn(label + "：食材 " + r.ingredients.length + " 種，超過「簡單」門檻 " + SIMPLE_MAX_INGREDIENTS);
+  if ((r.steps || []).length > SIMPLE_MAX_STEPS) warn(label + "：步驟 " + r.steps.length + " 步，超過「簡單」門檻 " + SIMPLE_MAX_STEPS);
   // 調味料（2026-09-17 起必填）：名稱不可空、單位在白名單、少許／適量的 amount 必須是 null
   if (!Array.isArray(r.seasonings) || !r.seasonings.length) err(label + "：seasonings 空的");
   else {

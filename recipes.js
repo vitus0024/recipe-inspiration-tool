@@ -26,6 +26,16 @@
  *   - tags  ：健康（有蔬菜或菇＋油 ≤1 大匙／2 人份＋不用咖哩塊等現成醬料包，三條都要）、高蛋白、多纖維、一鍋
  *   - tool  ：（選填）電鍋、氣炸鍋、烤箱、免開火 —— 器具是篩選條件，method 仍是動作
  *   - prep  ：（選填）"weekend" ＝ 週末備料型，一次做一鍋分裝 3 天便當；bento 必為 true
+ *
+ * 「十分鐘」的定義（2026-09-18 Bryant 定案，參考 foodomain 部落格「上班族 10 分鐘上菜」）：
+ *   不是碼表。指做法簡單、備料少，而且備料可以拆到週末先做，平日只剩「組合」。
+ *   - time           ：平日組合的動手分鐘數（假設週末備料已做好；沒有備料的菜就是全程）
+ *   - weekendMinutes ：週末先做的動手分鐘數（0 = 這道不用備料）
+ *   - prepAhead      ：週末可先做的項目 [{ type, what, keep, steps }]
+ *       type  ：肉（切好醃好，含海鮮）／菜（洗切燙好，含豆製品）／醬（醬汁調好）／蛋（水煮蛋）／整道（做好分裝）
+ *       what  ：做什麼；keep：怎麼存、放幾天；steps：對應 steps 的編號（1 起算），畫面上這些步驟歸到「週末先做」
+ *   - weekday        ：（選填）整道型的平日動作一句話，例如「加熱就能吃」
+ *   不符合「簡單」的（炸物、多組件分炒、填餡、非正餐）已於 09-18 刪除。
  */
 
 const PANTRY_STAPLES = [
@@ -51,7 +61,7 @@ const RECIPES = [
     method: "炒",
     cuisine: "中式",
     diet: "葷",
-    time: 8,
+    time: 6,
     bento: true,
     tags: ["健康", "高蛋白"],
     steps: [
@@ -60,7 +70,11 @@ const RECIPES = [
       "鍋中留油，放入番茄塊炒軟出汁",
       "加少許糖、鹽調味，燜煮 1 分鐘",
       "倒入炒蛋拌勻即可"
-    ]
+    ],
+    prepAhead: [
+      { type: "菜", what: "番茄切滾刀塊，雞蛋打散加一點鹽", keep: "冷藏 3 天", steps: [1] }
+    ],
+    weekendMinutes: 2
   },
   {
     id: "egg-scallion",
@@ -86,7 +100,9 @@ const RECIPES = [
       "轉小火煎至底部金黃",
       "翻面續煎至兩面熟透",
       "切塊盛盤"
-    ]
+    ],
+    prepAhead: [],
+    weekendMinutes: 0
   },
   {
     id: "egg-chawanmushi",
@@ -105,7 +121,7 @@ const RECIPES = [
     method: "蒸",
     cuisine: "日式",
     diet: "葷",
-    time: 5,
+    time: 3,
     bento: true,
     tags: ["高蛋白"],
     tool: "電鍋",
@@ -115,7 +131,11 @@ const RECIPES = [
       "倒入蒸碗，覆蓋保鮮膜",
       "電鍋外鍋加半杯水，蒸至凝固（約 12 分鐘）",
       "取出撒蔥花即可"
-    ]
+    ],
+    prepAhead: [
+      { type: "肉", what: "香菇切片、雞胸肉切小丁，加入蛋液", keep: "冷凍 2 週／冷藏 2 天", steps: [2] }
+    ],
+    weekendMinutes: 2
   },
   {
     id: "egg-chive",
@@ -132,7 +152,7 @@ const RECIPES = [
     method: "炒",
     cuisine: "中式",
     diet: "葷",
-    time: 6,
+    time: 4,
     bento: false,
     tags: ["健康", "高蛋白"],
     steps: [
@@ -140,7 +160,11 @@ const RECIPES = [
       "熱油鍋，倒入蛋液炒至半熟盛起",
       "鍋中加韭菜段炒至微軟",
       "加鹽調味，倒入炒蛋拌炒均勻即可"
-    ]
+    ],
+    prepAhead: [
+      { type: "菜", what: "韭菜洗淨切段，雞蛋打散", keep: "冷藏 2 天（瀝乾裝袋）", steps: [1] }
+    ],
+    weekendMinutes: 2
   },
   {
     id: "egg-miso-softboil",
@@ -157,7 +181,7 @@ const RECIPES = [
     method: "滷",
     cuisine: "日式",
     diet: "葷",
-    time: 5,
+    time: 2,
     bento: true,
     tags: ["高蛋白"],
     steps: [
@@ -165,7 +189,12 @@ const RECIPES = [
       "醬油、味醂、水以 1:1:1 混合煮滾放涼",
       "雞蛋放入醬汁中冷藏浸泡至少 4 小時",
       "取出即可（現吃可對切；帶便當整顆放，不要切開）"
-    ]
+    ],
+    prepAhead: [
+      { type: "整道", what: "整道做好，泡在醬汁裡冷藏", keep: "冷藏 4 天", steps: [1, 2, 3] }
+    ],
+    weekendMinutes: 5,
+    weekday: "從冰箱拿出來就能吃"
   },
 
   // ── 豆腐 ──────────────────────────────
@@ -192,17 +221,20 @@ const RECIPES = [
     method: "燒",
     cuisine: "中式",
     diet: "葷",
-    time: 10,
+    time: 8,
     bento: true,
     tags: ["高蛋白", "一鍋"],
     steps: [
       "豆腐切丁，滾水汆燙撈起備用",
-      "熱油爆香蒜末、薑末、辣椒",
-      "下豬絞肉炒散炒香",
+      "熱油爆香蒜末、薑末、辣椒，下豬絞肉炒散炒香",
       "加豆瓣醬 1 大匙炒出紅油，加醬油 1 大匙、水或高湯半杯煮滾",
       "放入豆腐丁煮 3 分鐘，太白粉水勾芡",
       "撒蔥花、花椒粉即可"
-    ]
+    ],
+    prepAhead: [
+      { type: "菜", what: "豆腐切丁，滾水汆燙撈起備用", keep: "冷藏 2 天（燙好瀝乾）", steps: [1] }
+    ],
+    weekendMinutes: 2
   },
   {
     id: "tofu-century-egg",
@@ -231,7 +263,9 @@ const RECIPES = [
       "醬油、香油、糖調成醬汁",
       "淋上醬汁",
       "撒柴魚片、蔥花即可"
-    ]
+    ],
+    prepAhead: [],
+    weekendMinutes: 0
   },
   {
     id: "tofu-miso-soup",
@@ -257,7 +291,9 @@ const RECIPES = [
       "轉小火，取一勺熱湯調開味噌醬",
       "倒回鍋中拌勻（味噌不可久煮）",
       "撒蔥花即可"
-    ]
+    ],
+    prepAhead: [],
+    weekendMinutes: 0
   },
   {
     id: "tofu-pan-fried",
@@ -275,7 +311,7 @@ const RECIPES = [
     method: "煎",
     cuisine: "中式",
     diet: "素",
-    time: 8,
+    time: 6,
     bento: true,
     tags: ["高蛋白"],
     steps: [
@@ -283,7 +319,11 @@ const RECIPES = [
       "熱油鍋，豆腐片煎至兩面金黃",
       "盛盤，淋醬油",
       "撒蔥花、白芝麻即可"
-    ]
+    ],
+    prepAhead: [
+      { type: "菜", what: "板豆腐切片，用廚房紙巾吸乾水分", keep: "冷藏 3 天", steps: [1] }
+    ],
+    weekendMinutes: 2
   },
   {
     id: "tofu-braised",
@@ -305,7 +345,7 @@ const RECIPES = [
     method: "燒",
     cuisine: "中式",
     diet: "素",
-    time: 10,
+    time: 8,
     bento: true,
     tags: ["健康", "高蛋白", "一鍋"],
     steps: [
@@ -314,7 +354,11 @@ const RECIPES = [
       "加醬油、水、少許糖煮滾",
       "放入豆腐燒 5 分鐘入味",
       "太白粉水勾薄芡，撒蔥花即可"
-    ]
+    ],
+    prepAhead: [
+      { type: "菜", what: "豆腐切塊，煎至表面微金黃盛起", keep: "冷藏 3 天", steps: [1] }
+    ],
+    weekendMinutes: 2
   },
 
   // ── 雞胸肉 ──────────────────────────────
@@ -336,7 +380,7 @@ const RECIPES = [
     method: "煎",
     cuisine: "中式",
     diet: "葷",
-    time: 8,
+    time: 6,
     bento: true,
     tags: ["高蛋白"],
     steps: [
@@ -344,7 +388,11 @@ const RECIPES = [
       "熱油鍋，蒜末爆香",
       "雞胸肉片下鍋煎至兩面金黃熟透",
       "加醬油拌炒均勻即可"
-    ]
+    ],
+    prepAhead: [
+      { type: "肉", what: "雞胸肉切薄片，用鹽、米酒、太白粉抓醃 10 分鐘", keep: "冷凍 2 週／冷藏 2 天", steps: [1] }
+    ],
+    weekendMinutes: 2
   },
   {
     id: "chicken-breast-shred-salad",
@@ -363,7 +411,7 @@ const RECIPES = [
     method: "涼拌",
     cuisine: "中式",
     diet: "葷",
-    time: 8,
+    time: 2,
     bento: true,
     tags: ["健康", "高蛋白"],
     steps: [
@@ -371,7 +419,13 @@ const RECIPES = [
       "小黃瓜切絲",
       "醬油、香油、白醋、糖調成醬汁",
       "雞絲、小黃瓜絲拌入醬汁即可"
-    ]
+    ],
+    prepAhead: [
+      { type: "肉", what: "雞胸肉水煮至熟（約 15 分鐘），放涼後撕絲", keep: "冷藏 2 天（已煮熟）", steps: [1] },
+      { type: "菜", what: "小黃瓜切絲", keep: "冷藏 3 天", steps: [2] },
+      { type: "醬", what: "醬油、香油、白醋、糖調成醬汁", keep: "冷藏 1 週", steps: [3] }
+    ],
+    weekendMinutes: 6
   },
   {
     id: "chicken-breast-miso-bake",
@@ -387,7 +441,7 @@ const RECIPES = [
     method: "烤",
     cuisine: "日式",
     diet: "葷",
-    time: 5,
+    time: 3,
     bento: true,
     tags: ["高蛋白"],
     tool: "烤箱",
@@ -397,7 +451,12 @@ const RECIPES = [
       "烤箱預熱 200°C",
       "雞胸肉入烤箱烤 15~18 分鐘至熟",
       "取出切片即可"
-    ]
+    ],
+    prepAhead: [
+      { type: "整道", what: "整道做好，放涼分裝", keep: "冷藏 3 天／冷凍 7 天", steps: [1, 2, 3, 4] }
+    ],
+    weekendMinutes: 5,
+    weekday: "加熱就能吃"
   },
   {
     id: "chicken-breast-scallion",
@@ -416,7 +475,7 @@ const RECIPES = [
     method: "炒",
     cuisine: "中式",
     diet: "葷",
-    time: 8,
+    time: 4,
     bento: true,
     tags: ["高蛋白"],
     steps: [
@@ -425,7 +484,12 @@ const RECIPES = [
       "熱油鍋，雞胸肉片炒至變色",
       "加蔥白炒香，再加蔥綠快速拌炒",
       "加醬油調味即可"
-    ]
+    ],
+    prepAhead: [
+      { type: "肉", what: "雞胸肉切片，鹽、太白粉抓醃", keep: "冷凍 2 週／冷藏 2 天", steps: [1] },
+      { type: "菜", what: "蔥切段，蔥白蔥綠分開", keep: "冷藏 3 天", steps: [2] }
+    ],
+    weekendMinutes: 4
   },
   {
     id: "chicken-breast-lemon",
@@ -443,7 +507,7 @@ const RECIPES = [
     method: "煎",
     cuisine: "西式",
     diet: "葷",
-    time: 8,
+    time: 6,
     bento: true,
     tags: ["高蛋白"],
     steps: [
@@ -451,7 +515,11 @@ const RECIPES = [
       "熱油鍋，雞胸肉煎至兩面金黃熟透",
       "起鍋前擠上檸檬汁",
       "切片盛盤即可"
-    ]
+    ],
+    prepAhead: [
+      { type: "肉", what: "雞胸肉拍鬆，用鹽、黑胡椒調味", keep: "冷凍 2 週／冷藏 2 天", steps: [1] }
+    ],
+    weekendMinutes: 2
   },
 
   // ── 雞腿肉 ──────────────────────────────
@@ -470,7 +538,7 @@ const RECIPES = [
     method: "煎",
     cuisine: "西式",
     diet: "葷",
-    time: 10,
+    time: 8,
     bento: true,
     tags: ["高蛋白"],
     steps: [
@@ -478,7 +546,11 @@ const RECIPES = [
       "冷鍋皮面朝下，開中火慢煎逼油",
       "煎至皮酥脆金黃後翻面",
       "續煎至熟透，靜置 3 分鐘後切片"
-    ]
+    ],
+    prepAhead: [
+      { type: "肉", what: "雞腿肉用鹽、黑胡椒醃 10 分鐘，皮面劃刀", keep: "冷凍 2 週／冷藏 2 天", steps: [1] }
+    ],
+    weekendMinutes: 2
   },
   {
     id: "chicken-thigh-three-cup",
@@ -499,7 +571,7 @@ const RECIPES = [
     method: "炒",
     cuisine: "中式",
     diet: "葷",
-    time: 10,
+    time: 3,
     bento: true,
     tags: ["高蛋白", "一鍋"],
     prep: "weekend",
@@ -508,7 +580,12 @@ const RECIPES = [
       "下雞腿塊炒至變色",
       "加醬油 2 大匙、米酒 2 大匙、糖 2 小匙，蓋鍋燜煮 10 分鐘",
       "開蓋收汁，起鍋前加九層塔拌勻即可"
-    ]
+    ],
+    prepAhead: [
+      { type: "整道", what: "整道做好，放涼分裝", keep: "冷藏 3 天／冷凍 7 天", steps: [1, 2, 3, 4] }
+    ],
+    weekendMinutes: 10,
+    weekday: "加熱就能吃"
   },
   {
     id: "chicken-thigh-miso-bake",
@@ -525,7 +602,7 @@ const RECIPES = [
     method: "烤",
     cuisine: "日式",
     diet: "葷",
-    time: 5,
+    time: 3,
     bento: true,
     tags: ["高蛋白"],
     tool: "烤箱",
@@ -535,7 +612,12 @@ const RECIPES = [
       "烤箱預熱 200°C",
       "雞腿皮面朝上入烤箱烤 20 分鐘至熟",
       "取出靜置後切塊"
-    ]
+    ],
+    prepAhead: [
+      { type: "整道", what: "整道做好，放涼分裝", keep: "冷藏 3 天／冷凍 7 天", steps: [1, 2, 3, 4] }
+    ],
+    weekendMinutes: 5,
+    weekday: "加熱就能吃"
   },
   {
     id: "chicken-diced-bell-pepper",
@@ -554,7 +636,7 @@ const RECIPES = [
     method: "炒",
     cuisine: "中式",
     diet: "葷",
-    time: 10,
+    time: 6,
     bento: true,
     tags: ["健康", "高蛋白"],
     steps: [
@@ -563,7 +645,12 @@ const RECIPES = [
       "熱油鍋，雞丁炒至變色盛起",
       "鍋中炒甜椒至微軟，加回雞丁",
       "加醬油拌炒均勻即可"
-    ]
+    ],
+    prepAhead: [
+      { type: "肉", what: "雞腿肉切丁，鹽、太白粉抓醃", keep: "冷凍 2 週／冷藏 2 天", steps: [1] },
+      { type: "菜", what: "甜椒切塊", keep: "冷藏 3 天", steps: [2] }
+    ],
+    weekendMinutes: 4
   },
 
   // ── 豬絞肉 ──────────────────────────────
@@ -595,7 +682,9 @@ const RECIPES = [
       "加豆瓣醬、醬油炒香",
       "加水煮滾，放入冬粉煮至吸汁",
       "撒蔥花即可"
-    ]
+    ],
+    prepAhead: [],
+    weekendMinutes: 0
   },
   {
     id: "pork-mince-green-bean",
@@ -614,7 +703,7 @@ const RECIPES = [
     method: "炒",
     cuisine: "中式",
     diet: "葷",
-    time: 10,
+    time: 8,
     bento: true,
     tags: ["健康", "高蛋白", "一鍋"],
     steps: [
@@ -623,7 +712,11 @@ const RECIPES = [
       "加入四季豆拌炒",
       "加醬油、少許水，蓋鍋燜煮 3 分鐘至熟",
       "開蓋收汁即可"
-    ]
+    ],
+    prepAhead: [
+      { type: "菜", what: "四季豆切段", keep: "冷藏 3 天", steps: [1] }
+    ],
+    weekendMinutes: 2
   },
   {
     id: "pork-mince-eggplant",
@@ -649,46 +742,20 @@ const RECIPES = [
     method: "燒",
     cuisine: "中式",
     diet: "葷",
-    time: 12,
+    time: 10,
     bento: true,
     tags: ["高蛋白"],
     steps: [
       "茄子切長段，過油或乾煎至軟身盛起",
-      "爆香蒜末、薑末、辣椒",
-      "下豬絞肉炒散",
+      "爆香蒜末、薑末、辣椒，下豬絞肉炒散",
       "加豆瓣醬、醬油、烏醋、糖炒勻",
       "放入茄子拌炒入味，太白粉水勾芡",
       "撒蔥花即可"
-    ]
-  },
-  {
-    id: "pork-mince-bell-pepper",
-    name: "青椒鑲肉",
-    baseServings: 2,
-    ingredients: [
-      { name: "豬絞肉", amount: 200, unit: "克" },
-      { name: "青椒", amount: 4, unit: "顆" }
     ],
-    seasonings: [
-      { name: "鹽", amount: 0.5, unit: "小匙" },
-      { name: "太白粉", amount: 1, unit: "小匙" },
-      { name: "蔥", amount: 1, unit: "根" },
-      { name: "食用油", amount: 1, unit: "大匙" },
-      { name: "水", amount: null, unit: "適量" }
+    prepAhead: [
+      { type: "菜", what: "茄子切長段，過油或乾煎至軟身盛起", keep: "冷藏 3 天", steps: [1] }
     ],
-    method: "煎",
-    cuisine: "中式",
-    diet: "葷",
-    time: 12,
-    bento: true,
-    tags: ["健康", "高蛋白"],
-    steps: [
-      "青椒對半切開去籽",
-      "豬絞肉加鹽、太白粉、蔥花拌至有黏性",
-      "絞肉餡填入青椒中",
-      "熱鍋少油，肉面朝下煎至金黃",
-      "翻面加水加蓋燜熟即可"
-    ]
+    weekendMinutes: 2
   },
   {
     id: "pork-mince-tomato-sauce",
@@ -708,7 +775,7 @@ const RECIPES = [
     method: "燒",
     cuisine: "中式",
     diet: "葷",
-    time: 8,
+    time: 3,
     bento: true,
     tags: ["高蛋白", "一鍋"],
     prep: "weekend",
@@ -718,7 +785,12 @@ const RECIPES = [
       "加入番茄塊炒軟出汁",
       "加醬油、糖，加水燜煮 10 分鐘",
       "可拌飯或拌麵享用"
-    ]
+    ],
+    prepAhead: [
+      { type: "整道", what: "整道做好，放涼分裝", keep: "冷藏 3 天／冷凍 7 天", steps: [1, 2, 3, 4, 5] }
+    ],
+    weekendMinutes: 8,
+    weekday: "加熱就能吃"
   },
 
   // ── 豬肉片/里肌 ──────────────────────────────
@@ -738,7 +810,7 @@ const RECIPES = [
     method: "炒",
     cuisine: "日式",
     diet: "葷",
-    time: 8,
+    time: 6,
     bento: true,
     tags: ["高蛋白"],
     steps: [
@@ -746,7 +818,11 @@ const RECIPES = [
       "熱油鍋，豬肉片下鍋煎至變色",
       "淋入醃醬煮至收汁",
       "盛盤即可"
-    ]
+    ],
+    prepAhead: [
+      { type: "肉", what: "豬肉片用醬油、味醂、薑泥醃 10 分鐘", keep: "冷凍 2 週／冷藏 2 天", steps: [1] }
+    ],
+    weekendMinutes: 2
   },
   {
     id: "pork-loin-sweet-sour",
@@ -767,7 +843,7 @@ const RECIPES = [
     method: "煎",
     cuisine: "中式",
     diet: "葷",
-    time: 10,
+    time: 8,
     bento: true,
     tags: ["高蛋白"],
     steps: [
@@ -775,7 +851,11 @@ const RECIPES = [
       "熱油鍋，肉塊煎至兩面金黃熟透盛起",
       "鍋中加番茄醬、白醋、糖、少許水煮滾",
       "放回肉塊拌炒均勻裹醬即可"
-    ]
+    ],
+    prepAhead: [
+      { type: "肉", what: "豬里肌切塊，鹽、太白粉抓醃", keep: "冷凍 2 週／冷藏 2 天", steps: [1] }
+    ],
+    weekendMinutes: 2
   },
   {
     id: "pork-slice-chive",
@@ -794,7 +874,7 @@ const RECIPES = [
     method: "炒",
     cuisine: "中式",
     diet: "葷",
-    time: 8,
+    time: 4,
     bento: true,
     tags: ["高蛋白"],
     steps: [
@@ -803,35 +883,12 @@ const RECIPES = [
       "熱油鍋，肉絲炒至變色盛起",
       "鍋中加韭黃快炒至微軟",
       "加回肉絲，加鹽拌勻即可"
-    ]
-  },
-  {
-    id: "pork-slice-moo-shu",
-    name: "木須炒肉",
-    baseServings: 2,
-    ingredients: [
-      { name: "豬肉片", amount: 100, unit: "克" },
-      { name: "黑木耳", amount: 50, unit: "克" },
-      { name: "雞蛋", amount: 2, unit: "顆" }
     ],
-    seasonings: [
-      { name: "醬油", amount: 1, unit: "大匙" },
-      { name: "鹽", amount: 0.5, unit: "小匙" },
-      { name: "太白粉", amount: 1, unit: "小匙" },
-      { name: "食用油", amount: 1, unit: "大匙" }
+    prepAhead: [
+      { type: "肉", what: "豬肉絲用醬油、太白粉抓醃", keep: "冷凍 2 週／冷藏 2 天", steps: [1] },
+      { type: "菜", what: "韭黃切段", keep: "冷藏 2 天（瀝乾裝袋）", steps: [2] }
     ],
-    method: "炒",
-    cuisine: "中式",
-    diet: "葷",
-    time: 10,
-    bento: true,
-    tags: ["健康", "高蛋白"],
-    steps: [
-      "豬肉絲醃太白粉、醬油；木耳切絲；蛋打散炒熟盛起",
-      "熱油鍋，肉絲炒至變色",
-      "加木耳絲拌炒",
-      "加回炒蛋，加醬油、鹽拌勻即可"
-    ]
+    weekendMinutes: 4
   },
 
   // ── 牛肉 ──────────────────────────────
@@ -853,7 +910,7 @@ const RECIPES = [
     method: "炒",
     cuisine: "中式",
     diet: "葷",
-    time: 8,
+    time: 4,
     bento: true,
     tags: ["高蛋白"],
     steps: [
@@ -862,7 +919,12 @@ const RECIPES = [
       "大火熱油鍋，牛肉片快炒至變色盛起（避免久炒變老）",
       "鍋中爆香蔥白，加回牛肉、蔥綠快速拌炒",
       "加鹽調味即可"
-    ]
+    ],
+    prepAhead: [
+      { type: "肉", what: "牛肉片用醬油、太白粉、米酒抓醃", keep: "冷凍 2 週／冷藏 2 天", steps: [1] },
+      { type: "菜", what: "蔥切段，蔥白蔥綠分開", keep: "冷藏 3 天", steps: [2] }
+    ],
+    weekendMinutes: 4
   },
   {
     id: "beef-black-pepper",
@@ -881,7 +943,7 @@ const RECIPES = [
     method: "炒",
     cuisine: "中式",
     diet: "葷",
-    time: 8,
+    time: 4,
     bento: true,
     tags: ["高蛋白"],
     steps: [
@@ -890,7 +952,12 @@ const RECIPES = [
       "大火熱油鍋，牛肉片快炒盛起",
       "鍋中炒洋蔥絲至微軟",
       "加回牛肉，加黑胡椒、醬油拌炒均勻即可"
-    ]
+    ],
+    prepAhead: [
+      { type: "肉", what: "牛肉片用醬油、太白粉抓醃", keep: "冷凍 2 週／冷藏 2 天", steps: [1] },
+      { type: "菜", what: "洋蔥切絲", keep: "冷藏 3 天", steps: [2] }
+    ],
+    weekendMinutes: 4
   },
   {
     id: "beef-bell-pepper",
@@ -909,7 +976,7 @@ const RECIPES = [
     method: "炒",
     cuisine: "中式",
     diet: "葷",
-    time: 8,
+    time: 4,
     bento: true,
     tags: ["健康", "高蛋白"],
     steps: [
@@ -918,7 +985,12 @@ const RECIPES = [
       "大火熱油鍋，牛肉片快炒盛起",
       "鍋中炒青椒絲至微軟",
       "加回牛肉拌炒，加鹽調味即可"
-    ]
+    ],
+    prepAhead: [
+      { type: "肉", what: "牛肉片用醬油、太白粉抓醃", keep: "冷凍 2 週／冷藏 2 天", steps: [1] },
+      { type: "菜", what: "青椒切絲", keep: "冷藏 3 天", steps: [2] }
+    ],
+    weekendMinutes: 4
   },
   {
     id: "beef-tomato-stew",
@@ -939,18 +1011,22 @@ const RECIPES = [
     method: "燉",
     cuisine: "西式",
     diet: "葷",
-    time: 15,
+    time: 3,
     bento: true,
     tags: ["健康", "高蛋白", "一鍋"],
     prep: "weekend",
     steps: [
-      "牛肋條切塊，汆燙去血水",
-      "番茄、馬鈴薯切塊",
+      "牛肋條切塊汆燙去血水；番茄、馬鈴薯切塊",
       "爆香洋蔥（可用蔥薑代替），下牛肉塊略炒",
       "加番茄塊、水（蓋過食材），燉煮 40 分鐘",
       "加馬鈴薯續燉 15 分鐘至軟爛",
       "加鹽調味即可"
-    ]
+    ],
+    prepAhead: [
+      { type: "整道", what: "整道做好，放涼分裝", keep: "冷藏 3 天／冷凍 7 天", steps: [1, 2, 3, 4, 5] }
+    ],
+    weekendMinutes: 15,
+    weekday: "加熱就能吃"
   },
 
   // ── 鮭魚 ──────────────────────────────
@@ -970,7 +1046,7 @@ const RECIPES = [
     method: "煎",
     cuisine: "西式",
     diet: "葷",
-    time: 8,
+    time: 6,
     bento: true,
     tags: ["高蛋白"],
     steps: [
@@ -978,7 +1054,11 @@ const RECIPES = [
       "熱油鍋，魚皮朝下煎至酥脆",
       "翻面續煎至熟透",
       "擠檸檬汁即可"
-    ]
+    ],
+    prepAhead: [
+      { type: "肉", what: "鮭魚用鹽、黑胡椒醃 10 分鐘，擦乾表面水分", keep: "冷藏 1 天", steps: [1] }
+    ],
+    weekendMinutes: 2
   },
   {
     id: "salmon-miso-bake",
@@ -994,7 +1074,7 @@ const RECIPES = [
     method: "烤",
     cuisine: "日式",
     diet: "葷",
-    time: 5,
+    time: 3,
     bento: true,
     tags: ["高蛋白"],
     tool: "烤箱",
@@ -1003,7 +1083,11 @@ const RECIPES = [
       "烤箱預熱 200°C",
       "鮭魚入烤箱烤 12~15 分鐘至熟",
       "取出即可"
-    ]
+    ],
+    prepAhead: [
+      { type: "肉", what: "鮭魚用味噌、味醂醃 30 分鐘", keep: "冷藏 1 天", steps: [1] }
+    ],
+    weekendMinutes: 2
   },
   {
     id: "salmon-rice",
@@ -1022,7 +1106,7 @@ const RECIPES = [
     method: "煮",
     cuisine: "日式",
     diet: "葷",
-    time: 5,
+    time: 3,
     bento: true,
     tags: ["健康", "高蛋白", "一鍋"],
     tool: "電鍋",
@@ -1032,7 +1116,11 @@ const RECIPES = [
       "加醬油、米酒、水（比平常煮飯略少）",
       "按下開關煮熟後燜 10 分鐘",
       "取出鮭魚去皮去骨，與飯拌勻即可"
-    ]
+    ],
+    prepAhead: [
+      { type: "菜", what: "白米洗淨放入電鍋內鍋，紅蘿蔔切丁", keep: "冷藏 3 天", steps: [1] }
+    ],
+    weekendMinutes: 2
   },
 
   // ── 蝦仁 ──────────────────────────────
@@ -1053,7 +1141,7 @@ const RECIPES = [
     method: "炒",
     cuisine: "中式",
     diet: "葷",
-    time: 6,
+    time: 4,
     bento: true,
     tags: ["高蛋白"],
     steps: [
@@ -1061,7 +1149,11 @@ const RECIPES = [
       "熱油鍋，蒜末爆香",
       "蝦仁下鍋快炒至變色捲曲",
       "加鹽、米酒調味即可"
-    ]
+    ],
+    prepAhead: [
+      { type: "肉", what: "蝦仁去腸泥，用鹽、太白粉抓醃", keep: "冷藏 1 天", steps: [1] }
+    ],
+    weekendMinutes: 2
   },
   {
     id: "shrimp-egg",
@@ -1078,7 +1170,7 @@ const RECIPES = [
     method: "炒",
     cuisine: "中式",
     diet: "葷",
-    time: 6,
+    time: 4,
     bento: true,
     tags: ["高蛋白"],
     steps: [
@@ -1086,7 +1178,11 @@ const RECIPES = [
       "熱油鍋，蝦仁炒至變色盛起",
       "倒入蛋液炒至半凝固",
       "加回蝦仁拌炒均勻即可"
-    ]
+    ],
+    prepAhead: [
+      { type: "肉", what: "蝦仁去腸泥，雞蛋打散加鹽", keep: "冷藏 1 天", steps: [1] }
+    ],
+    weekendMinutes: 2
   },
   {
     id: "shrimp-lemon-salad",
@@ -1105,7 +1201,7 @@ const RECIPES = [
     method: "涼拌",
     cuisine: "泰式",
     diet: "葷",
-    time: 8,
+    time: 2,
     bento: true,
     tags: ["健康", "高蛋白"],
     steps: [
@@ -1113,7 +1209,12 @@ const RECIPES = [
       "小黃瓜切片",
       "檸檬汁、糖、辣椒調成醬汁",
       "蝦仁、小黃瓜拌入醬汁即可"
-    ]
+    ],
+    prepAhead: [
+      { type: "菜", what: "蝦仁川燙至熟，冰鎮；小黃瓜切片", keep: "冷藏 2 天（燙好瀝乾）", steps: [1, 2] },
+      { type: "醬", what: "檸檬汁、糖、辣椒調成醬汁", keep: "冷藏 1 週", steps: [3] }
+    ],
+    weekendMinutes: 6
   },
   {
     id: "shrimp-vermicelli",
@@ -1141,7 +1242,9 @@ const RECIPES = [
       "爆香蒜末，加醬油、水煮成醬汁淋上",
       "蓋鍋燜煮 5~8 分鐘至蝦熟粉軟",
       "撒蔥花即可"
-    ]
+    ],
+    prepAhead: [],
+    weekendMinutes: 0
   },
 
   // ── 魚片 ──────────────────────────────
@@ -1171,7 +1274,9 @@ const RECIPES = [
       "電鍋外鍋加水，蒸 10~12 分鐘至熟",
       "取出淋少許醬油",
       "撒蔥絲，淋熱油激香即可"
-    ]
+    ],
+    prepAhead: [],
+    weekendMinutes: 0
   },
   {
     id: "fish-doubanjiang",
@@ -1201,7 +1306,9 @@ const RECIPES = [
       "爆香蒜末、薑末、豆瓣醬",
       "加水、醬油煮滾",
       "放回魚片略煮，太白粉水勾芡即可"
-    ]
+    ],
+    prepAhead: [],
+    weekendMinutes: 0
   },
   {
     id: "fish-lemon",
@@ -1227,7 +1334,9 @@ const RECIPES = [
       "熱油鍋，魚片煎至兩面金黃熟透",
       "起鍋前擠上檸檬汁",
       "盛盤即可"
-    ]
+    ],
+    prepAhead: [],
+    weekendMinutes: 0
   },
 
   // ── 高麗菜 ──────────────────────────────
@@ -1247,7 +1356,7 @@ const RECIPES = [
     method: "炒",
     cuisine: "中式",
     diet: "素",
-    time: 5,
+    time: 3,
     bento: true,
     tags: ["健康", "多纖維"],
     steps: [
@@ -1255,7 +1364,11 @@ const RECIPES = [
       "熱油鍋，蒜末爆香",
       "高麗菜下鍋大火快炒",
       "加鹽、少許水，蓋鍋燜 1 分鐘至軟即可"
-    ]
+    ],
+    prepAhead: [
+      { type: "菜", what: "高麗菜洗淨剝片", keep: "冷藏 2 天（瀝乾裝袋）", steps: [1] }
+    ],
+    weekendMinutes: 2
   },
   {
     id: "cabbage-dried-shrimp",
@@ -1274,7 +1387,7 @@ const RECIPES = [
     method: "炒",
     cuisine: "中式",
     diet: "葷",
-    time: 6,
+    time: 4,
     bento: true,
     tags: ["健康", "多纖維"],
     steps: [
@@ -1282,7 +1395,11 @@ const RECIPES = [
       "熱油鍋，爆香蝦米、蒜末",
       "加入高麗菜大火快炒",
       "加鹽、少許水燜煮 1 分鐘即可"
-    ]
+    ],
+    prepAhead: [
+      { type: "菜", what: "蝦米泡軟，高麗菜剝片", keep: "冷藏 2 天（瀝乾裝袋）", steps: [1] }
+    ],
+    weekendMinutes: 2
   },
   {
     id: "cabbage-salad",
@@ -1300,7 +1417,7 @@ const RECIPES = [
     method: "涼拌",
     cuisine: "中式",
     diet: "素",
-    time: 8,
+    time: 4,
     bento: true,
     tags: ["健康", "多纖維"],
     tool: "免開火",
@@ -1309,7 +1426,12 @@ const RECIPES = [
       "白醋、糖、香油調成醬汁",
       "高麗菜絲拌入醬汁",
       "冷藏 20 分鐘入味即可"
-    ]
+    ],
+    prepAhead: [
+      { type: "菜", what: "高麗菜切細絲，加鹽抓醃出水後擠乾", keep: "冷藏 2 天", steps: [1] },
+      { type: "醬", what: "白醋、糖、香油調成醬汁", keep: "冷藏 1 週", steps: [2] }
+    ],
+    weekendMinutes: 4
   },
   {
     id: "cabbage-miso-soup",
@@ -1325,7 +1447,7 @@ const RECIPES = [
     method: "煮",
     cuisine: "日式",
     diet: "素",
-    time: 5,
+    time: 3,
     bento: false,
     tags: ["健康", "一鍋"],
     steps: [
@@ -1333,7 +1455,11 @@ const RECIPES = [
       "水煮滾，放入高麗菜煮軟",
       "轉小火，取一勺熱湯調開味噌",
       "倒回鍋中拌勻即可"
-    ]
+    ],
+    prepAhead: [
+      { type: "菜", what: "高麗菜切片", keep: "冷藏 2 天（瀝乾裝袋）", steps: [1] }
+    ],
+    weekendMinutes: 2
   },
   {
     id: "cabbage-pork",
@@ -1352,7 +1478,7 @@ const RECIPES = [
     method: "炒",
     cuisine: "中式",
     diet: "葷",
-    time: 8,
+    time: 4,
     bento: true,
     tags: ["健康", "高蛋白", "多纖維"],
     steps: [
@@ -1361,7 +1487,12 @@ const RECIPES = [
       "熱油鍋，肉絲炒至變色盛起",
       "鍋中加高麗菜快炒",
       "加回肉絲，加鹽拌勻燜 1 分鐘即可"
-    ]
+    ],
+    prepAhead: [
+      { type: "肉", what: "豬肉絲用醬油、太白粉抓醃", keep: "冷凍 2 週／冷藏 2 天", steps: [1] },
+      { type: "菜", what: "高麗菜剝片", keep: "冷藏 2 天（瀝乾裝袋）", steps: [2] }
+    ],
+    weekendMinutes: 4
   },
 
   // ── 花椰菜 ──────────────────────────────
@@ -1380,7 +1511,7 @@ const RECIPES = [
     method: "炒",
     cuisine: "中式",
     diet: "素",
-    time: 6,
+    time: 4,
     bento: true,
     tags: ["健康", "多纖維"],
     steps: [
@@ -1388,7 +1519,11 @@ const RECIPES = [
       "熱油鍋，蒜末爆香",
       "花椰菜下鍋快炒",
       "加鹽調味即可"
-    ]
+    ],
+    prepAhead: [
+      { type: "菜", what: "花椰菜切小朵，滾水汆燙 1 分鐘撈起", keep: "冷藏 2 天（燙好瀝乾）", steps: [1] }
+    ],
+    weekendMinutes: 2
   },
   {
     id: "broccoli-shrimp",
@@ -1406,7 +1541,7 @@ const RECIPES = [
     method: "炒",
     cuisine: "中式",
     diet: "葷",
-    time: 8,
+    time: 4,
     bento: true,
     tags: ["健康", "高蛋白", "多纖維"],
     steps: [
@@ -1415,7 +1550,12 @@ const RECIPES = [
       "熱油鍋，蝦仁炒至變色盛起",
       "鍋中加花椰菜快炒，加回蝦仁",
       "加鹽拌勻即可"
-    ]
+    ],
+    prepAhead: [
+      { type: "菜", what: "花椰菜切小朵汆燙備用", keep: "冷藏 3 天", steps: [1] },
+      { type: "肉", what: "蝦仁去腸泥，太白粉抓醃", keep: "冷藏 1 天", steps: [2] }
+    ],
+    weekendMinutes: 4
   },
   {
     id: "broccoli-mustard-salad",
@@ -1432,14 +1572,19 @@ const RECIPES = [
     method: "涼拌",
     cuisine: "日式",
     diet: "素",
-    time: 6,
+    time: 2,
     bento: true,
     tags: ["健康", "多纖維"],
     steps: [
       "花椰菜切小朵，滾水汆燙後冰鎮瀝乾",
       "醬油、芥末、糖調成醬汁",
       "花椰菜拌入醬汁即可"
-    ]
+    ],
+    prepAhead: [
+      { type: "菜", what: "花椰菜切小朵，滾水汆燙後冰鎮瀝乾", keep: "冷藏 2 天（燙好瀝乾）", steps: [1] },
+      { type: "醬", what: "醬油、芥末、糖調成醬汁", keep: "冷藏 1 週", steps: [2] }
+    ],
+    weekendMinutes: 4
   },
 
   // ── 青江菜 ──────────────────────────────
@@ -1458,7 +1603,7 @@ const RECIPES = [
     method: "炒",
     cuisine: "中式",
     diet: "素",
-    time: 5,
+    time: 3,
     bento: true,
     tags: ["健康", "多纖維"],
     steps: [
@@ -1466,7 +1611,11 @@ const RECIPES = [
       "熱油鍋，蒜末爆香",
       "青江菜下鍋快炒至微軟",
       "加鹽調味即可"
-    ]
+    ],
+    prepAhead: [
+      { type: "菜", what: "青江菜洗淨對切", keep: "冷藏 2 天（瀝乾裝袋）", steps: [1] }
+    ],
+    weekendMinutes: 2
   },
   {
     id: "bokchoy-oyster-sauce",
@@ -1492,7 +1641,9 @@ const RECIPES = [
       "蠔油、少許水、糖煮滾成醬汁",
       "淋在青江菜上",
       "撒蒜酥即可"
-    ]
+    ],
+    prepAhead: [],
+    weekendMinutes: 0
   },
   {
     id: "bokchoy-dried-shrimp",
@@ -1510,7 +1661,7 @@ const RECIPES = [
     method: "炒",
     cuisine: "中式",
     diet: "葷",
-    time: 6,
+    time: 4,
     bento: true,
     tags: ["健康", "多纖維"],
     steps: [
@@ -1518,7 +1669,11 @@ const RECIPES = [
       "熱油鍋，爆香蝦米、蒜末",
       "加入青江菜快炒",
       "加鹽調味即可"
-    ]
+    ],
+    prepAhead: [
+      { type: "菜", what: "蝦米泡軟，青江菜對切", keep: "冷藏 2 天（瀝乾裝袋）", steps: [1] }
+    ],
+    weekendMinutes: 2
   },
 
   // ── 菠菜 ──────────────────────────────
@@ -1537,14 +1692,18 @@ const RECIPES = [
     method: "涼拌",
     cuisine: "日式",
     diet: "素",
-    time: 5,
+    time: 3,
     bento: true,
     tags: ["健康", "多纖維"],
     steps: [
       "菠菜滾水汆燙 30 秒，冰鎮瀝乾切段",
       "醬油、香油、白芝麻拌勻",
       "菠菜拌入醬汁即可"
-    ]
+    ],
+    prepAhead: [
+      { type: "菜", what: "菠菜滾水汆燙 30 秒，冰鎮瀝乾切段", keep: "冷藏 2 天（燙好瀝乾）", steps: [1] }
+    ],
+    weekendMinutes: 2
   },
   {
     id: "spinach-garlic",
@@ -1561,7 +1720,7 @@ const RECIPES = [
     method: "炒",
     cuisine: "中式",
     diet: "素",
-    time: 5,
+    time: 3,
     bento: true,
     tags: ["健康", "多纖維"],
     steps: [
@@ -1569,7 +1728,11 @@ const RECIPES = [
       "熱油鍋，蒜末爆香",
       "菠菜下鍋快炒至軟",
       "加鹽調味即可"
-    ]
+    ],
+    prepAhead: [
+      { type: "菜", what: "菠菜洗淨切段", keep: "冷藏 2 天（瀝乾裝袋）", steps: [1] }
+    ],
+    weekendMinutes: 2
   },
   {
     id: "spinach-egg-soup",
@@ -1586,7 +1749,7 @@ const RECIPES = [
     method: "煮",
     cuisine: "中式",
     diet: "葷",
-    time: 5,
+    time: 3,
     bento: false,
     tags: ["健康", "一鍋"],
     steps: [
@@ -1594,7 +1757,11 @@ const RECIPES = [
       "水煮滾，放入菠菜煮軟",
       "加鹽調味",
       "淋入蛋液攪散成蛋花即可"
-    ]
+    ],
+    prepAhead: [
+      { type: "菜", what: "菠菜洗淨切段，雞蛋打散", keep: "冷藏 2 天（瀝乾裝袋）", steps: [1] }
+    ],
+    weekendMinutes: 2
   },
 
   // ── 四季豆 ──────────────────────────────
@@ -1624,7 +1791,9 @@ const RECIPES = [
       "爆香蒜末、辣椒，下豬絞肉炒香",
       "加回四季豆拌炒",
       "加醬油、糖調味即可"
-    ]
+    ],
+    prepAhead: [],
+    weekendMinutes: 0
   },
   {
     id: "green-bean-garlic",
@@ -1642,7 +1811,7 @@ const RECIPES = [
     method: "炒",
     cuisine: "中式",
     diet: "素",
-    time: 6,
+    time: 4,
     bento: true,
     tags: ["健康", "多纖維"],
     steps: [
@@ -1650,7 +1819,11 @@ const RECIPES = [
       "熱油鍋，蒜末爆香",
       "四季豆下鍋炒，加少許水燜煮 3 分鐘至熟",
       "加鹽調味即可"
-    ]
+    ],
+    prepAhead: [
+      { type: "菜", what: "四季豆去頭尾切段", keep: "冷藏 3 天", steps: [1] }
+    ],
+    weekendMinutes: 2
   },
   {
     id: "green-bean-salad",
@@ -1667,13 +1840,17 @@ const RECIPES = [
     method: "涼拌",
     cuisine: "中式",
     diet: "素",
-    time: 5,
+    time: 3,
     bento: true,
     tags: ["健康", "多纖維"],
     steps: [
       "四季豆去頭尾，滾水汆燙 3 分鐘至熟，冰鎮",
       "切段，加醬油、香油、蒜末拌勻即可"
-    ]
+    ],
+    prepAhead: [
+      { type: "菜", what: "四季豆去頭尾，滾水汆燙 3 分鐘至熟，冰鎮", keep: "冷藏 2 天（燙好瀝乾）", steps: [1] }
+    ],
+    weekendMinutes: 2
   },
 
   // ── 茄子 ──────────────────────────────
@@ -1693,7 +1870,7 @@ const RECIPES = [
     method: "燒",
     cuisine: "中式",
     diet: "素",
-    time: 8,
+    time: 6,
     bento: true,
     tags: ["健康", "多纖維"],
     steps: [
@@ -1701,7 +1878,11 @@ const RECIPES = [
       "熱油鍋，蒜末爆香",
       "茄子下鍋煎軟",
       "加醬油、水，蓋鍋燜煮 5 分鐘至軟即可"
-    ]
+    ],
+    prepAhead: [
+      { type: "菜", what: "茄子切長段", keep: "冷藏 3 天", steps: [1] }
+    ],
+    weekendMinutes: 2
   },
   {
     id: "eggplant-century-egg",
@@ -1719,7 +1900,7 @@ const RECIPES = [
     method: "涼拌",
     cuisine: "中式",
     diet: "葷",
-    time: 6,
+    time: 2,
     bento: true,
     tags: ["健康"],
     steps: [
@@ -1727,7 +1908,12 @@ const RECIPES = [
       "皮蛋切丁",
       "醬油、蒜末、香油調成醬汁",
       "茄子、皮蛋淋上醬汁拌勻即可"
-    ]
+    ],
+    prepAhead: [
+      { type: "菜", what: "茄子整條蒸 10 分鐘至軟，放涼撕條；皮蛋切丁", keep: "冷藏 3 天", steps: [1, 2] },
+      { type: "醬", what: "醬油、蒜末、香油調成醬汁", keep: "冷藏 1 週", steps: [3] }
+    ],
+    weekendMinutes: 4
   },
 
   // ── 馬鈴薯 ──────────────────────────────
@@ -1748,7 +1934,7 @@ const RECIPES = [
     method: "炒",
     cuisine: "中式",
     diet: "素",
-    time: 8,
+    time: 6,
     bento: true,
     tags: ["健康"],
     steps: [
@@ -1756,7 +1942,11 @@ const RECIPES = [
       "熱油鍋，乾辣椒、蒜末爆香",
       "馬鈴薯絲下鍋快炒",
       "加白醋、鹽炒至熟脆即可"
-    ]
+    ],
+    prepAhead: [
+      { type: "菜", what: "馬鈴薯切細絲，泡水去澱粉後瀝乾", keep: "冷藏 3 天", steps: [1] }
+    ],
+    weekendMinutes: 2
   },
   {
     id: "potato-curry-stew",
@@ -1775,7 +1965,7 @@ const RECIPES = [
     method: "燉",
     cuisine: "日式",
     diet: "葷",
-    time: 10,
+    time: 3,
     bento: true,
     tags: ["一鍋"],
     prep: "weekend",
@@ -1785,7 +1975,12 @@ const RECIPES = [
       "加入馬鈴薯、紅蘿蔔略炒",
       "加水蓋過食材，煮滾後燉 15 分鐘",
       "轉小火加入咖哩塊拌至融化，續煮 5 分鐘即可"
-    ]
+    ],
+    prepAhead: [
+      { type: "整道", what: "整道做好，放涼分裝", keep: "冷藏 3 天／冷凍 7 天", steps: [1, 2, 3, 4, 5] }
+    ],
+    weekendMinutes: 10,
+    weekday: "加熱就能吃"
   },
   {
     id: "potato-roasted",
@@ -1802,7 +1997,7 @@ const RECIPES = [
     method: "烤",
     cuisine: "西式",
     diet: "素",
-    time: 5,
+    time: 3,
     bento: true,
     tags: ["健康"],
     tool: "烤箱",
@@ -1810,7 +2005,11 @@ const RECIPES = [
       "馬鈴薯切塊，用油、鹽、黑胡椒拌勻",
       "烤箱預熱 200°C",
       "馬鈴薯入烤箱烤 25~30 分鐘至金黃即可"
-    ]
+    ],
+    prepAhead: [
+      { type: "菜", what: "馬鈴薯切塊，用油、鹽、黑胡椒拌勻", keep: "冷藏 3 天", steps: [1] }
+    ],
+    weekendMinutes: 2
   },
 
   // ── 紅蘿蔔 ──────────────────────────────
@@ -1829,7 +2028,7 @@ const RECIPES = [
     method: "炒",
     cuisine: "中式",
     diet: "葷",
-    time: 6,
+    time: 4,
     bento: true,
     tags: ["健康", "高蛋白"],
     steps: [
@@ -1837,7 +2036,11 @@ const RECIPES = [
       "熱油鍋，紅蘿蔔絲炒軟",
       "倒入蛋液炒至凝固",
       "加鹽調味即可"
-    ]
+    ],
+    prepAhead: [
+      { type: "菜", what: "紅蘿蔔切細絲，雞蛋打散", keep: "冷藏 3 天", steps: [1] }
+    ],
+    weekendMinutes: 2
   },
   {
     id: "carrot-salad",
@@ -1855,7 +2058,7 @@ const RECIPES = [
     method: "涼拌",
     cuisine: "中式",
     diet: "素",
-    time: 6,
+    time: 2,
     bento: true,
     tags: ["健康"],
     tool: "免開火",
@@ -1863,7 +2066,12 @@ const RECIPES = [
       "紅蘿蔔切細絲，加鹽抓醃出水後擠乾",
       "白醋、糖、香油調成醬汁",
       "紅蘿蔔絲拌入醬汁即可"
-    ]
+    ],
+    prepAhead: [
+      { type: "菜", what: "紅蘿蔔切細絲，加鹽抓醃出水後擠乾", keep: "冷藏 2 天", steps: [1] },
+      { type: "醬", what: "白醋、糖、香油調成醬汁", keep: "冷藏 1 週", steps: [2] }
+    ],
+    weekendMinutes: 4
   },
 
   // ── 番茄（egg 之外） ──────────────────────────────
@@ -1883,7 +2091,7 @@ const RECIPES = [
     method: "煮",
     cuisine: "中式",
     diet: "葷",
-    time: 6,
+    time: 4,
     bento: false,
     tags: ["健康", "一鍋"],
     steps: [
@@ -1891,7 +2099,11 @@ const RECIPES = [
       "水煮滾，加入番茄煮軟出色",
       "加入豆腐丁煮滾",
       "加鹽調味，淋入蛋液成蛋花即可"
-    ]
+    ],
+    prepAhead: [
+      { type: "菜", what: "番茄切塊，豆腐切丁，雞蛋打散", keep: "冷藏 3 天", steps: [1] }
+    ],
+    weekendMinutes: 2
   },
   {
     id: "tomato-vegetable-stew",
@@ -1911,7 +2123,7 @@ const RECIPES = [
     method: "燉",
     cuisine: "西式",
     diet: "素",
-    time: 8,
+    time: 3,
     bento: true,
     tags: ["健康", "多纖維", "一鍋"],
     prep: "weekend",
@@ -1921,7 +2133,12 @@ const RECIPES = [
       "加入番茄、櫛瓜拌炒",
       "加少許水，蓋鍋燉煮 15 分鐘",
       "加鹽、黑胡椒調味即可"
-    ]
+    ],
+    prepAhead: [
+      { type: "整道", what: "整道做好，放涼分裝", keep: "冷藏 3 天／冷凍 7 天", steps: [1, 2, 3, 4, 5] }
+    ],
+    weekendMinutes: 8,
+    weekday: "加熱就能吃"
   },
 
   // ── 小黃瓜 ──────────────────────────────
@@ -1942,7 +2159,7 @@ const RECIPES = [
     method: "涼拌",
     cuisine: "中式",
     diet: "素",
-    time: 5,
+    time: 2,
     bento: true,
     tags: ["健康"],
     tool: "免開火",
@@ -1950,7 +2167,12 @@ const RECIPES = [
       "小黃瓜拍裂切段，加鹽抓醃 10 分鐘後倒去水分",
       "蒜末、白醋、糖、香油調成醬汁",
       "小黃瓜拌入醬汁，冷藏 20 分鐘入味即可"
-    ]
+    ],
+    prepAhead: [
+      { type: "菜", what: "小黃瓜拍裂切段，加鹽抓醃 10 分鐘後倒去水分", keep: "冷藏 2 天", steps: [1] },
+      { type: "醬", what: "蒜末、白醋、糖、香油調成醬汁", keep: "冷藏 1 週", steps: [2] }
+    ],
+    weekendMinutes: 3
   },
   {
     id: "cucumber-garlic-stir",
@@ -1968,7 +2190,7 @@ const RECIPES = [
     method: "炒",
     cuisine: "中式",
     diet: "葷",
-    time: 6,
+    time: 4,
     bento: true,
     tags: ["健康", "高蛋白"],
     steps: [
@@ -1976,7 +2198,11 @@ const RECIPES = [
       "熱油鍋，蛋液炒至半熟盛起",
       "鍋中蒜末爆香，加小黃瓜快炒",
       "加回炒蛋，加鹽拌勻即可"
-    ]
+    ],
+    prepAhead: [
+      { type: "菜", what: "小黃瓜切片，雞蛋打散", keep: "冷藏 3 天", steps: [1] }
+    ],
+    weekendMinutes: 2
   },
 
   // ── 菇類 ──────────────────────────────
@@ -1999,7 +2225,7 @@ const RECIPES = [
     method: "炒",
     cuisine: "中式",
     diet: "素",
-    time: 8,
+    time: 6,
     bento: true,
     tags: ["健康", "多纖維"],
     steps: [
@@ -2008,7 +2234,11 @@ const RECIPES = [
       "放入所有菇類、紅蘿蔔絲拌炒",
       "加醬油、少許水燜煮 3 分鐘",
       "加鹽調味即可"
-    ]
+    ],
+    prepAhead: [
+      { type: "菜", what: "香菇、杏鮑菇切片，紅蘿蔔切絲", keep: "冷藏 3 天", steps: [1] }
+    ],
+    weekendMinutes: 2
   },
   {
     id: "king-oyster-mushroom-oyster-sauce",
@@ -2026,7 +2256,7 @@ const RECIPES = [
     method: "煎",
     cuisine: "中式",
     diet: "葷",
-    time: 6,
+    time: 4,
     bento: true,
     tags: ["健康"],
     steps: [
@@ -2034,7 +2264,11 @@ const RECIPES = [
       "熱油鍋，杏鮑菇煎至兩面金黃",
       "加蠔油、少許水煮至收汁",
       "撒蔥花即可"
-    ]
+    ],
+    prepAhead: [
+      { type: "菜", what: "杏鮑菇切厚片", keep: "冷藏 3 天", steps: [1] }
+    ],
+    weekendMinutes: 2
   },
   {
     id: "shiitake-chicken-soup",
@@ -2051,7 +2285,7 @@ const RECIPES = [
     method: "燉",
     cuisine: "中式",
     diet: "葷",
-    time: 8,
+    time: 6,
     bento: false,
     tags: ["高蛋白", "一鍋"],
     steps: [
@@ -2059,7 +2293,11 @@ const RECIPES = [
       "所有食材放入鍋中，加水蓋過食材",
       "煮滾後轉小火燉 30 分鐘",
       "加鹽調味即可"
-    ]
+    ],
+    prepAhead: [
+      { type: "肉", what: "乾香菇泡軟切片，雞腿肉切塊汆燙去血水", keep: "冷藏 2 天（已煮熟）", steps: [1] }
+    ],
+    weekendMinutes: 2
   },
 
   // ── 主食類 ──────────────────────────────
@@ -2089,7 +2327,9 @@ const RECIPES = [
       "加入白飯拌炒，讓每粒飯都裹上蛋液",
       "加鹽、白胡椒粉調味",
       "起鍋前加蔥花拌勻即可"
-    ]
+    ],
+    prepAhead: [],
+    weekendMinutes: 0
   },
   {
     id: "tomato-pasta",
@@ -2117,7 +2357,9 @@ const RECIPES = [
       "熱油鍋，洋蔥炒軟，加番茄炒出汁",
       "加鹽、黑胡椒調味，倒入煮麵水略煮",
       "拌入義大利麵炒勻即可"
-    ]
+    ],
+    prepAhead: [],
+    weekendMinutes: 0
   },
   {
     id: "mixed-vegetable-rice",
@@ -2136,7 +2378,7 @@ const RECIPES = [
     method: "煮",
     cuisine: "中式",
     diet: "素",
-    time: 5,
+    time: 3,
     bento: true,
     tags: ["健康", "多纖維", "一鍋"],
     tool: "電鍋",
@@ -2145,38 +2387,11 @@ const RECIPES = [
       "所有食材鋪在米上，加醬油、水（比平常略少）",
       "按下開關煮熟後燜 10 分鐘",
       "打開拌勻即可"
-    ]
-  },
-  {
-    id: "japchae-glass-noodle",
-    name: "韓式雜菜冬粉",
-    baseServings: 2,
-    ingredients: [
-      { name: "冬粉", amount: 50, unit: "克" },
-      { name: "菠菜", amount: 100, unit: "克" },
-      { name: "紅蘿蔔", amount: 0.5, unit: "條" },
-      { name: "豬肉片", amount: 100, unit: "克" }
     ],
-    seasonings: [
-      { name: "醬油", amount: 1.5, unit: "大匙" },
-      { name: "糖", amount: 2, unit: "小匙" },
-      { name: "香油", amount: 1, unit: "大匙" },
-      { name: "白芝麻", amount: null, unit: "少許" },
-      { name: "食用油", amount: 1, unit: "大匙" }
+    prepAhead: [
+      { type: "菜", what: "白米洗淨放入電鍋內鍋，紅蘿蔔、香菇切丁", keep: "冷藏 3 天", steps: [1] }
     ],
-    method: "炒",
-    cuisine: "韓式",
-    diet: "葷",
-    time: 15,
-    bento: true,
-    tags: ["健康", "多纖維"],
-    steps: [
-      "冬粉泡軟煮熟剪短；菠菜汆燙；紅蘿蔔切絲",
-      "豬肉絲用醬油、糖抓醃",
-      "熱油鍋，豬肉絲炒熟盛起，紅蘿蔔絲炒軟盛起",
-      "同鍋加冬粉、醬油、香油、糖拌炒",
-      "加回所有食材拌勻，撒白芝麻即可"
-    ]
+    weekendMinutes: 2
   },
 
   // ── 豆芽菜 ──────────────────────────────
@@ -2196,7 +2411,7 @@ const RECIPES = [
     method: "炒",
     cuisine: "中式",
     diet: "素",
-    time: 5,
+    time: 3,
     bento: true,
     tags: ["健康", "多纖維"],
     steps: [
@@ -2204,7 +2419,11 @@ const RECIPES = [
       "熱油鍋，蒜末爆香",
       "豆芽菜下鍋大火快炒",
       "加韭菜段拌炒，加鹽調味即可"
-    ]
+    ],
+    prepAhead: [
+      { type: "菜", what: "豆芽菜洗淨瀝乾，韭菜切段", keep: "冷藏 2 天（瀝乾裝袋）", steps: [1] }
+    ],
+    weekendMinutes: 2
   },
 
   // ── 秋葵 ──────────────────────────────
@@ -2222,14 +2441,18 @@ const RECIPES = [
     method: "涼拌",
     cuisine: "日式",
     diet: "素",
-    time: 5,
+    time: 3,
     bento: true,
     tags: ["健康", "多纖維"],
     steps: [
       "秋葵去蒂，滾水汆燙 2 分鐘後冰鎮",
       "切片，淋上醬油、柴魚片",
       "即可享用"
-    ]
+    ],
+    prepAhead: [
+      { type: "菜", what: "秋葵去蒂，滾水汆燙 2 分鐘後冰鎮", keep: "冷藏 2 天（燙好瀝乾）", steps: [1] }
+    ],
+    weekendMinutes: 2
   },
   {
     id: "okra-garlic-stir",
@@ -2246,7 +2469,7 @@ const RECIPES = [
     method: "炒",
     cuisine: "中式",
     diet: "素",
-    time: 5,
+    time: 3,
     bento: true,
     tags: ["健康", "多纖維"],
     steps: [
@@ -2254,7 +2477,11 @@ const RECIPES = [
       "熱油鍋，蒜末爆香",
       "秋葵下鍋大火快炒 1~2 分鐘",
       "加鹽調味即可"
-    ]
+    ],
+    prepAhead: [
+      { type: "菜", what: "秋葵去蒂，斜切成片", keep: "冷藏 3 天", steps: [1] }
+    ],
+    weekendMinutes: 2
   },
   {
     id: "okra-roasted",
@@ -2279,7 +2506,9 @@ const RECIPES = [
       "烤箱預熱 200°C",
       "秋葵入烤箱烤 8~10 分鐘至表面微焦",
       "取出即可"
-    ]
+    ],
+    prepAhead: [],
+    weekendMinutes: 0
   },
   {
     id: "okra-miso-soup",
@@ -2296,7 +2525,7 @@ const RECIPES = [
     method: "煮",
     cuisine: "日式",
     diet: "素",
-    time: 5,
+    time: 3,
     bento: false,
     tags: ["健康", "一鍋"],
     steps: [
@@ -2304,7 +2533,11 @@ const RECIPES = [
       "水煮滾，放入秋葵、豆腐煮 2 分鐘",
       "轉小火，取一勺熱湯調開味噌",
       "倒回鍋中拌勻即可"
-    ]
+    ],
+    prepAhead: [
+      { type: "菜", what: "秋葵去蒂切片，豆腐切丁", keep: "冷藏 3 天", steps: [1] }
+    ],
+    weekendMinutes: 2
   },
   {
     id: "okra-egg-stir",
@@ -2321,7 +2554,7 @@ const RECIPES = [
     method: "炒",
     cuisine: "中式",
     diet: "葷",
-    time: 6,
+    time: 4,
     bento: true,
     tags: ["健康", "高蛋白"],
     steps: [
@@ -2329,7 +2562,11 @@ const RECIPES = [
       "熱油鍋，蛋液炒至半凝固盛起",
       "鍋中加秋葵片快炒 1 分鐘",
       "加回炒蛋拌勻即可"
-    ]
+    ],
+    prepAhead: [
+      { type: "菜", what: "秋葵去蒂切片，雞蛋打散加鹽", keep: "冷藏 3 天", steps: [1] }
+    ],
+    weekendMinutes: 2
   },
   {
     id: "beef-okra-stir",
@@ -2348,7 +2585,7 @@ const RECIPES = [
     method: "炒",
     cuisine: "中式",
     diet: "葷",
-    time: 8,
+    time: 4,
     bento: true,
     tags: ["健康", "高蛋白"],
     steps: [
@@ -2357,7 +2594,12 @@ const RECIPES = [
       "大火熱油鍋，牛肉片快炒至變色盛起",
       "鍋中加秋葵快炒 1 分鐘",
       "加回牛肉，加蠔油拌炒均勻即可"
-    ]
+    ],
+    prepAhead: [
+      { type: "肉", what: "牛肉片用醬油、太白粉抓醃", keep: "冷凍 2 週／冷藏 2 天", steps: [1] },
+      { type: "菜", what: "秋葵去蒂切片", keep: "冷藏 3 天", steps: [2] }
+    ],
+    weekendMinutes: 4
   },
   {
     id: "beef-okra-donburi",
@@ -2377,7 +2619,7 @@ const RECIPES = [
     method: "煮",
     cuisine: "日式",
     diet: "葷",
-    time: 8,
+    time: 4,
     bento: true,
     tags: ["高蛋白", "一鍋"],
     steps: [
@@ -2386,7 +2628,12 @@ const RECIPES = [
       "牛肉片下鍋煮至變色，倒入醬汁煮滾",
       "加入秋葵片略煮 1 分鐘",
       "盛在白飯上即可"
-    ]
+    ],
+    prepAhead: [
+      { type: "菜", what: "秋葵去蒂，滾水汆燙 1 分鐘後切片", keep: "冷藏 3 天", steps: [1] },
+      { type: "醬", what: "醬油、味醂、糖、水調成醬汁", keep: "冷藏 1 週", steps: [2] }
+    ],
+    weekendMinutes: 4
   },
 
   // ── 蝦仁（追加） ──────────────────────────────
@@ -2407,7 +2654,7 @@ const RECIPES = [
     method: "烤",
     cuisine: "西式",
     diet: "葷",
-    time: 5,
+    time: 3,
     bento: true,
     tags: ["高蛋白"],
     tool: "烤箱",
@@ -2416,7 +2663,11 @@ const RECIPES = [
       "蒜末、少許油拌入蝦仁",
       "烤箱預熱 200°C，蝦仁排盤入烤箱烤 8~10 分鐘",
       "取出擠檸檬汁即可"
-    ]
+    ],
+    prepAhead: [
+      { type: "肉", what: "蝦仁去腸泥，用鹽、黑胡椒調味", keep: "冷藏 1 天", steps: [1] }
+    ],
+    weekendMinutes: 2
   },
   {
     id: "shrimp-curry",
@@ -2433,7 +2684,7 @@ const RECIPES = [
     method: "燒",
     cuisine: "日式",
     diet: "葷",
-    time: 8,
+    time: 6,
     bento: true,
     tags: ["高蛋白", "一鍋"],
     steps: [
@@ -2441,7 +2692,11 @@ const RECIPES = [
       "熱油鍋，洋蔥炒軟",
       "加水煮滾，轉小火加入咖哩塊拌至融化",
       "放入蝦仁煮至變色熟透即可"
-    ]
+    ],
+    prepAhead: [
+      { type: "肉", what: "蝦仁去腸泥，洋蔥切絲", keep: "冷藏 1 天", steps: [1] }
+    ],
+    weekendMinutes: 2
   },
   {
     id: "shrimp-tofu-braised",
@@ -2462,7 +2717,7 @@ const RECIPES = [
     method: "燒",
     cuisine: "中式",
     diet: "葷",
-    time: 8,
+    time: 6,
     bento: true,
     tags: ["高蛋白", "一鍋"],
     steps: [
@@ -2471,7 +2726,11 @@ const RECIPES = [
       "鍋中加水、醬油煮滾，放入豆腐煮 2 分鐘",
       "加回蝦仁，太白粉水勾薄芡",
       "撒蔥花即可"
-    ]
+    ],
+    prepAhead: [
+      { type: "肉", what: "蝦仁去腸泥，豆腐切塊", keep: "冷藏 1 天", steps: [1] }
+    ],
+    weekendMinutes: 2
   },
   {
     id: "shrimp-egg-pancake",
@@ -2488,7 +2747,7 @@ const RECIPES = [
     method: "煎",
     cuisine: "中式",
     diet: "葷",
-    time: 8,
+    time: 6,
     bento: true,
     tags: ["高蛋白"],
     steps: [
@@ -2496,7 +2755,11 @@ const RECIPES = [
       "熱油鍋，蝦仁炒至半熟",
       "倒入蛋液，轉小火加蓋煎至底部金黃",
       "翻面續煎至兩面熟透即可"
-    ]
+    ],
+    prepAhead: [
+      { type: "肉", what: "蝦仁去腸泥，雞蛋打散加鹽", keep: "冷藏 1 天", steps: [1] }
+    ],
+    weekendMinutes: 2
   },
 
   // ── 空心菜 ──────────────────────────────
@@ -2515,7 +2778,7 @@ const RECIPES = [
     method: "炒",
     cuisine: "中式",
     diet: "素",
-    time: 5,
+    time: 3,
     bento: true,
     tags: ["健康", "多纖維"],
     steps: [
@@ -2523,7 +2786,11 @@ const RECIPES = [
       "熱油鍋，蒜末爆香",
       "先下梗部拌炒，再加葉子快炒",
       "加鹽調味即可"
-    ]
+    ],
+    prepAhead: [
+      { type: "菜", what: "空心菜洗淨切段，梗葉分開", keep: "冷藏 2 天（瀝乾裝袋）", steps: [1] }
+    ],
+    weekendMinutes: 2
   },
   {
     id: "water-spinach-fermented-tofu",
@@ -2542,7 +2809,7 @@ const RECIPES = [
     method: "炒",
     cuisine: "中式",
     diet: "素",
-    time: 5,
+    time: 2,
     bento: true,
     tags: ["健康", "多纖維"],
     steps: [
@@ -2550,7 +2817,12 @@ const RECIPES = [
       "豆腐乳用少許水調開備用",
       "熱油鍋，蒜末爆香",
       "空心菜下鍋大火快炒，倒入腐乳醬拌炒均勻即可"
-    ]
+    ],
+    prepAhead: [
+      { type: "菜", what: "空心菜洗淨切段", keep: "冷藏 2 天（瀝乾裝袋）", steps: [1] },
+      { type: "醬", what: "豆腐乳用少許水調開備用", keep: "冷藏 1 週", steps: [2] }
+    ],
+    weekendMinutes: 3
   },
   {
     id: "water-spinach-salad",
@@ -2568,14 +2840,19 @@ const RECIPES = [
     method: "涼拌",
     cuisine: "中式",
     diet: "素",
-    time: 5,
+    time: 2,
     bento: true,
     tags: ["健康", "多纖維"],
     steps: [
       "空心菜切段，滾水汆燙 30 秒後冰鎮瀝乾",
       "醬油、蒜末、香油、糖調成醬汁",
       "空心菜拌入醬汁即可"
-    ]
+    ],
+    prepAhead: [
+      { type: "菜", what: "空心菜切段，滾水汆燙 30 秒後冰鎮瀝乾", keep: "冷藏 2 天（燙好瀝乾）", steps: [1] },
+      { type: "醬", what: "醬油、蒜末、香油、糖調成醬汁", keep: "冷藏 1 週", steps: [2] }
+    ],
+    weekendMinutes: 3
   },
   {
     id: "water-spinach-dried-shrimp",
@@ -2593,7 +2870,7 @@ const RECIPES = [
     method: "炒",
     cuisine: "中式",
     diet: "葷",
-    time: 6,
+    time: 4,
     bento: true,
     tags: ["健康", "多纖維"],
     steps: [
@@ -2601,7 +2878,11 @@ const RECIPES = [
       "熱油鍋，爆香蝦米、蒜末",
       "加入空心菜大火快炒",
       "加鹽調味即可"
-    ]
+    ],
+    prepAhead: [
+      { type: "菜", what: "蝦米泡軟，空心菜切段", keep: "冷藏 2 天（瀝乾裝袋）", steps: [1] }
+    ],
+    weekendMinutes: 2
   },
   {
     id: "water-spinach-beef",
@@ -2622,7 +2903,7 @@ const RECIPES = [
     method: "炒",
     cuisine: "泰式",
     diet: "葷",
-    time: 8,
+    time: 6,
     bento: true,
     tags: ["健康", "高蛋白"],
     steps: [
@@ -2630,7 +2911,11 @@ const RECIPES = [
       "大火熱油鍋，牛肉片快炒至變色盛起",
       "鍋中蒜末、辣椒爆香，空心菜下鍋快炒",
       "加回牛肉拌炒，加蠔油調味即可"
-    ]
+    ],
+    prepAhead: [
+      { type: "肉", what: "牛肉片用醬油、太白粉抓醃，空心菜切段", keep: "冷凍 2 週／冷藏 2 天", steps: [1] }
+    ],
+    weekendMinutes: 2
   },
 
   // ── 地瓜葉 ──────────────────────────────
@@ -2649,7 +2934,7 @@ const RECIPES = [
     method: "炒",
     cuisine: "中式",
     diet: "素",
-    time: 5,
+    time: 3,
     bento: true,
     tags: ["健康", "多纖維"],
     steps: [
@@ -2657,7 +2942,11 @@ const RECIPES = [
       "熱油鍋，蒜末爆香",
       "地瓜葉下鍋大火快炒",
       "加鹽調味即可"
-    ]
+    ],
+    prepAhead: [
+      { type: "菜", what: "地瓜葉洗淨摘取嫩葉嫩莖", keep: "冷藏 2 天（瀝乾裝袋）", steps: [1] }
+    ],
+    weekendMinutes: 2
   },
   {
     id: "sweet-potato-leaves-dried-fish",
@@ -2675,7 +2964,7 @@ const RECIPES = [
     method: "炒",
     cuisine: "中式",
     diet: "葷",
-    time: 6,
+    time: 4,
     bento: true,
     tags: ["健康", "多纖維"],
     steps: [
@@ -2683,7 +2972,11 @@ const RECIPES = [
       "熱油鍋，爆香小魚乾、蒜末",
       "加入地瓜葉大火快炒",
       "加鹽調味即可"
-    ]
+    ],
+    prepAhead: [
+      { type: "菜", what: "小魚乾泡水稍軟，地瓜葉摘取嫩葉嫩莖", keep: "冷藏 2 天（瀝乾裝袋）", steps: [1] }
+    ],
+    weekendMinutes: 2
   },
   {
     id: "sweet-potato-leaves-salad",
@@ -2700,14 +2993,19 @@ const RECIPES = [
     method: "涼拌",
     cuisine: "中式",
     diet: "素",
-    time: 5,
+    time: 2,
     bento: true,
     tags: ["健康", "多纖維"],
     steps: [
       "地瓜葉滾水汆燙 1 分鐘後冰鎮瀝乾",
       "醬油、蒜末、香油調成醬汁",
       "地瓜葉拌入醬汁即可"
-    ]
+    ],
+    prepAhead: [
+      { type: "菜", what: "地瓜葉滾水汆燙 1 分鐘後冰鎮瀝乾", keep: "冷藏 2 天（燙好瀝乾）", steps: [1] },
+      { type: "醬", what: "醬油、蒜末、香油調成醬汁", keep: "冷藏 1 週", steps: [2] }
+    ],
+    weekendMinutes: 3
   },
   {
     id: "sweet-potato-leaves-miso-soup",
@@ -2723,7 +3021,7 @@ const RECIPES = [
     method: "煮",
     cuisine: "日式",
     diet: "素",
-    time: 5,
+    time: 3,
     bento: false,
     tags: ["健康", "一鍋"],
     steps: [
@@ -2731,7 +3029,11 @@ const RECIPES = [
       "水煮滾，放入地瓜葉煮軟",
       "轉小火，取一勺熱湯調開味噌",
       "倒回鍋中拌勻即可"
-    ]
+    ],
+    prepAhead: [
+      { type: "菜", what: "地瓜葉洗淨切段", keep: "冷藏 2 天（瀝乾裝袋）", steps: [1] }
+    ],
+    weekendMinutes: 2
   },
   {
     id: "sweet-potato-leaves-dried-shrimp",
@@ -2749,7 +3051,7 @@ const RECIPES = [
     method: "炒",
     cuisine: "中式",
     diet: "葷",
-    time: 6,
+    time: 4,
     bento: true,
     tags: ["健康", "多纖維"],
     steps: [
@@ -2757,7 +3059,11 @@ const RECIPES = [
       "熱油鍋，爆香蝦米、蒜末",
       "加入地瓜葉大火快炒",
       "加鹽調味即可"
-    ]
+    ],
+    prepAhead: [
+      { type: "菜", what: "蝦米泡軟，地瓜葉摘取嫩葉嫩莖", keep: "冷藏 2 天（瀝乾裝袋）", steps: [1] }
+    ],
+    weekendMinutes: 2
   },
   // ══════════════════════════════════════════════════
   // 第一批（2026-09-16）：週末備料型 —— 一次做一鍋，分裝 3 天便當
@@ -2784,7 +3090,7 @@ const RECIPES = [
     method: "滷",
     cuisine: "中式",
     diet: "葷",
-    time: 10,
+    time: 3,
     bento: true,
     tags: ["健康", "高蛋白", "一鍋"],
     prep: "weekend",
@@ -2794,7 +3100,12 @@ const RECIPES = [
       "加醬油 4 大匙、米酒 2 大匙、糖 1 小匙、水蓋過食材",
       "煮滾後放白蘿蔔，蓋鍋小火滷 40 分鐘（電鍋外鍋 1.5 杯水亦可）",
       "放涼分裝，冷藏可放 3 天，隔夜更入味"
-    ]
+    ],
+    prepAhead: [
+      { type: "整道", what: "整道做好，放涼分裝", keep: "冷藏 3 天／冷凍 7 天", steps: [1, 2, 3, 4, 5] }
+    ],
+    weekendMinutes: 10,
+    weekday: "加熱就能吃"
   },
   {
     id: "wings-soy-braised",
@@ -2816,7 +3127,7 @@ const RECIPES = [
     method: "滷",
     cuisine: "中式",
     diet: "葷",
-    time: 8,
+    time: 3,
     bento: true,
     tags: ["高蛋白", "一鍋"],
     prep: "weekend",
@@ -2826,7 +3137,12 @@ const RECIPES = [
       "放入水煮蛋，煮滾後蓋鍋小火滷 20 分鐘",
       "開蓋轉中火收汁至濃稠",
       "放涼分裝，便當時雞翅、滷蛋各一份"
-    ]
+    ],
+    prepAhead: [
+      { type: "整道", what: "整道做好，放涼分裝", keep: "冷藏 3 天／冷凍 7 天", steps: [1, 2, 3, 4, 5] }
+    ],
+    weekendMinutes: 8,
+    weekday: "加熱就能吃"
   },
   {
     id: "doufugan-braised-egg",
@@ -2847,7 +3163,7 @@ const RECIPES = [
     method: "滷",
     cuisine: "中式",
     diet: "葷",
-    time: 8,
+    time: 3,
     bento: true,
     tags: ["高蛋白", "一鍋"],
     prep: "weekend",
@@ -2857,7 +3173,12 @@ const RECIPES = [
       "放入豆干、水煮蛋，小火滷 25 分鐘",
       "熄火浸泡 30 分鐘以上更入味",
       "豆干切片、滷蛋對切，分裝進便當"
-    ]
+    ],
+    prepAhead: [
+      { type: "整道", what: "整道做好，放涼分裝", keep: "冷藏 3 天／冷凍 7 天", steps: [1, 2, 3, 4, 5] }
+    ],
+    weekendMinutes: 8,
+    weekday: "加熱就能吃"
   },
   {
     id: "mushroom-minced-pork-sauce",
@@ -2880,7 +3201,7 @@ const RECIPES = [
     method: "滷",
     cuisine: "中式",
     diet: "葷",
-    time: 10,
+    time: 3,
     bento: true,
     tags: ["高蛋白", "一鍋"],
     prep: "weekend",
@@ -2890,7 +3211,12 @@ const RECIPES = [
       "加醬油 4 大匙、米酒 2 大匙、糖 1 大匙、五香粉少許，炒出醬香",
       "加香菇水＋清水共 2 杯，放油豆腐，煮滾後小火滷 30 分鐘",
       "分裝冷藏；便當淋飯、拌麵、配燙青菜都可以"
-    ]
+    ],
+    prepAhead: [
+      { type: "整道", what: "整道做好，放涼分裝", keep: "冷藏 3 天／冷凍 7 天", steps: [1, 2, 3, 4, 5] }
+    ],
+    weekendMinutes: 10,
+    weekday: "加熱就能吃"
   },
   {
     id: "chicken-thigh-rice-cooker-braised",
@@ -2911,7 +3237,7 @@ const RECIPES = [
     method: "滷",
     cuisine: "中式",
     diet: "葷",
-    time: 8,
+    time: 3,
     bento: true,
     tags: ["健康", "高蛋白", "一鍋"],
     tool: "電鍋",
@@ -2922,7 +3248,12 @@ const RECIPES = [
       "外鍋 1.5 杯水，按下開關，跳起後燜 15 分鐘",
       "開蓋翻拌讓上下入味均勻",
       "分裝冷藏；雞腿不會柴，重熱也好吃"
-    ]
+    ],
+    prepAhead: [
+      { type: "整道", what: "整道做好，放涼分裝", keep: "冷藏 3 天／冷凍 7 天", steps: [1, 2, 3, 4, 5] }
+    ],
+    weekendMinutes: 8,
+    weekday: "加熱就能吃"
   },
 
   // ── 燒／燉 ──────────────────────────────
@@ -2947,7 +3278,7 @@ const RECIPES = [
     method: "燒",
     cuisine: "中式",
     diet: "葷",
-    time: 12,
+    time: 3,
     bento: true,
     tags: ["高蛋白", "一鍋"],
     prep: "weekend",
@@ -2957,7 +3288,12 @@ const RECIPES = [
       "下蒜頭、薑片、蔥段炒香，加醬油 4 大匙、米酒 3 大匙、糖 1 大匙炒勻",
       "加水蓋過肉，放入水煮蛋，煮滾後蓋鍋小火燒 50 分鐘",
       "開蓋收汁至濃稠；放涼冷藏後可先撇掉表面凝固的油再帶便當"
-    ]
+    ],
+    prepAhead: [
+      { type: "整道", what: "整道做好，放涼分裝", keep: "冷藏 3 天／冷凍 7 天", steps: [1, 2, 3, 4, 5] }
+    ],
+    weekendMinutes: 12,
+    weekday: "加熱就能吃"
   },
   {
     id: "beef-brisket-radish-stew",
@@ -2980,7 +3316,7 @@ const RECIPES = [
     method: "燉",
     cuisine: "中式",
     diet: "葷",
-    time: 12,
+    time: 3,
     bento: true,
     tags: ["健康", "高蛋白", "一鍋"],
     prep: "weekend",
@@ -2990,7 +3326,12 @@ const RECIPES = [
       "加醬油 3 大匙、米酒 2 大匙、水蓋過食材，煮滾後小火燉 60 分鐘",
       "放入白蘿蔔、紅蘿蔔續燉 20 分鐘至軟",
       "加鹽調味；分裝冷藏，牛肉隔夜更軟"
-    ]
+    ],
+    prepAhead: [
+      { type: "整道", what: "整道做好，放涼分裝", keep: "冷藏 3 天／冷凍 7 天", steps: [1, 2, 3, 4, 5] }
+    ],
+    weekendMinutes: 12,
+    weekday: "加熱就能吃"
   },
   {
     id: "chicken-pumpkin-stew",
@@ -3012,7 +3353,7 @@ const RECIPES = [
     method: "燉",
     cuisine: "中式",
     diet: "葷",
-    time: 10,
+    time: 3,
     bento: true,
     tags: ["健康", "高蛋白", "一鍋"],
     prep: "weekend",
@@ -3022,7 +3363,12 @@ const RECIPES = [
       "加南瓜、醬油 2 大匙、水 1 杯，煮滾後蓋鍋小火燉 15 分鐘",
       "南瓜軟了但還成塊時熄火，加鹽、黑胡椒調味",
       "分裝冷藏；南瓜重熱不出水，很適合便當"
-    ]
+    ],
+    prepAhead: [
+      { type: "整道", what: "整道做好，放涼分裝", keep: "冷藏 3 天／冷凍 7 天", steps: [1, 2, 3, 4, 5] }
+    ],
+    weekendMinutes: 10,
+    weekday: "加熱就能吃"
   },
   {
     id: "beef-tomato-ragu",
@@ -3042,7 +3388,7 @@ const RECIPES = [
     method: "燉",
     cuisine: "西式",
     diet: "葷",
-    time: 10,
+    time: 3,
     bento: true,
     tags: ["健康", "高蛋白", "一鍋"],
     prep: "weekend",
@@ -3052,7 +3398,12 @@ const RECIPES = [
       "加番茄丁、鹽、黑胡椒、少許糖，煮滾後小火燉 25 分鐘至濃稠",
       "有義式香料或番茄糊可加，沒有也可以",
       "分裝冷藏；配義大利麵、拌飯、夾吐司都行"
-    ]
+    ],
+    prepAhead: [
+      { type: "整道", what: "整道做好，放涼分裝", keep: "冷藏 3 天／冷凍 7 天", steps: [1, 2, 3, 4, 5] }
+    ],
+    weekendMinutes: 10,
+    weekday: "加熱就能吃"
   },
   {
     id: "napa-cabbage-braised",
@@ -3075,7 +3426,7 @@ const RECIPES = [
     method: "燒",
     cuisine: "中式",
     diet: "葷",
-    time: 12,
+    time: 3,
     bento: true,
     tags: ["健康", "多纖維", "一鍋"],
     prep: "weekend",
@@ -3085,7 +3436,12 @@ const RECIPES = [
       "下白菜梗先炒軟，再加葉子，加醬油 2 大匙、香菇水 1 杯",
       "放豆皮，蓋鍋小火燒 20 分鐘至白菜軟爛",
       "加鹽、白胡椒調味，喜歡可勾薄芡；分裝冷藏"
-    ]
+    ],
+    prepAhead: [
+      { type: "整道", what: "整道做好，放涼分裝", keep: "冷藏 3 天／冷凍 7 天", steps: [1, 2, 3, 4, 5] }
+    ],
+    weekendMinutes: 12,
+    weekday: "加熱就能吃"
   },
   {
     id: "mackerel-miso-simmered",
@@ -3106,7 +3462,7 @@ const RECIPES = [
     method: "燒",
     cuisine: "日式",
     diet: "葷",
-    time: 8,
+    time: 3,
     bento: true,
     tags: ["高蛋白", "一鍋"],
     prep: "weekend",
@@ -3116,7 +3472,12 @@ const RECIPES = [
       "魚皮朝上放入，蓋上鋁箔紙（落蓋）小火煮 12 分鐘",
       "開蓋，湯匙舀醬汁淋魚身，收汁至濃稠",
       "分裝冷藏；冷了也好吃，帶便當不用重熱"
-    ]
+    ],
+    prepAhead: [
+      { type: "整道", what: "整道做好，放涼分裝", keep: "冷藏 3 天／冷凍 7 天", steps: [1, 2, 3, 4, 5] }
+    ],
+    weekendMinutes: 8,
+    weekday: "加熱就能吃"
   },
 
   // ── 烤箱／氣炸鍋 ──────────────────────────────
@@ -3136,7 +3497,7 @@ const RECIPES = [
     method: "烤",
     cuisine: "中式",
     diet: "葷",
-    time: 5,
+    time: 3,
     bento: true,
     tags: ["高蛋白"],
     tool: "烤箱",
@@ -3146,7 +3507,12 @@ const RECIPES = [
       "烤箱預熱 200°C，雞翅排在鋪鋁箔的烤盤上",
       "烤 20 分鐘，翻面刷剩餘醃醬再烤 5 分鐘至上色",
       "放涼分裝，冷的也好吃"
-    ]
+    ],
+    prepAhead: [
+      { type: "整道", what: "整道做好，放涼分裝", keep: "冷藏 3 天／冷凍 7 天", steps: [1, 2, 3, 4] }
+    ],
+    weekendMinutes: 5,
+    weekday: "加熱就能吃"
   },
   {
     id: "ribs-garlic-roasted",
@@ -3165,7 +3531,7 @@ const RECIPES = [
     method: "烤",
     cuisine: "中式",
     diet: "葷",
-    time: 5,
+    time: 3,
     bento: true,
     tags: ["高蛋白"],
     tool: "烤箱",
@@ -3175,7 +3541,12 @@ const RECIPES = [
       "烤箱預熱 200°C，排骨平鋪烤盤",
       "烤 25 分鐘，翻面再烤 10 分鐘至表面焦香",
       "放涼分裝；便當重熱前噴一點水就不會乾"
-    ]
+    ],
+    prepAhead: [
+      { type: "整道", what: "整道做好，放涼分裝", keep: "冷藏 3 天／冷凍 7 天", steps: [1, 2, 3, 4] }
+    ],
+    weekendMinutes: 5,
+    weekday: "加熱就能吃"
   },
   {
     id: "roasted-vegetable-tray",
@@ -3195,7 +3566,7 @@ const RECIPES = [
     method: "烤",
     cuisine: "西式",
     diet: "素",
-    time: 8,
+    time: 3,
     bento: true,
     tags: ["健康", "多纖維"],
     tool: "烤箱",
@@ -3205,7 +3576,12 @@ const RECIPES = [
       "全部用 1 大匙油、鹽、黑胡椒、蒜末拌勻，平鋪烤盤",
       "烤箱 200°C 烤 20 分鐘，中途翻一次",
       "分裝冷藏；三天份的便當配菜一次搞定，重熱不變色"
-    ]
+    ],
+    prepAhead: [
+      { type: "整道", what: "整道做好，放涼分裝", keep: "冷藏 3 天／冷凍 7 天", steps: [1, 2, 3, 4] }
+    ],
+    weekendMinutes: 8,
+    weekday: "加熱就能吃"
   },
   {
     id: "pork-belly-air-fried",
@@ -3222,7 +3598,7 @@ const RECIPES = [
     method: "烤",
     cuisine: "中式",
     diet: "葷",
-    time: 5,
+    time: 3,
     bento: true,
     tags: ["高蛋白"],
     tool: "氣炸鍋",
@@ -3232,7 +3608,12 @@ const RECIPES = [
       "氣炸鍋 180°C 炸 15 分鐘，翻面",
       "轉 200°C 再炸 10 分鐘至皮酥",
       "放涼切片分裝；便當重熱 1 分鐘就好，不要熱太久"
-    ]
+    ],
+    prepAhead: [
+      { type: "整道", what: "整道做好，放涼分裝", keep: "冷藏 3 天／冷凍 7 天", steps: [1, 2, 3, 4] }
+    ],
+    weekendMinutes: 5,
+    weekday: "加熱就能吃"
   },
 
   // ── 便當常備小菜 ──────────────────────────────
@@ -3254,7 +3635,7 @@ const RECIPES = [
     method: "炒",
     cuisine: "中式",
     diet: "素",
-    time: 8,
+    time: 3,
     bento: true,
     tags: ["健康", "高蛋白", "多纖維"],
     prep: "weekend",
@@ -3264,7 +3645,12 @@ const RECIPES = [
       "加紅蘿蔔丁炒軟，再下毛豆",
       "加醬油 1 大匙、鹽、白胡椒拌炒均勻",
       "分裝冷藏，可放 3 天；冷熱都好吃"
-    ]
+    ],
+    prepAhead: [
+      { type: "整道", what: "整道做好，放涼分裝", keep: "冷藏 3 天／冷凍 7 天", steps: [1, 2, 3, 4, 5] }
+    ],
+    weekendMinutes: 8,
+    weekday: "加熱就能吃"
   },
   {
     id: "edamame-garlic-salad",
@@ -3283,7 +3669,7 @@ const RECIPES = [
     method: "涼拌",
     cuisine: "中式",
     diet: "素",
-    time: 5,
+    time: 3,
     bento: true,
     tags: ["健康", "高蛋白"],
     prep: "weekend",
@@ -3292,7 +3678,12 @@ const RECIPES = [
       "蒜末、醬油 1 大匙、香油 1 小匙、辣椒（可省）拌勻",
       "毛豆拌入醬汁，冷藏 30 分鐘入味",
       "分裝，便當分開放一格"
-    ]
+    ],
+    prepAhead: [
+      { type: "整道", what: "整道做好，放涼分裝", keep: "冷藏 3 天／冷凍 7 天", steps: [1, 2, 3, 4] }
+    ],
+    weekendMinutes: 5,
+    weekday: "加熱就能吃"
   },
   // ══════════════════════════════════════════════════
   // 第二批（2026-09-16）：平日快煮型 —— 湯／蒸／燴／炸＋海鮮
@@ -3316,7 +3707,7 @@ const RECIPES = [
     method: "湯",
     cuisine: "中式",
     diet: "葷",
-    time: 8,
+    time: 6,
     bento: false,
     tags: ["健康", "一鍋"],
     steps: [
@@ -3324,7 +3715,11 @@ const RECIPES = [
       "水 3 杯加薑絲煮滾，放絲瓜煮 2 分鐘",
       "下蛤蜊，開口即熄火（煮久肉會縮）",
       "加鹽、米酒少許調味即可"
-    ]
+    ],
+    prepAhead: [
+      { type: "肉", what: "蛤蜊泡鹽水吐沙 30 分鐘；絲瓜去皮切滾刀塊", keep: "冷藏 1 天", steps: [1] }
+    ],
+    weekendMinutes: 2
   },
   {
     id: "bitter-melon-rib-soup",
@@ -3342,7 +3737,7 @@ const RECIPES = [
     method: "湯",
     cuisine: "中式",
     diet: "葷",
-    time: 10,
+    time: 8,
     bento: false,
     tags: ["健康", "高蛋白", "一鍋"],
     steps: [
@@ -3350,7 +3745,11 @@ const RECIPES = [
       "排骨加水 5 杯、薑片，煮滾後小火燉 30 分鐘",
       "放苦瓜續煮 15 分鐘至軟",
       "加鹽調味；喜歡可放幾顆蛤蜊或小魚乾提鮮"
-    ]
+    ],
+    prepAhead: [
+      { type: "肉", what: "排骨冷水下鍋汆燙撈起沖淨；苦瓜去籽切塊", keep: "冷凍 2 週／冷藏 2 天", steps: [1] }
+    ],
+    weekendMinutes: 2
   },
   {
     id: "enoki-egg-tofu-soup",
@@ -3370,7 +3769,7 @@ const RECIPES = [
     method: "湯",
     cuisine: "中式",
     diet: "葷",
-    time: 6,
+    time: 4,
     bento: false,
     tags: ["健康", "高蛋白", "一鍋"],
     steps: [
@@ -3378,7 +3777,11 @@ const RECIPES = [
       "水 3 杯煮滾，放金針菇煮 1 分鐘",
       "放雞蛋豆腐，加鹽、白胡椒調味",
       "淋入蛋液成蛋花，滴幾滴香油即可"
-    ]
+    ],
+    prepAhead: [
+      { type: "菜", what: "金針菇去根剝散；雞蛋豆腐切塊；雞蛋打散", keep: "冷藏 3 天", steps: [1] }
+    ],
+    weekendMinutes: 2
   },
   {
     id: "corn-egg-drop-soup",
@@ -3406,7 +3809,9 @@ const RECIPES = [
       "水 3 杯煮滾，放玉米粒煮 2 分鐘",
       "加鹽、白胡椒，太白粉水勾薄芡",
       "淋入蛋液攪成蛋花，撒蔥花即可"
-    ]
+    ],
+    prepAhead: [],
+    weekendMinutes: 0
   },
   {
     id: "celery-fish-soup",
@@ -3428,7 +3833,7 @@ const RECIPES = [
     method: "湯",
     cuisine: "中式",
     diet: "葷",
-    time: 6,
+    time: 4,
     bento: false,
     tags: ["健康", "高蛋白", "一鍋"],
     steps: [
@@ -3436,7 +3841,11 @@ const RECIPES = [
       "水 3 杯加薑絲煮滾",
       "放魚片，轉小火煮 2 分鐘至熟（不要翻攪）",
       "加鹽、白胡椒，撒芹菜末、滴香油即可"
-    ]
+    ],
+    prepAhead: [
+      { type: "肉", what: "魚片切塊，用鹽、米酒、少許太白粉抓醃；芹菜切末", keep: "冷藏 1 天", steps: [1] }
+    ],
+    weekendMinutes: 2
   },
   {
     id: "salmon-miso-soup",
@@ -3455,7 +3864,7 @@ const RECIPES = [
     method: "湯",
     cuisine: "日式",
     diet: "葷",
-    time: 6,
+    time: 4,
     bento: false,
     tags: ["健康", "高蛋白", "一鍋"],
     steps: [
@@ -3463,39 +3872,11 @@ const RECIPES = [
       "水 3 杯煮滾，放鮭魚煮 3 分鐘",
       "放豆腐、海帶芽煮 1 分鐘",
       "轉小火，取一勺熱湯調開味噌 1.5 大匙倒回鍋中，撒蔥花即可"
-    ]
-  },
-  {
-    id: "hot-sour-soup",
-    name: "酸辣湯",
-    baseServings: 2,
-    ingredients: [
-      { name: "黑木耳", amount: 3, unit: "朵" },
-      { name: "嫩豆腐", amount: 1, unit: "盒" },
-      { name: "紅蘿蔔", amount: 0.5, unit: "條" },
-      { name: "雞蛋", amount: 1, unit: "顆" }
     ],
-    seasonings: [
-      { name: "醬油", amount: 1, unit: "大匙" },
-      { name: "鹽", amount: 0.75, unit: "小匙" },
-      { name: "烏醋", amount: 2, unit: "大匙" },
-      { name: "太白粉", amount: 1, unit: "小匙" },
-      { name: "白胡椒", amount: 1, unit: "小匙" },
-      { name: "水", amount: 3, unit: "杯" }
+    prepAhead: [
+      { type: "肉", what: "鮭魚切塊（可用煎鮭魚剩的邊角）；豆腐切丁", keep: "冷藏 1 天", steps: [1] }
     ],
-    method: "湯",
-    cuisine: "中式",
-    diet: "葷",
-    time: 10,
-    bento: false,
-    tags: ["健康", "一鍋"],
-    steps: [
-      "黑木耳、紅蘿蔔切絲；豆腐切條；雞蛋打散",
-      "水 3 杯煮滾，放木耳、紅蘿蔔煮 3 分鐘",
-      "放豆腐，加醬油 1 大匙、鹽調味，太白粉水勾芡",
-      "淋入蛋液成蛋花，熄火",
-      "加烏醋 2 大匙、白胡椒粉 1 小匙（酸辣味在這一步，起鍋才加）"
-    ]
+    weekendMinutes: 2
   },
   {
     id: "beef-udon-soup",
@@ -3517,7 +3898,7 @@ const RECIPES = [
     method: "湯",
     cuisine: "日式",
     diet: "葷",
-    time: 8,
+    time: 6,
     bento: false,
     tags: ["高蛋白", "一鍋"],
     steps: [
@@ -3526,7 +3907,11 @@ const RECIPES = [
       "放烏龍麵煮 2 分鐘鬆開",
       "牛肉片一片片下鍋，變色即熄火",
       "撒蔥花、七味粉即可"
-    ]
+    ],
+    prepAhead: [
+      { type: "菜", what: "洋蔥切絲", keep: "冷藏 3 天", steps: [1] }
+    ],
+    weekendMinutes: 2
   },
 
   // ── 蒸（電鍋按下去等）──────────────────────────────
@@ -3548,7 +3933,7 @@ const RECIPES = [
     method: "蒸",
     cuisine: "中式",
     diet: "葷",
-    time: 5,
+    time: 3,
     bento: true,
     tags: ["健康", "高蛋白"],
     tool: "電鍋",
@@ -3557,7 +3942,11 @@ const RECIPES = [
       "電鍋外鍋 1 杯水，蒸 10 分鐘至魚肉可撥開",
       "倒掉盤中蒸出的水，淋醬油 1 大匙",
       "鋪蔥絲，燒 1 大匙熱油淋上即可"
-    ]
+    ],
+    prepAhead: [
+      { type: "肉", what: "鱈魚擦乾，兩面抹少許鹽、米酒，鋪薑絲", keep: "冷藏 1 天", steps: [1] }
+    ],
+    weekendMinutes: 2
   },
   {
     id: "egg-tofu-minced-pork-steamed",
@@ -3586,7 +3975,9 @@ const RECIPES = [
       "豬絞肉加醬油 1 大匙、米酒、太白粉、蒜末拌勻，鋪在豆腐上",
       "電鍋外鍋 1 杯水，蒸 12 分鐘",
       "撒蔥花，淋一點醬油即可"
-    ]
+    ],
+    prepAhead: [],
+    weekendMinutes: 0
   },
   {
     id: "clam-steamed-egg",
@@ -3605,7 +3996,7 @@ const RECIPES = [
     method: "蒸",
     cuisine: "中式",
     diet: "葷",
-    time: 5,
+    time: 3,
     bento: true,
     tags: ["高蛋白"],
     tool: "電鍋",
@@ -3614,7 +4005,11 @@ const RECIPES = [
       "蛤蜊排在深盤中，倒入蛋液",
       "蓋保鮮膜或盤子，電鍋外鍋 1 杯水，蒸至蛋液凝固、蛤蜊開口（約 12 分鐘）",
       "撒蔥花、滴香油即可"
-    ]
+    ],
+    prepAhead: [
+      { type: "肉", what: "蛤蜊泡鹽水吐沙；雞蛋打散，加 1.5 倍溫水、少許鹽，過篩", keep: "冷藏 1 天", steps: [1] }
+    ],
+    weekendMinutes: 2
   },
   {
     id: "chicken-mushroom-steamed",
@@ -3635,7 +4030,7 @@ const RECIPES = [
     method: "蒸",
     cuisine: "中式",
     diet: "葷",
-    time: 8,
+    time: 6,
     bento: true,
     tags: ["健康", "高蛋白", "一鍋"],
     tool: "電鍋",
@@ -3644,7 +4039,11 @@ const RECIPES = [
       "香菇切片、木耳撕小片，跟雞肉拌勻鋪盤",
       "電鍋外鍋 1 杯水，蒸 15 分鐘",
       "撒蔥花即可；盤底湯汁拌飯很香"
-    ]
+    ],
+    prepAhead: [
+      { type: "肉", what: "雞腿肉切塊，用醬油 1 大匙、米酒 1 大匙、太白粉、薑絲抓醃 10 分鐘", keep: "冷凍 2 週／冷藏 2 天", steps: [1] }
+    ],
+    weekendMinutes: 2
   },
 
   // ── 燴（勾芡淋飯）──────────────────────────────
@@ -3675,7 +4074,9 @@ const RECIPES = [
       "熱鍋 1 大匙油，蛋液炒至半熟盛起",
       "同鍋放三色豆，加水 1 杯、醬油 1 大匙、鹽煮滾，太白粉水勾芡",
       "倒回滑蛋輕拌，淋在白飯上即可"
-    ]
+    ],
+    prepAhead: [],
+    weekendMinutes: 0
   },
   {
     id: "cod-tomato-braised",
@@ -3696,7 +4097,7 @@ const RECIPES = [
     method: "燴",
     cuisine: "中式",
     diet: "葷",
-    time: 8,
+    time: 6,
     bento: true,
     tags: ["健康", "高蛋白"],
     steps: [
@@ -3704,7 +4105,11 @@ const RECIPES = [
       "熱鍋 1 大匙油，鱈魚煎至兩面微黃盛起",
       "同鍋下蒜末、番茄丁炒出汁，加水半杯、醬油 1 大匙、糖少許",
       "放回鱈魚小火燴 3 分鐘，湯汁收濃即可"
-    ]
+    ],
+    prepAhead: [
+      { type: "肉", what: "鱈魚擦乾拍薄薄太白粉；番茄切丁", keep: "冷藏 1 天", steps: [1] }
+    ],
+    weekendMinutes: 2
   },
   {
     id: "enoki-tofu-braised",
@@ -3726,7 +4131,7 @@ const RECIPES = [
     method: "燴",
     cuisine: "中式",
     diet: "素",
-    time: 8,
+    time: 6,
     bento: true,
     tags: ["健康", "一鍋"],
     steps: [
@@ -3734,68 +4139,13 @@ const RECIPES = [
       "熱鍋 1 大匙油，蒜末爆香，下金針菇炒軟",
       "加水半杯、醬油 1 大匙、蠔油（素蠔油）1 小匙煮滾",
       "放豆腐煮 2 分鐘，太白粉水勾芡，撒蔥花即可"
-    ]
+    ],
+    prepAhead: [
+      { type: "菜", what: "金針菇去根剝散；豆腐切塊", keep: "冷藏 3 天", steps: [1] }
+    ],
+    weekendMinutes: 2
   },
 
-  // ── 炸 ──────────────────────────────
-  {
-    id: "squid-crispy-fried",
-    name: "香酥炸透抽",
-    baseServings: 2,
-    ingredients: [
-      { name: "透抽", amount: 300, unit: "克" }
-    ],
-    seasonings: [
-      { name: "米酒", amount: 1, unit: "大匙" },
-      { name: "鹽", amount: 0.25, unit: "小匙" },
-      { name: "蒜", amount: 2, unit: "瓣" },
-      { name: "地瓜粉", amount: null, unit: "適量" },
-      { name: "胡椒鹽", amount: null, unit: "適量" },
-      { name: "食用油", amount: null, unit: "適量" }
-    ],
-    method: "炸",
-    cuisine: "中式",
-    diet: "葷",
-    time: 10,
-    bento: true,
-    tags: ["高蛋白"],
-    steps: [
-      "透抽去內臟切圈，擦乾，用鹽、米酒、蒜末醃 5 分鐘",
-      "均勻沾裹地瓜粉（或太白粉），靜置 2 分鐘回潮",
-      "油燒到 170°C（筷子插入冒小泡），下鍋炸 2 分鐘至金黃酥脆",
-      "撒胡椒鹽、九層塔（有就加）即可"
-    ]
-  },
-  {
-    id: "chicken-karaage",
-    name: "日式唐揚炸雞",
-    baseServings: 2,
-    ingredients: [
-      { name: "雞腿肉", amount: 300, unit: "克" }
-    ],
-    seasonings: [
-      { name: "醬油", amount: 1.5, unit: "大匙" },
-      { name: "米酒", amount: 1, unit: "大匙" },
-      { name: "太白粉", amount: null, unit: "適量" },
-      { name: "蒜", amount: 2, unit: "瓣" },
-      { name: "薑", amount: 1, unit: "小塊" },
-      { name: "食用油", amount: null, unit: "適量" },
-      { name: "檸檬汁", amount: null, unit: "少許" }
-    ],
-    method: "炸",
-    cuisine: "日式",
-    diet: "葷",
-    time: 10,
-    bento: true,
-    tags: ["高蛋白"],
-    steps: [
-      "雞腿肉切一口大小，用醬油 1.5 大匙、米酒 1 大匙、薑泥、蒜泥醃 15 分鐘",
-      "沾裹太白粉，抖掉多餘的粉",
-      "油 170°C 炸 3 分鐘撈起，靜置 2 分鐘",
-      "油升溫至 190°C 回炸 1 分鐘逼油、更酥",
-      "擠檸檬汁；便當菜的經典，冷了也好吃"
-    ]
-  },
   // ══════════════════════════════════════════════════
   // 第三批（2026-09-16）：平日快煮型 —— 新葉菜（A菜、芥藍）、培根／香腸、麵／年糕／吐司
   // ══════════════════════════════════════════════════
@@ -3812,13 +4162,17 @@ const RECIPES = [
       { name: "食用油", amount: 1, unit: "大匙" }
     ],
     method: "炒", cuisine: "中式", diet: "素",
-    time: 5, bento: false, tags: ["健康", "多纖維"],
+    time: 3, bento: false, tags: ["健康", "多纖維"],
     steps: [
       "A菜洗淨切段，梗葉分開",
       "熱鍋 1 大匙油，蒜末爆香",
       "先下梗炒 30 秒，再下葉大火快炒至軟",
       "加鹽調味即可，A菜易出水，起鍋要快"
-    ]
+    ],
+    prepAhead: [
+      { type: "菜", what: "A菜洗淨切段，梗葉分開", keep: "冷藏 2 天（瀝乾裝袋）", steps: [1] }
+    ],
+    weekendMinutes: 2
   },
   {
     id: "a-choy-shimeji",
@@ -3835,13 +4189,17 @@ const RECIPES = [
       { name: "食用油", amount: 1, unit: "大匙" }
     ],
     method: "炒", cuisine: "中式", diet: "素",
-    time: 6, bento: false, tags: ["健康", "多纖維"],
+    time: 4, bento: false, tags: ["健康", "多纖維"],
     steps: [
       "A菜切段；鴻喜菇剝散",
       "熱鍋 1 大匙油，蒜末爆香，下鴻喜菇炒至微軟出香",
       "加A菜大火快炒",
       "加鹽、少許醬油調味即可"
-    ]
+    ],
+    prepAhead: [
+      { type: "菜", what: "A菜切段；鴻喜菇剝散", keep: "冷藏 2 天（瀝乾裝袋）", steps: [1] }
+    ],
+    weekendMinutes: 2
   },
   {
     id: "a-choy-sausage",
@@ -3856,13 +4214,17 @@ const RECIPES = [
       { name: "鹽", amount: null, unit: "少許" }
     ],
     method: "炒", cuisine: "中式", diet: "葷",
-    time: 6, bento: false, tags: ["多纖維"],
+    time: 4, bento: false, tags: ["多纖維"],
     steps: [
       "香腸斜切薄片；A菜切段",
       "冷鍋下香腸片，小火煎至出油微焦",
       "下蒜末、A菜轉大火快炒",
       "加少許鹽即可（香腸已有鹹味）"
-    ]
+    ],
+    prepAhead: [
+      { type: "肉", what: "香腸斜切薄片；A菜切段", keep: "冷凍 2 週／冷藏 2 天", steps: [1] }
+    ],
+    weekendMinutes: 2
   },
 
   // ── 芥藍（便當友善：蒸過重熱不變色）──────────────────────────────
@@ -3880,13 +4242,17 @@ const RECIPES = [
       { name: "水", amount: 2, unit: "大匙" }
     ],
     method: "炒", cuisine: "中式", diet: "葷",
-    time: 6, bento: true, tags: ["健康", "多纖維"],
+    time: 4, bento: true, tags: ["健康", "多纖維"],
     steps: [
       "芥藍去老梗，梗厚的對剖",
       "滾水加少許油、鹽，芥藍燙 1 分鐘撈起",
       "熱鍋 1 小匙油，蒜末、薑絲爆香，下芥藍快炒",
       "加蠔油 1 大匙、少許水拌勻即可"
-    ]
+    ],
+    prepAhead: [
+      { type: "菜", what: "滾水加少許油、鹽，芥藍燙 1 分鐘撈起", keep: "冷藏 2 天（燙好瀝乾）", steps: [2] }
+    ],
+    weekendMinutes: 2
   },
   {
     id: "gai-lan-beef",
@@ -3905,13 +4271,17 @@ const RECIPES = [
       { name: "食用油", amount: 1, unit: "大匙" }
     ],
     method: "炒", cuisine: "中式", diet: "葷",
-    time: 8, bento: true, tags: ["健康", "高蛋白", "多纖維"],
+    time: 6, bento: true, tags: ["健康", "高蛋白", "多纖維"],
     steps: [
       "牛肉片用醬油、太白粉、米酒抓醃；芥藍切段",
       "大火熱鍋 1 大匙油，牛肉快炒至變色盛起",
       "同鍋蒜末爆香，下芥藍炒 2 分鐘",
       "加回牛肉，加蠔油 1 大匙拌炒均勻即可"
-    ]
+    ],
+    prepAhead: [
+      { type: "肉", what: "牛肉片用醬油、太白粉、米酒抓醃；芥藍切段", keep: "冷凍 2 週／冷藏 2 天", steps: [1] }
+    ],
+    weekendMinutes: 2
   },
   {
     id: "gai-lan-squid-celery",
@@ -3931,13 +4301,18 @@ const RECIPES = [
       { name: "食用油", amount: 1, unit: "大匙" }
     ],
     method: "炒", cuisine: "中式", diet: "葷",
-    time: 8, bento: true, tags: ["健康", "高蛋白", "多纖維"],
+    time: 4, bento: true, tags: ["健康", "高蛋白", "多纖維"],
     steps: [
       "透抽切圈或切花；芥藍、芹菜切段",
       "透抽滾水燙 20 秒撈起（先燙再炒才不會出水變老）",
       "熱鍋 1 大匙油，蒜末、薑絲爆香，下芥藍、芹菜炒 1 分鐘",
       "加回透抽，加醬油 1 大匙、米酒 1 大匙、白胡椒大火快炒即可"
-    ]
+    ],
+    prepAhead: [
+      { type: "肉", what: "透抽切圈或切花；芥藍、芹菜切段", keep: "冷藏 1 天", steps: [1] },
+      { type: "菜", what: "透抽滾水燙 20 秒撈起（先燙再炒才不會出水變老）", keep: "冷藏 2 天（燙好瀝乾）", steps: [2] }
+    ],
+    weekendMinutes: 4
   },
 
   // ── 培根 ──────────────────────────────
@@ -3956,13 +4331,17 @@ const RECIPES = [
       { name: "食用油", amount: 1, unit: "大匙" }
     ],
     method: "炒", cuisine: "西式", diet: "葷",
-    time: 6, bento: true, tags: ["多纖維"],
+    time: 4, bento: true, tags: ["多纖維"],
     steps: [
       "培根切段；玉米筍對剖；甜椒切條",
       "冷鍋下培根，小火煎至出油微焦",
       "下玉米筍、甜椒轉中火炒 2 分鐘",
       "加黑胡椒、少許鹽即可"
-    ]
+    ],
+    prepAhead: [
+      { type: "肉", what: "培根切段；玉米筍對剖；甜椒切條", keep: "冷凍 2 週／冷藏 2 天", steps: [1] }
+    ],
+    weekendMinutes: 2
   },
   {
     id: "bacon-egg-toast",
@@ -3983,7 +4362,9 @@ const RECIPES = [
       "培根煎至微焦盛起，用鍋中培根油煎蛋（喜歡半熟或全熟自己決定）",
       "吐司夾培根、蛋，撒黑胡椒",
       "有生菜、番茄片就夾進去"
-    ]
+    ],
+    prepAhead: [],
+    weekendMinutes: 0
   },
   {
     id: "bacon-cabbage-pasta",
@@ -4001,13 +4382,18 @@ const RECIPES = [
       { name: "食用油", amount: 1, unit: "大匙" }
     ],
     method: "煮", cuisine: "西式", diet: "葷",
-    time: 10, bento: true, tags: ["多纖維"],
+    time: 8, bento: true, tags: ["多纖維"],
     steps: [
-      "義大利麵依包裝時間煮，留半碗煮麵水；培根切段；高麗菜切片",
+      "培根切段；高麗菜切片",
+      "義大利麵依包裝時間煮，留半碗煮麵水",
       "冷鍋下培根煎至出油，下蒜末炒香",
       "加高麗菜炒軟，加煮麵水半碗",
       "拌入義大利麵，加鹽、黑胡椒拌勻即可"
-    ]
+    ],
+    prepAhead: [
+      { type: "菜", what: "培根切段；高麗菜切片", keep: "冷藏 3 天", steps: [1] }
+    ],
+    weekendMinutes: 2
   },
 
   // ── 香腸 ──────────────────────────────
@@ -4025,13 +4411,17 @@ const RECIPES = [
       { name: "食用油", amount: 1, unit: "大匙" }
     ],
     method: "炒", cuisine: "中式", diet: "葷",
-    time: 6, bento: true, tags: ["一鍋"],
+    time: 4, bento: true, tags: ["一鍋"],
     steps: [
       "香腸切丁；三色豆免解凍",
       "冷鍋下香腸丁，小火煎至出油",
       "下三色豆轉中火炒 3 分鐘",
       "加黑胡椒、少許醬油即可，便當配菜零前處理"
-    ]
+    ],
+    prepAhead: [
+      { type: "肉", what: "香腸切丁；三色豆免解凍", keep: "冷凍 2 週／冷藏 2 天", steps: [1] }
+    ],
+    weekendMinutes: 2
   },
   {
     id: "sausage-fried-rice",
@@ -4050,13 +4440,17 @@ const RECIPES = [
       { name: "食用油", amount: 1, unit: "大匙" }
     ],
     method: "炒", cuisine: "中式", diet: "葷",
-    time: 8, bento: true, tags: ["一鍋"],
+    time: 6, bento: true, tags: ["一鍋"],
     steps: [
       "香腸切丁；雞蛋打散；白飯打散（隔夜飯較佳）",
       "冷鍋下香腸丁煎至出油，下蛋液炒散",
       "加白飯、三色豆大火拌炒至粒粒分明",
       "加鹽、白胡椒、蔥花拌勻即可"
-    ]
+    ],
+    prepAhead: [
+      { type: "肉", what: "香腸切丁；雞蛋打散；白飯打散（隔夜飯較佳）", keep: "冷凍 2 週／冷藏 2 天", steps: [1] }
+    ],
+    weekendMinutes: 2
   },
 
   // ── 麵條 ──────────────────────────────
@@ -4077,13 +4471,18 @@ const RECIPES = [
       { name: "食用油", amount: 1, unit: "大匙" }
     ],
     method: "炒", cuisine: "中式", diet: "素",
-    time: 8, bento: true, tags: ["多纖維", "一鍋"],
+    time: 6, bento: true, tags: ["多纖維", "一鍋"],
     steps: [
-      "麵條煮至八分熟撈起瀝乾（油麵可免煮）；韭菜切段",
+      "韭菜切段，豆芽洗淨瀝乾",
+      "麵條煮至八分熟撈起瀝乾（油麵可免煮）",
       "熱鍋 1 大匙油，蒜末爆香，下豆芽炒 30 秒",
       "加麵條、醬油 2 大匙、烏醋 1 小匙、白胡椒拌炒",
       "起鍋前加韭菜拌兩下即可"
-    ]
+    ],
+    prepAhead: [
+      { type: "菜", what: "韭菜切段，豆芽洗淨瀝乾", keep: "冷藏 2 天（瀝乾裝袋）", steps: [1] }
+    ],
+    weekendMinutes: 2
   },
   {
     id: "noodle-sesame-cold",
@@ -4103,13 +4502,18 @@ const RECIPES = [
       { name: "蒜", amount: 2, unit: "瓣" }
     ],
     method: "涼拌", cuisine: "中式", diet: "葷",
-    time: 8, bento: true, tags: ["高蛋白"],
+    time: 4, bento: true, tags: ["高蛋白"],
     steps: [
       "麵條煮熟，沖冷水瀝乾拌少許香油；雞胸肉水煮撕絲；小黃瓜切絲",
       "芝麻醬 2 大匙先用溫水 2 大匙調開，再加醬油 1 大匙、糖 1 小匙、蒜末、烏醋少許",
       "麵鋪底，放雞絲、小黃瓜絲，淋醬",
       "帶便當時醬另外裝，吃前再拌"
-    ]
+    ],
+    prepAhead: [
+      { type: "肉", what: "麵條煮熟，沖冷水瀝乾拌少許香油；雞胸肉水煮撕絲；小黃瓜切絲", keep: "冷藏 2 天（已煮熟）", steps: [1] },
+      { type: "醬", what: "芝麻醬 2 大匙先用溫水 2 大匙調開，再加醬油 1 大匙、糖 1 小匙、蒜末、烏醋少許", keep: "冷藏 1 週", steps: [2] }
+    ],
+    weekendMinutes: 4
   },
   {
     id: "noodle-zhajiang",
@@ -4130,13 +4534,18 @@ const RECIPES = [
       { name: "水", amount: 0.5, unit: "杯" }
     ],
     method: "炒", cuisine: "中式", diet: "葷",
-    time: 10, bento: true, tags: ["高蛋白"],
+    time: 8, bento: true, tags: ["高蛋白"],
     steps: [
-      "豆干切小丁；小黃瓜切絲；麵條煮熟",
+      "豆干切小丁；小黃瓜切絲",
+      "麵條煮熟",
       "熱鍋 1 大匙油，豬絞肉炒散上色，下豆干丁、蒜末炒香",
       "加甜麵醬 2 大匙、豆瓣醬 1 大匙、糖 1 小匙、水半杯，小火煮 5 分鐘收濃",
       "醬淋麵上，鋪小黃瓜絲拌勻；醬可多做，冷藏 3 天"
-    ]
+    ],
+    prepAhead: [
+      { type: "菜", what: "豆干切小丁；小黃瓜切絲", keep: "冷藏 3 天", steps: [1] }
+    ],
+    weekendMinutes: 2
   },
 
   // ── 烏龍麵 ──────────────────────────────
@@ -4157,13 +4566,17 @@ const RECIPES = [
       { name: "水", amount: 3, unit: "杯" }
     ],
     method: "煮", cuisine: "日式", diet: "葷",
-    time: 8, bento: false, tags: ["健康", "一鍋"],
+    time: 6, bento: false, tags: ["健康", "一鍋"],
     steps: [
       "蛤蜊吐沙；金針菇去根剝散",
       "水 3 杯加薑絲煮滾，放烏龍麵煮 2 分鐘",
       "下金針菇、蛤蜊，開口即熄火",
       "加鹽、米酒少許，撒蔥花即可"
-    ]
+    ],
+    prepAhead: [
+      { type: "肉", what: "蛤蜊吐沙；金針菇去根剝散", keep: "冷藏 1 天", steps: [1] }
+    ],
+    weekendMinutes: 2
   },
   {
     id: "udon-pork-belly-stir",
@@ -4182,13 +4595,17 @@ const RECIPES = [
       { name: "食用油", amount: 1, unit: "大匙" }
     ],
     method: "炒", cuisine: "日式", diet: "葷",
-    time: 8, bento: true, tags: ["一鍋"],
+    time: 6, bento: true, tags: ["一鍋"],
     steps: [
       "五花肉片切段；高麗菜切片；烏龍麵用熱水沖散",
       "冷鍋下五花肉煎至出油微焦",
       "下高麗菜炒軟，加烏龍麵",
       "加醬油 2 大匙、味醂 1 大匙、少許烏醋拌炒，撒柴魚片即可"
-    ]
+    ],
+    prepAhead: [
+      { type: "肉", what: "五花肉片切段；高麗菜切片；烏龍麵用熱水沖散", keep: "冷凍 2 週／冷藏 2 天", steps: [1] }
+    ],
+    weekendMinutes: 2
   },
 
   // ── 年糕 ──────────────────────────────
@@ -4208,13 +4625,17 @@ const RECIPES = [
       { name: "水", amount: 1, unit: "杯" }
     ],
     method: "炒", cuisine: "韓式", diet: "葷",
-    time: 8, bento: true, tags: ["一鍋"],
+    time: 6, bento: true, tags: ["一鍋"],
     steps: [
       "雞蛋水煮 8 分鐘剝殼；高麗菜切片；年糕泡水 5 分鐘",
       "鍋中水 1 杯、韓式辣醬 1 大匙、醬油 1 小匙、糖 1 小匙煮滾",
       "放年糕、高麗菜煮 5 分鐘至醬汁濃稠",
       "放水煮蛋滾一下裹醬即可"
-    ]
+    ],
+    prepAhead: [
+      { type: "蛋", what: "水煮蛋剝殼", keep: "冷藏 3 天", steps: [1] }
+    ],
+    weekendMinutes: 2
   },
   {
     id: "rice-cake-napa-pork",
@@ -4235,13 +4656,17 @@ const RECIPES = [
       { name: "水", amount: 0.5, unit: "杯" }
     ],
     method: "炒", cuisine: "中式", diet: "葷",
-    time: 8, bento: true, tags: ["一鍋"],
+    time: 6, bento: true, tags: ["一鍋"],
     steps: [
       "豬肉片用醬油、太白粉抓醃；大白菜切片；年糕泡水",
       "熱鍋 1 大匙油，肉片炒至變色，下蒜末、白菜梗炒軟",
       "加白菜葉、年糕、水半杯、醬油 1.5 大匙",
       "蓋鍋燜 3 分鐘至年糕軟，加鹽、白胡椒拌勻即可"
-    ]
+    ],
+    prepAhead: [
+      { type: "肉", what: "豬肉片用醬油、太白粉抓醃；大白菜切片；年糕泡水", keep: "冷凍 2 週／冷藏 2 天", steps: [1] }
+    ],
+    weekendMinutes: 2
   },
   {
     id: "rice-cake-seaweed-egg-soup",
@@ -4266,7 +4691,9 @@ const RECIPES = [
       "水 3 杯煮滾，加醬油 1 大匙、蒜末，放年糕煮 3 分鐘至軟",
       "放海帶芽煮 1 分鐘",
       "淋蛋液成蛋花，撒蔥花、滴香油即可"
-    ]
+    ],
+    prepAhead: [],
+    weekendMinutes: 0
   },
 
   // ── 吐司 ──────────────────────────────
@@ -4285,37 +4712,18 @@ const RECIPES = [
       { name: "黑胡椒", amount: null, unit: "少許" }
     ],
     method: "烤", cuisine: "西式", diet: "素",
-    time: 5, bento: false, tags: [],
+    time: 3, bento: false, tags: [],
     tool: "烤箱",
     steps: [
       "番茄切薄片",
       "吐司抹番茄醬，鋪番茄片、玉米粒，有起司就撒",
       "烤箱 200°C 烤 8 分鐘至邊緣酥脆",
       "撒黑胡椒即可；冰箱剩的培根、甜椒都能加"
-    ]
-  },
-  {
-    id: "french-toast",
-    name: "法式吐司",
-    baseServings: 2,
-    ingredients: [
-      { name: "吐司", amount: 4, unit: "片" },
-      { name: "雞蛋", amount: 2, unit: "顆" }
     ],
-    seasonings: [
-      { name: "牛奶", amount: 3, unit: "大匙" },
-      { name: "糖", amount: 1, unit: "小匙" },
-      { name: "奶油", amount: 1, unit: "小塊" },
-      { name: "蜂蜜", amount: 1, unit: "大匙" }
+    prepAhead: [
+      { type: "菜", what: "番茄切薄片", keep: "冷藏 3 天", steps: [1] }
     ],
-    method: "煎", cuisine: "西式", diet: "葷",
-    time: 5, bento: false, tags: [],
-    steps: [
-      "雞蛋打散，加牛奶 3 大匙（沒有用水）、糖 1 小匙",
-      "吐司兩面沾滿蛋液",
-      "熱鍋放一小塊奶油或少許油，中小火煎至兩面金黃",
-      "淋蜂蜜或撒糖粉即可"
-    ]
+    weekendMinutes: 2
   },
   // ══════════════════════════════════════════════════
   // 第四批（2026-09-16）：補齊覆蓋率 —— 瓜類、豆製品、絞肉、鯖魚鱈魚、炸物
@@ -4339,13 +4747,17 @@ const RECIPES = [
       { name: "水", amount: 3, unit: "大匙" }
     ],
     method: "炒", cuisine: "中式", diet: "素",
-    time: 8, bento: true, tags: ["健康", "多纖維", "一鍋"],
+    time: 6, bento: true, tags: ["健康", "多纖維", "一鍋"],
     steps: [
       "大白菜切片，梗葉分開；油豆腐對切",
       "熱鍋 1 大匙油，蒜末爆香，下白菜梗炒軟",
       "加白菜葉、油豆腐、醬油 1.5 大匙、水 3 大匙",
       "蓋鍋燜 3 分鐘，加鹽、白胡椒拌勻即可"
-    ]
+    ],
+    prepAhead: [
+      { type: "菜", what: "大白菜切片，梗葉分開；油豆腐對切", keep: "冷藏 2 天（瀝乾裝袋）", steps: [1] }
+    ],
+    weekendMinutes: 2
   },
   {
     id: "tofu-skin-fried-tofu-braised",
@@ -4364,14 +4776,19 @@ const RECIPES = [
       { name: "水", amount: 2, unit: "杯" }
     ],
     method: "滷", cuisine: "中式", diet: "素",
-    time: 6, bento: true, tags: ["高蛋白", "一鍋"],
+    time: 3, bento: true, tags: ["高蛋白", "一鍋"],
     prep: "weekend",
     steps: [
       "豆皮切段；油豆腐用熱水沖掉表面油",
       "鍋中放醬油 4 大匙、糖 1 大匙、八角 1 顆、蒜頭、薑片、水 2 杯煮滾",
       "放豆皮、油豆腐，小火滷 20 分鐘，中途翻面",
       "熄火浸泡入味；分裝冷藏，便當的素蛋白質來源"
-    ]
+    ],
+    prepAhead: [
+      { type: "整道", what: "整道做好，放涼分裝", keep: "冷藏 3 天／冷凍 7 天", steps: [1, 2, 3, 4] }
+    ],
+    weekendMinutes: 6,
+    weekday: "加熱就能吃"
   },
   {
     id: "tofu-skin-chive-egg",
@@ -4388,13 +4805,17 @@ const RECIPES = [
       { name: "食用油", amount: 1, unit: "大匙" }
     ],
     method: "炒", cuisine: "中式", diet: "素",
-    time: 8, bento: true, tags: ["健康", "高蛋白"],
+    time: 6, bento: true, tags: ["健康", "高蛋白"],
     steps: [
       "豆皮切條；韭黃切段；雞蛋打散",
       "熱鍋 1 大匙油，豆皮煎至微黃",
       "倒入蛋液炒至半熟，下韭黃快炒",
       "加醬油 1 大匙、鹽拌勻即可"
-    ]
+    ],
+    prepAhead: [
+      { type: "菜", what: "豆皮切條；韭黃切段；雞蛋打散", keep: "冷藏 2 天（瀝乾裝袋）", steps: [1] }
+    ],
+    weekendMinutes: 2
   },
   {
     id: "egg-tofu-pan-fried",
@@ -4409,13 +4830,17 @@ const RECIPES = [
       { name: "食用油", amount: 1, unit: "大匙" }
     ],
     method: "煎", cuisine: "中式", diet: "素",
-    time: 6, bento: true, tags: ["高蛋白"],
+    time: 4, bento: true, tags: ["高蛋白"],
     steps: [
       "雞蛋豆腐切 1.5 公分厚片，用廚房紙巾吸乾",
       "薄薄拍一層太白粉",
       "熱鍋 1 大匙油，中小火煎至兩面金黃（翻面要輕）",
       "淋醬油、撒蔥花、柴魚片即可"
-    ]
+    ],
+    prepAhead: [
+      { type: "菜", what: "雞蛋豆腐切 1.5 公分厚片，用廚房紙巾吸乾", keep: "冷藏 3 天", steps: [1] }
+    ],
+    weekendMinutes: 2
   },
 
   // ── 瓜類 ──────────────────────────────
@@ -4435,13 +4860,17 @@ const RECIPES = [
       { name: "水", amount: 2, unit: "大匙" }
     ],
     method: "炒", cuisine: "中式", diet: "葷",
-    time: 8, bento: false, tags: ["健康", "高蛋白"],
+    time: 6, bento: false, tags: ["健康", "高蛋白"],
     steps: [
       "絲瓜去皮切滾刀塊；雞蛋打散",
       "熱鍋 1 大匙油，蛋液炒至半熟盛起",
       "同鍋蒜末、薑絲爆香，下絲瓜炒 1 分鐘，加水 2 大匙蓋鍋燜 2 分鐘",
       "加回炒蛋，加鹽拌勻即可；絲瓜出水多，現煮現吃"
-    ]
+    ],
+    prepAhead: [
+      { type: "菜", what: "絲瓜去皮切滾刀塊；雞蛋打散", keep: "冷藏 3 天", steps: [1] }
+    ],
+    weekendMinutes: 2
   },
   {
     id: "loofah-squid-braised",
@@ -4460,13 +4889,17 @@ const RECIPES = [
       { name: "水", amount: 0.5, unit: "杯" }
     ],
     method: "燴", cuisine: "中式", diet: "葷",
-    time: 8, bento: false, tags: ["健康", "高蛋白", "一鍋"],
+    time: 6, bento: false, tags: ["健康", "高蛋白", "一鍋"],
     steps: [
       "絲瓜去皮切塊；透抽切圈",
       "熱鍋 1 大匙油，薑絲爆香，下絲瓜炒 1 分鐘",
       "加水半杯、鹽、米酒 1 大匙，蓋鍋燜 2 分鐘",
       "下透抽煮 1 分鐘變白即熄火，太白粉水勾薄芡即可"
-    ]
+    ],
+    prepAhead: [
+      { type: "肉", what: "絲瓜去皮切塊；透抽切圈", keep: "冷藏 1 天", steps: [1] }
+    ],
+    weekendMinutes: 2
   },
   {
     id: "bitter-melon-egg",
@@ -4483,13 +4916,17 @@ const RECIPES = [
       { name: "食用油", amount: 1, unit: "大匙" }
     ],
     method: "炒", cuisine: "中式", diet: "葷",
-    time: 8, bento: true, tags: ["健康", "高蛋白"],
+    time: 6, bento: true, tags: ["健康", "高蛋白"],
     steps: [
       "苦瓜去籽、刮掉白膜切薄片，用鹽抓 5 分鐘擠掉苦水；雞蛋打散",
       "熱鍋 1 大匙油，蒜末爆香，下苦瓜炒 2 分鐘",
       "倒入蛋液，待底部凝固再翻炒",
       "加鹽、少許醬油拌勻即可"
-    ]
+    ],
+    prepAhead: [
+      { type: "菜", what: "苦瓜去籽、刮掉白膜切薄片，用鹽抓 5 分鐘擠掉苦水；雞蛋打散", keep: "冷藏 3 天", steps: [1] }
+    ],
+    weekendMinutes: 2
   },
   {
     id: "bitter-melon-dried-fish",
@@ -4509,13 +4946,17 @@ const RECIPES = [
       { name: "水", amount: 2, unit: "大匙" }
     ],
     method: "炒", cuisine: "中式", diet: "葷",
-    time: 8, bento: true, tags: ["健康", "多纖維"],
+    time: 6, bento: true, tags: ["健康", "多纖維"],
     steps: [
       "苦瓜去籽刮白膜切片，鹽抓 5 分鐘擠掉苦水；小魚乾沖水瀝乾",
       "熱鍋 1 大匙油，小火把小魚乾、蒜末、豆豉（有就加）炒香",
       "下苦瓜轉大火炒 2 分鐘，加水 2 大匙蓋鍋燜 1 分鐘",
       "加醬油 1 小匙、少許糖拌勻即可"
-    ]
+    ],
+    prepAhead: [
+      { type: "肉", what: "苦瓜去籽刮白膜切片，鹽抓 5 分鐘擠掉苦水；小魚乾沖水瀝乾", keep: "冷藏 1 天", steps: [1] }
+    ],
+    weekendMinutes: 2
   },
   {
     id: "pumpkin-rice-cooker-steamed",
@@ -4533,7 +4974,9 @@ const RECIPES = [
       "排盤，撒少許鹽",
       "電鍋外鍋 1 杯水，蒸至跳起（約 15 分鐘）",
       "便當主食或配菜都行，重熱不變色不出水"
-    ]
+    ],
+    prepAhead: [],
+    weekendMinutes: 0
   },
 
   // ── 快炒配菜 ──────────────────────────────
@@ -4553,13 +4996,17 @@ const RECIPES = [
       { name: "食用油", amount: 1, unit: "大匙" }
     ],
     method: "炒", cuisine: "中式", diet: "葷",
-    time: 6, bento: true, tags: ["健康", "多纖維"],
+    time: 4, bento: true, tags: ["健康", "多纖維"],
     steps: [
       "小魚乾沖水瀝乾；青椒去籽切條",
       "熱鍋 1 大匙油，小火把小魚乾、蒜末、辣椒炒香酥",
       "下青椒轉大火炒 1 分鐘",
       "加醬油 1 小匙、少許糖拌勻即可"
-    ]
+    ],
+    prepAhead: [
+      { type: "肉", what: "小魚乾沖水瀝乾；青椒去籽切條", keep: "冷藏 1 天", steps: [1] }
+    ],
+    weekendMinutes: 2
   },
   {
     id: "edamame-shrimp-baby-corn",
@@ -4578,13 +5025,17 @@ const RECIPES = [
       { name: "食用油", amount: 1, unit: "大匙" }
     ],
     method: "炒", cuisine: "中式", diet: "葷",
-    time: 6, bento: true, tags: ["健康", "高蛋白", "多纖維"],
+    time: 4, bento: true, tags: ["健康", "高蛋白", "多纖維"],
     steps: [
       "蝦仁去腸泥，鹽、太白粉抓醃；玉米筍斜切；毛豆仁燙 2 分鐘",
       "熱鍋 1 大匙油，蝦仁炒至變色盛起",
       "同鍋蒜末爆香，下玉米筍、毛豆炒 2 分鐘",
       "加回蝦仁，加鹽、米酒拌炒即可"
-    ]
+    ],
+    prepAhead: [
+      { type: "肉", what: "蝦仁去腸泥，鹽、太白粉抓醃；玉米筍斜切；毛豆仁燙 2 分鐘", keep: "冷藏 1 天", steps: [1] }
+    ],
+    weekendMinutes: 2
   },
   {
     id: "baby-corn-shimeji-zucchini",
@@ -4603,13 +5054,17 @@ const RECIPES = [
       { name: "食用油", amount: 1, unit: "大匙" }
     ],
     method: "炒", cuisine: "中式", diet: "素",
-    time: 6, bento: true, tags: ["健康", "多纖維"],
+    time: 4, bento: true, tags: ["健康", "多纖維"],
     steps: [
       "玉米筍對剖；鴻喜菇剝散；櫛瓜切半月片",
       "熱鍋 1 大匙油，蒜末爆香，下鴻喜菇炒至出香",
       "加玉米筍、櫛瓜炒 2 分鐘",
       "加鹽、黑胡椒、少許醬油拌勻即可"
-    ]
+    ],
+    prepAhead: [
+      { type: "菜", what: "玉米筍對剖；鴻喜菇剝散；櫛瓜切半月片", keep: "冷藏 3 天", steps: [1] }
+    ],
+    weekendMinutes: 2
   },
   {
     id: "celery-pork-stir",
@@ -4629,13 +5084,17 @@ const RECIPES = [
       { name: "食用油", amount: 1, unit: "大匙" }
     ],
     method: "炒", cuisine: "中式", diet: "葷",
-    time: 6, bento: true, tags: ["健康", "高蛋白"],
+    time: 4, bento: true, tags: ["健康", "高蛋白"],
     steps: [
       "豬肉切絲，醬油、太白粉抓醃；芹菜去葉切段",
       "熱鍋 1 大匙油，肉絲炒至變色盛起",
       "同鍋蒜末、辣椒爆香，下芹菜炒 1 分鐘",
       "加回肉絲，加鹽、米酒拌炒即可"
-    ]
+    ],
+    prepAhead: [
+      { type: "肉", what: "豬肉切絲，醬油、太白粉抓醃；芹菜去葉切段", keep: "冷凍 2 週／冷藏 2 天", steps: [1] }
+    ],
+    weekendMinutes: 2
   },
 
   // ── 絞肉／肉類 ──────────────────────────────
@@ -4655,14 +5114,19 @@ const RECIPES = [
       { name: "水", amount: 2, unit: "大匙" }
     ],
     method: "煎", cuisine: "西式", diet: "葷",
-    time: 10, bento: true, tags: ["高蛋白"],
+    time: 3, bento: true, tags: ["高蛋白"],
     prep: "weekend",
     steps: [
       "洋蔥切碎，炒軟放涼",
       "牛絞肉加洋蔥、鹽 3/4 小匙、黑胡椒、蛋 1 顆（可省）摔打至有黏性，分 4 份壓成餅",
       "熱鍋 1 大匙油，中火每面煎 3 分鐘，加水 2 大匙蓋鍋燜 2 分鐘",
       "一次煎 4 片，分裝冷藏或冷凍；便當重熱前噴點水"
-    ]
+    ],
+    prepAhead: [
+      { type: "整道", what: "整道做好，放涼分裝", keep: "冷藏 3 天／冷凍 7 天", steps: [1, 2, 3, 4] }
+    ],
+    weekendMinutes: 10,
+    weekday: "加熱就能吃"
   },
   {
     id: "beef-basil-thai",
@@ -4682,13 +5146,17 @@ const RECIPES = [
       { name: "食用油", amount: 1, unit: "大匙" }
     ],
     method: "炒", cuisine: "泰式", diet: "葷",
-    time: 8, bento: true, tags: ["高蛋白"],
+    time: 6, bento: true, tags: ["高蛋白"],
     steps: [
       "番茄切丁；九層塔摘葉",
       "熱鍋 1 大匙油，蒜末、辣椒爆香，下牛絞肉炒散至上色",
       "加魚露 1 大匙、醬油 1 大匙、糖 1 小匙、番茄丁炒 1 分鐘",
       "熄火拌入九層塔，配白飯"
-    ]
+    ],
+    prepAhead: [
+      { type: "菜", what: "番茄切丁；九層塔摘葉", keep: "冷藏 2 天（瀝乾裝袋）", steps: [1] }
+    ],
+    weekendMinutes: 2
   },
   {
     id: "beef-curry",
@@ -4705,14 +5173,19 @@ const RECIPES = [
       { name: "水", amount: null, unit: "適量" }
     ],
     method: "燉", cuisine: "日式", diet: "葷",
-    time: 10, bento: true, tags: ["一鍋"],
+    time: 3, bento: true, tags: ["一鍋"],
     prep: "weekend",
     steps: [
       "牛肋條切塊；馬鈴薯、紅蘿蔔切滾刀塊",
       "熱鍋 1 大匙油，牛肉煎至上色，加水蓋過，煮滾後小火燉 40 分鐘",
       "放馬鈴薯、紅蘿蔔續燉 15 分鐘",
       "熄火加咖哩塊拌至融化，再小火煮 5 分鐘；分裝冷藏，隔夜更好吃"
-    ]
+    ],
+    prepAhead: [
+      { type: "整道", what: "整道做好，放涼分裝", keep: "冷藏 3 天／冷凍 7 天", steps: [1, 2, 3, 4] }
+    ],
+    weekendMinutes: 10,
+    weekday: "加熱就能吃"
   },
   {
     id: "wings-garlic-pan-fried",
@@ -4728,13 +5201,17 @@ const RECIPES = [
       { name: "水", amount: 3, unit: "大匙" }
     ],
     method: "煎", cuisine: "中式", diet: "葷",
-    time: 10, bento: true, tags: ["高蛋白"],
+    time: 8, bento: true, tags: ["高蛋白"],
     steps: [
       "雞翅擦乾，兩面劃一刀，用鹽、黑胡椒、蒜末抓醃 10 分鐘",
       "冷鍋少油，雞翅皮面朝下，中小火煎 5 分鐘至金黃",
       "翻面加水 3 大匙蓋鍋燜 5 分鐘至熟透",
       "開蓋淋醬油 1 小匙收乾即可"
-    ]
+    ],
+    prepAhead: [
+      { type: "肉", what: "雞翅擦乾，兩面劃一刀，用鹽、黑胡椒、蒜末抓醃 10 分鐘", keep: "冷凍 2 週／冷藏 2 天", steps: [1] }
+    ],
+    weekendMinutes: 2
   },
 
   // ── 魚 ──────────────────────────────
@@ -4752,13 +5229,17 @@ const RECIPES = [
       { name: "蘿蔔泥", amount: null, unit: "適量" }
     ],
     method: "煎", cuisine: "日式", diet: "葷",
-    time: 6, bento: true, tags: ["高蛋白"],
+    time: 4, bento: true, tags: ["高蛋白"],
     steps: [
       "鯖魚擦乾（薄鹽鯖魚不用再加鹽），魚皮劃兩刀",
       "熱鍋 1 小匙油，魚皮朝下中火煎 4 分鐘不要動它",
       "翻面煎 2 分鐘至熟",
       "擠檸檬汁、配蘿蔔泥即可"
-    ]
+    ],
+    prepAhead: [
+      { type: "肉", what: "鯖魚擦乾（薄鹽鯖魚不用再加鹽），魚皮劃兩刀", keep: "冷藏 1 天", steps: [1] }
+    ],
+    weekendMinutes: 2
   },
   {
     id: "mackerel-air-fried",
@@ -4777,7 +5258,9 @@ const RECIPES = [
       "氣炸鍋 180°C，魚皮朝上炸 10 分鐘",
       "皮起泡微焦即可，擠檸檬汁",
       "零油煙，便當魚首選"
-    ]
+    ],
+    prepAhead: [],
+    weekendMinutes: 0
   },
   {
     id: "cod-zucchini-pan-fried",
@@ -4795,63 +5278,627 @@ const RECIPES = [
       { name: "檸檬汁", amount: null, unit: "少許" }
     ],
     method: "煎", cuisine: "西式", diet: "葷",
-    time: 8, bento: true, tags: ["健康", "高蛋白"],
+    time: 6, bento: true, tags: ["健康", "高蛋白"],
     steps: [
       "鱈魚擦乾，鹽、黑胡椒調味，薄拍太白粉；櫛瓜切 1 公分圓片",
       "熱鍋 1 大匙油，鱈魚中火每面煎 3 分鐘盛起",
       "同鍋櫛瓜片煎至兩面微焦，撒鹽",
       "擺盤，擠檸檬汁即可"
-    ]
-  },
-
-  // ── 炸 ──────────────────────────────
-  {
-    id: "pork-cutlet-fried",
-    name: "日式炸豬排",
-    baseServings: 2,
-    ingredients: [{ name: "豬里肌", amount: 2, unit: "片" }],
-    seasonings: [
-      { name: "鹽", amount: 0.25, unit: "小匙" },
-      { name: "黑胡椒", amount: null, unit: "少許" },
-      { name: "麵粉", amount: null, unit: "適量" },
-      { name: "雞蛋", amount: 1, unit: "顆" },
-      { name: "麵包粉", amount: null, unit: "適量" },
-      { name: "豬排醬", amount: null, unit: "適量" },
-      { name: "食用油", amount: null, unit: "適量" }
     ],
-    method: "炸", cuisine: "日式", diet: "葷",
-    time: 10, bento: true, tags: ["高蛋白"],
+    prepAhead: [
+      { type: "肉", what: "鱈魚擦乾，鹽、黑胡椒調味，薄拍太白粉；櫛瓜切 1 公分圓片", keep: "冷藏 1 天", steps: [1] }
+    ],
+    weekendMinutes: 2
+  },
+  // ── 2026-09-18 依「週末備料、平日組合」概念新增（參考 foodomain 部落格的快速料理） ──
+  {
+    id: "pork-belly-garlic-sauce",
+    name: "蒜泥白肉",
+    baseServings: 2,
+    ingredients: [
+      { name: "豬五花", amount: 300, unit: "克" },
+      { name: "小黃瓜", amount: 1, unit: "條" }
+    ],
+    seasonings: [
+      { name: "蒜", amount: 4, unit: "瓣" },
+      { name: "醬油", amount: 1.5, unit: "大匙" },
+      { name: "糖", amount: 0.5, unit: "小匙" },
+      { name: "香油", amount: 1, unit: "小匙" },
+      { name: "白醋", amount: 1, unit: "小匙" },
+      { name: "薑", amount: 3, unit: "片" },
+      { name: "米酒", amount: 1, unit: "大匙" }
+    ],
+    method: "煮",
+    cuisine: "中式",
+    diet: "葷",
+    time: 4,
+    bento: true,
+    tags: ["高蛋白"],
     steps: [
-      "豬里肌片斷筋拍鬆，鹽、黑胡椒調味",
-      "依序沾麵粉→蛋液→麵包粉，壓緊",
-      "油 170°C 炸 3 分鐘翻面再 2 分鐘至金黃，起鍋瀝油靜置 2 分鐘再切",
-      "配高麗菜絲、豬排醬；便當冷了也不軟"
-    ]
+      "豬五花整塊冷水下鍋，加薑片、米酒，煮滾後小火煮 20 分鐘，放涼切薄片（週末煮好冷藏）",
+      "小黃瓜切絲鋪盤",
+      "蒜末、醬油、糖、香油、白醋調成蒜泥醬",
+      "肉片鋪在小黃瓜絲上，淋蒜泥醬即可；帶便當醬另外裝"
+    ],
+    prepAhead: [
+      { type: "肉", what: "豬五花整塊冷水下鍋，加薑片、米酒，煮滾後小火煮 20 分鐘，放涼切薄片（週末煮好冷藏）", keep: "冷凍 2 週／冷藏 2 天", steps: [1] },
+      { type: "醬", what: "蒜末、醬油、糖、香油、白醋調成蒜泥醬", keep: "冷藏 1 週", steps: [3] }
+    ],
+    weekendMinutes: 4
   },
   {
-    id: "king-oyster-mushroom-fried",
-    name: "鹽酥杏鮑菇",
+    id: "king-oyster-basil",
+    name: "九層塔炒杏鮑菇",
     baseServings: 2,
     ingredients: [
       { name: "杏鮑菇", amount: 3, unit: "根" },
       { name: "九層塔", amount: 1, unit: "把" }
     ],
     seasonings: [
-      { name: "醬油", amount: 1, unit: "大匙" },
-      { name: "胡椒鹽", amount: null, unit: "適量" },
-      { name: "五香粉", amount: null, unit: "少許" },
-      { name: "地瓜粉", amount: null, unit: "適量" },
       { name: "蒜", amount: 2, unit: "瓣" },
-      { name: "食用油", amount: null, unit: "適量" }
+      { name: "辣椒", amount: 1, unit: "根" },
+      { name: "醬油", amount: 1, unit: "大匙" },
+      { name: "糖", amount: 0.5, unit: "小匙" },
+      { name: "食用油", amount: 1, unit: "大匙" }
     ],
-    method: "炸", cuisine: "中式", diet: "素",
-    time: 8, bento: true, tags: [],
+    method: "炒",
+    cuisine: "中式",
+    diet: "素",
+    time: 4,
+    bento: true,
+    tags: ["健康", "多纖維"],
     steps: [
-      "杏鮑菇用手撕成條，用醬油 1 大匙、蒜末、五香粉醃 5 分鐘",
-      "沾裹地瓜粉，靜置 2 分鐘回潮",
-      "油 170°C 炸 3 分鐘至金黃酥脆，起鍋前丟九層塔炸 5 秒",
-      "撒胡椒鹽即可"
-    ]
+      "杏鮑菇切片，九層塔摘葉",
+      "熱油鍋，蒜末、辣椒爆香，下杏鮑菇炒至微焦出香",
+      "加醬油、糖拌炒",
+      "熄火加九層塔拌勻即可"
+    ],
+    prepAhead: [
+      { type: "菜", what: "杏鮑菇切片，九層塔摘葉", keep: "冷藏 2 天（瀝乾裝袋）", steps: [1] }
+    ],
+    weekendMinutes: 2
+  },
+  {
+    id: "shrimp-garlic-steamed",
+    name: "蒜蓉蒸蝦仁",
+    baseServings: 2,
+    ingredients: [
+      { name: "蝦仁", amount: 200, unit: "克" }
+    ],
+    seasonings: [
+      { name: "蒜", amount: 5, unit: "瓣" },
+      { name: "醬油", amount: 1.5, unit: "大匙" },
+      { name: "米酒", amount: 1, unit: "大匙" },
+      { name: "香油", amount: 1, unit: "小匙" },
+      { name: "鹽", amount: 0.25, unit: "小匙" },
+      { name: "太白粉", amount: 1, unit: "小匙" },
+      { name: "蔥", amount: 1, unit: "根" }
+    ],
+    method: "蒸",
+    cuisine: "中式",
+    diet: "葷",
+    time: 2,
+    bento: true,
+    tags: ["高蛋白"],
+    tool: "電鍋",
+    steps: [
+      "蝦仁去腸泥，用鹽、太白粉抓勻",
+      "蒜末、醬油、米酒、香油調成蒜蓉醬",
+      "蝦仁鋪盤，淋上蒜蓉醬",
+      "電鍋外鍋半杯水，蒸至跳起（約 6 分鐘），撒蔥花即可"
+    ],
+    prepAhead: [
+      { type: "肉", what: "蝦仁去腸泥，用鹽、太白粉抓勻", keep: "冷藏 1 天", steps: [1] },
+      { type: "醬", what: "蒜末、醬油、米酒、香油調成蒜蓉醬", keep: "冷藏 1 週", steps: [2] }
+    ],
+    weekendMinutes: 3
+  },
+  {
+    id: "chicken-shiitake-rice",
+    name: "香菇雞肉炊飯",
+    baseServings: 3,
+    ingredients: [
+      { name: "雞腿肉", amount: 250, unit: "克" },
+      { name: "香菇", amount: 4, unit: "朵" },
+      { name: "白米", amount: 2, unit: "杯" }
+    ],
+    seasonings: [
+      { name: "醬油", amount: 2, unit: "大匙" },
+      { name: "米酒", amount: 1, unit: "大匙" },
+      { name: "味醂", amount: 1, unit: "大匙" },
+      { name: "薑", amount: 3, unit: "片" }
+    ],
+    method: "煮",
+    cuisine: "日式",
+    diet: "葷",
+    time: 2,
+    bento: true,
+    tags: ["一鍋", "高蛋白"],
+    tool: "電鍋",
+    steps: [
+      "雞腿肉切塊，用醬油、米酒醃 10 分鐘（週末醃好冷凍更省事）",
+      "香菇切片",
+      "白米洗淨放入內鍋，加水比平常煮飯略少，鋪上雞肉、香菇、薑片，淋入醃汁和味醂",
+      "外鍋 1 杯水按下開關，跳起後燜 10 分鐘拌勻即可"
+    ],
+    prepAhead: [
+      { type: "肉", what: "雞腿肉切塊，用醬油、米酒醃好", keep: "冷凍 2 週／冷藏 2 天", steps: [1] },
+      { type: "菜", what: "香菇切片", keep: "冷藏 3 天", steps: [2] }
+    ],
+    weekendMinutes: 3
+  },
+  {
+    id: "corn-pork-patty-steamed",
+    name: "玉米蒸肉餅",
+    baseServings: 2,
+    ingredients: [
+      { name: "豬絞肉", amount: 300, unit: "克" },
+      { name: "玉米粒", amount: 0.5, unit: "杯" },
+      { name: "雞蛋", amount: 1, unit: "顆" }
+    ],
+    seasonings: [
+      { name: "醬油", amount: 1, unit: "大匙" },
+      { name: "糖", amount: 0.5, unit: "小匙" },
+      { name: "白胡椒", amount: null, unit: "少許" },
+      { name: "太白粉", amount: 1, unit: "小匙" },
+      { name: "蔥", amount: 1, unit: "根" }
+    ],
+    method: "蒸",
+    cuisine: "中式",
+    diet: "葷",
+    time: 4,
+    bento: true,
+    tags: ["高蛋白"],
+    tool: "電鍋",
+    steps: [
+      "絞肉加玉米粒、蛋、醬油、糖、白胡椒、太白粉、蔥花，同方向攪拌至有黏性（週末拌好分裝冷凍）",
+      "肉餡平鋪在深盤，中央壓凹",
+      "電鍋外鍋 1 杯水，蒸至跳起（約 15 分鐘）",
+      "盤底肉汁淋飯很香"
+    ],
+    prepAhead: [
+      { type: "肉", what: "絞肉加玉米粒、蛋、醬油、糖、白胡椒、太白粉、蔥花，同方向攪拌至有黏性（週末拌好分裝冷凍）", keep: "冷凍 2 週／冷藏 2 天", steps: [1] }
+    ],
+    weekendMinutes: 2
+  },
+  {
+    id: "bokchoy-garlic-steamed",
+    name: "蒜蓉蒸青江菜",
+    baseServings: 2,
+    ingredients: [
+      { name: "青江菜", amount: 250, unit: "克" }
+    ],
+    seasonings: [
+      { name: "蒜", amount: 2, unit: "瓣" },
+      { name: "鹽", amount: 0.25, unit: "小匙" },
+      { name: "食用油", amount: 1, unit: "小匙" },
+      { name: "醬油", amount: 1, unit: "小匙" }
+    ],
+    method: "蒸",
+    cuisine: "中式",
+    diet: "素",
+    time: 3,
+    bento: true,
+    tags: ["健康", "多纖維"],
+    tool: "電鍋",
+    steps: [
+      "青江菜洗淨對切，排在耐熱盤",
+      "撒蒜末、鹽，淋油",
+      "放電鍋上層蒸架，跟飯或主菜一起蒸（外鍋半杯水約 5 分鐘）",
+      "取出淋少許醬油即可"
+    ],
+    prepAhead: [],
+    weekendMinutes: 0
+  },
+  {
+    id: "baby-corn-steamed",
+    name: "電鍋蒸玉米筍",
+    baseServings: 2,
+    ingredients: [
+      { name: "玉米筍", amount: 8, unit: "根" }
+    ],
+    seasonings: [
+      { name: "鹽", amount: null, unit: "少許" },
+      { name: "食用油", amount: 1, unit: "小匙" },
+      { name: "黑胡椒", amount: null, unit: "少許" }
+    ],
+    method: "蒸",
+    cuisine: "中式",
+    diet: "素",
+    time: 3,
+    bento: true,
+    tags: ["健康", "多纖維"],
+    tool: "電鍋",
+    steps: [
+      "玉米筍洗淨對剖，撒鹽、淋油拌勻",
+      "放耐熱小盤，置電鍋上層蒸架，跟主菜同蒸（約 8 分鐘）",
+      "取出撒黑胡椒即可"
+    ],
+    prepAhead: [],
+    weekendMinutes: 0
+  },
+  {
+    id: "chicken-drunken",
+    name: "紹興醉雞腿",
+    baseServings: 4,
+    ingredients: [
+      { name: "雞腿肉", amount: 400, unit: "克" }
+    ],
+    seasonings: [
+      { name: "鹽", amount: 1, unit: "小匙" },
+      { name: "紹興酒", amount: 0.5, unit: "杯" },
+      { name: "薑", amount: 3, unit: "片" },
+      { name: "蔥", amount: 1, unit: "根" }
+    ],
+    method: "蒸",
+    cuisine: "中式",
+    diet: "葷",
+    time: 3,
+    bento: true,
+    tags: ["高蛋白"],
+    tool: "電鍋",
+    prep: "weekend",
+    steps: [
+      "雞腿肉兩面抹鹽，捲起用鋁箔紙包緊成圓筒",
+      "電鍋外鍋 1.5 杯水，蒸至跳起，取出放涼",
+      "蒸出的雞汁加紹興酒、薑片、蔥段調成酒汁",
+      "雞捲拆鋁箔泡進酒汁，冷藏一晚入味",
+      "切片即可；冷藏可放 3 天，冷的直接帶便當"
+    ],
+    prepAhead: [
+      { type: "整道", what: "整道做好，放涼分裝", keep: "冷藏 3 天／冷凍 7 天", steps: [1, 2, 3, 4, 5] }
+    ],
+    weekendMinutes: 10,
+    weekday: "加熱就能吃"
+  },
+  {
+    id: "pork-loin-miso",
+    name: "味噌豬里肌",
+    baseServings: 2,
+    ingredients: [
+      { name: "豬里肌", amount: 2, unit: "片" }
+    ],
+    seasonings: [
+      { name: "味噌", amount: 1.5, unit: "大匙" },
+      { name: "味醂", amount: 1, unit: "大匙" },
+      { name: "米酒", amount: 1, unit: "大匙" },
+      { name: "食用油", amount: 1, unit: "小匙" }
+    ],
+    method: "煎",
+    cuisine: "日式",
+    diet: "葷",
+    time: 4,
+    bento: true,
+    tags: ["高蛋白"],
+    steps: [
+      "豬里肌斷筋拍鬆，抹上味噌、味醂、米酒醃 30 分鐘以上（週末醃好，一片一袋冷凍）",
+      "熱鍋少油，肉片刮掉多餘味噌，中火每面煎 3 分鐘",
+      "切條即可；味噌易焦，火不要太大"
+    ],
+    prepAhead: [
+      { type: "肉", what: "豬里肌斷筋拍鬆，抹上味噌、味醂、米酒醃 30 分鐘以上（週末醃好，一片一袋冷凍）", keep: "冷凍 2 週／冷藏 2 天", steps: [1] }
+    ],
+    weekendMinutes: 2
+  },
+  {
+    id: "chicken-scallion-salt",
+    name: "蔥鹽雞胸",
+    baseServings: 2,
+    ingredients: [
+      { name: "雞胸肉", amount: 300, unit: "克" },
+      { name: "蔥", amount: 3, unit: "根" }
+    ],
+    seasonings: [
+      { name: "鹽", amount: 0.5, unit: "小匙" },
+      { name: "香油", amount: 1, unit: "大匙" },
+      { name: "白胡椒", amount: null, unit: "少許" },
+      { name: "米酒", amount: 1, unit: "大匙" },
+      { name: "檸檬汁", amount: null, unit: "少許" }
+    ],
+    method: "煎",
+    cuisine: "日式",
+    diet: "葷",
+    time: 4,
+    bento: true,
+    tags: ["高蛋白"],
+    steps: [
+      "蔥切末，加鹽、香油、白胡椒拌成蔥鹽醬",
+      "雞胸肉切厚片，用米酒、少許鹽抓醃（週末醃好冷凍）",
+      "熱鍋，雞胸肉中火每面煎 3 分鐘至熟",
+      "鋪上蔥鹽醬、擠檸檬汁即可"
+    ],
+    prepAhead: [
+      { type: "醬", what: "蔥切末，加鹽、香油、白胡椒拌成蔥鹽醬", keep: "冷藏 1 週", steps: [1] },
+      { type: "肉", what: "雞胸肉切厚片，用米酒、少許鹽抓醃", keep: "冷凍 2 週／冷藏 2 天", steps: [2] }
+    ],
+    weekendMinutes: 4
+  },
+  {
+    id: "chicken-thigh-soy-pan",
+    name: "醬燒雞腿排",
+    baseServings: 2,
+    ingredients: [
+      { name: "雞腿肉", amount: 400, unit: "克" }
+    ],
+    seasonings: [
+      { name: "醬油", amount: 2, unit: "大匙" },
+      { name: "米酒", amount: 1, unit: "大匙" },
+      { name: "糖", amount: 1, unit: "小匙" },
+      { name: "蒜", amount: 3, unit: "瓣" },
+      { name: "薑", amount: 1, unit: "小塊" },
+      { name: "水", amount: 2, unit: "大匙" }
+    ],
+    method: "煎",
+    cuisine: "中式",
+    diet: "葷",
+    time: 6,
+    bento: true,
+    tags: ["高蛋白"],
+    steps: [
+      "雞腿肉用醬油、米酒、糖、蒜末、薑泥醃 30 分鐘以上（週末醃好冷凍，前一晚移冷藏）",
+      "冷鍋皮面朝下，中火煎 5 分鐘至金黃",
+      "翻面，倒入醃汁加水 2 大匙，蓋鍋燜 4 分鐘至熟",
+      "開蓋收汁，切塊即可"
+    ],
+    prepAhead: [
+      { type: "肉", what: "雞腿肉用醬油、米酒、糖、蒜末、薑泥醃 30 分鐘以上（週末醃好冷凍，前一晚移冷藏）", keep: "冷凍 2 週／冷藏 2 天", steps: [1] }
+    ],
+    weekendMinutes: 2
+  },
+  {
+    id: "doufugan-shred-salad",
+    name: "涼拌豆干絲",
+    baseServings: 2,
+    ingredients: [
+      { name: "豆干", amount: 5, unit: "片" },
+      { name: "芹菜", amount: 2, unit: "根" }
+    ],
+    seasonings: [
+      { name: "醬油", amount: 1, unit: "大匙" },
+      { name: "香油", amount: 1, unit: "小匙" },
+      { name: "糖", amount: 0.5, unit: "小匙" },
+      { name: "白醋", amount: 1, unit: "小匙" },
+      { name: "蒜", amount: 2, unit: "瓣" },
+      { name: "辣椒", amount: 1, unit: "根" }
+    ],
+    method: "涼拌",
+    cuisine: "中式",
+    diet: "素",
+    time: 2,
+    bento: true,
+    tags: ["高蛋白"],
+    steps: [
+      "豆干切細絲，滾水燙 1 分鐘撈起瀝乾放涼",
+      "芹菜切段燙 30 秒，冰鎮瀝乾",
+      "醬油、香油、糖、白醋、蒜末、辣椒調成醬汁",
+      "豆干絲、芹菜拌入醬汁即可；冷藏可放 3 天，帶便當分開放"
+    ],
+    prepAhead: [
+      { type: "菜", what: "豆干切細絲，滾水燙 1 分鐘撈起瀝乾放涼；芹菜切段燙 30 秒，冰鎮瀝乾", keep: "冷藏 2 天（燙好瀝乾）", steps: [1, 2] },
+      { type: "醬", what: "醬油、香油、糖、白醋、蒜末、辣椒調成醬汁", keep: "冷藏 1 週", steps: [3] }
+    ],
+    weekendMinutes: 3
+  },
+  {
+    id: "radish-pickled",
+    name: "涼拌醃白蘿蔔",
+    baseServings: 4,
+    ingredients: [
+      { name: "白蘿蔔", amount: 0.5, unit: "條" }
+    ],
+    seasonings: [
+      { name: "鹽", amount: 1, unit: "小匙" },
+      { name: "糖", amount: 2, unit: "大匙" },
+      { name: "白醋", amount: 3, unit: "大匙" },
+      { name: "辣椒", amount: 1, unit: "根" }
+    ],
+    method: "涼拌",
+    cuisine: "中式",
+    diet: "素",
+    time: 2,
+    bento: true,
+    tags: ["健康", "多纖維"],
+    steps: [
+      "白蘿蔔去皮切薄片，加鹽抓勻靜置 15 分鐘，擠掉水分",
+      "糖、白醋、辣椒拌勻",
+      "蘿蔔片拌入醬汁，冷藏 2 小時以上",
+      "常備小菜，冷藏可放 5 天"
+    ],
+    prepAhead: [
+      { type: "整道", what: "整道做好冷藏，當常備小菜", keep: "冷藏 5 天", steps: [1, 2, 3] }
+    ],
+    weekendMinutes: 5,
+    weekday: "從冰箱拿出來就能吃"
+  },
+  {
+    id: "corn-egg-stir",
+    name: "玉米炒蛋",
+    baseServings: 2,
+    ingredients: [
+      { name: "玉米粒", amount: 1, unit: "杯" },
+      { name: "雞蛋", amount: 3, unit: "顆" }
+    ],
+    seasonings: [
+      { name: "鹽", amount: 0.25, unit: "小匙" },
+      { name: "食用油", amount: 1, unit: "大匙" },
+      { name: "蔥", amount: 1, unit: "根" }
+    ],
+    method: "炒",
+    cuisine: "中式",
+    diet: "葷",
+    time: 4,
+    bento: true,
+    tags: ["高蛋白"],
+    steps: [
+      "雞蛋打散加鹽",
+      "熱油鍋，玉米粒炒 1 分鐘",
+      "倒入蛋液，待底部凝固再翻炒至熟",
+      "撒蔥花即可"
+    ],
+    prepAhead: [],
+    weekendMinutes: 0
+  },
+  {
+    id: "onion-egg-stir",
+    name: "洋蔥炒蛋",
+    baseServings: 2,
+    ingredients: [
+      { name: "洋蔥", amount: 1, unit: "顆" },
+      { name: "雞蛋", amount: 3, unit: "顆" }
+    ],
+    seasonings: [
+      { name: "鹽", amount: 0.25, unit: "小匙" },
+      { name: "醬油", amount: 1, unit: "小匙" },
+      { name: "食用油", amount: 1, unit: "大匙" }
+    ],
+    method: "炒",
+    cuisine: "中式",
+    diet: "葷",
+    time: 4,
+    bento: true,
+    tags: ["健康", "高蛋白"],
+    steps: [
+      "洋蔥切絲，雞蛋打散加鹽",
+      "熱油鍋，洋蔥絲炒至透明微焦",
+      "倒入蛋液，待底部凝固再翻炒",
+      "淋醬油拌勻即可"
+    ],
+    prepAhead: [
+      { type: "菜", what: "洋蔥切絲，雞蛋打散加鹽", keep: "冷藏 3 天", steps: [1] }
+    ],
+    weekendMinutes: 2
+  },
+  {
+    id: "sukiyaki-easy",
+    name: "簡易壽喜燒",
+    baseServings: 2,
+    ingredients: [
+      { name: "牛肉片", amount: 200, unit: "克" },
+      { name: "大白菜", amount: 300, unit: "克" },
+      { name: "嫩豆腐", amount: 1, unit: "盒" },
+      { name: "鴻喜菇", amount: 1, unit: "包" }
+    ],
+    seasonings: [
+      { name: "醬油", amount: 3, unit: "大匙" },
+      { name: "味醂", amount: 3, unit: "大匙" },
+      { name: "糖", amount: 1, unit: "大匙" },
+      { name: "水", amount: 1, unit: "杯" }
+    ],
+    method: "煮",
+    cuisine: "日式",
+    diet: "葷",
+    time: 5,
+    bento: false,
+    tags: ["一鍋", "高蛋白"],
+    steps: [
+      "大白菜切片、豆腐切塊、鴻喜菇剝散",
+      "醬油、味醂、糖、水調成醬汁（週末先調好一瓶放冰箱）",
+      "醬汁倒入鍋中煮滾，放白菜、菇、豆腐煮 5 分鐘至軟",
+      "牛肉片一片片放入，變色即可"
+    ],
+    prepAhead: [
+      { type: "菜", what: "大白菜切片、豆腐切塊、鴻喜菇剝散", keep: "冷藏 3 天", steps: [1] },
+      { type: "醬", what: "醬油、味醂、糖、水調成醬汁", keep: "冷藏 1 週", steps: [2] }
+    ],
+    weekendMinutes: 5
+  },
+  {
+    id: "squid-ginger-stir",
+    name: "薑絲炒透抽",
+    baseServings: 2,
+    ingredients: [
+      { name: "透抽", amount: 300, unit: "克" },
+      { name: "蔥", amount: 2, unit: "根" }
+    ],
+    seasonings: [
+      { name: "薑", amount: 1, unit: "小塊" },
+      { name: "米酒", amount: 1, unit: "大匙" },
+      { name: "鹽", amount: 0.25, unit: "小匙" },
+      { name: "醬油", amount: 1, unit: "小匙" },
+      { name: "食用油", amount: 1, unit: "大匙" }
+    ],
+    method: "炒",
+    cuisine: "中式",
+    diet: "葷",
+    time: 4,
+    bento: false,
+    tags: ["高蛋白"],
+    steps: [
+      "透抽去內臟切圈，擦乾；薑切絲，蔥切段",
+      "熱油鍋，薑絲爆香",
+      "大火下透抽炒 1 分鐘，嗆米酒",
+      "加鹽、醬油、蔥段拌炒即可，久炒會老"
+    ],
+    prepAhead: [
+      { type: "肉", what: "透抽去內臟切圈，擦乾；薑切絲，蔥切段", keep: "冷藏 1 天", steps: [1] }
+    ],
+    weekendMinutes: 2
+  },
+  {
+    id: "black-fungus-salad",
+    name: "涼拌黑木耳",
+    baseServings: 2,
+    ingredients: [
+      { name: "黑木耳", amount: 5, unit: "朵" }
+    ],
+    seasonings: [
+      { name: "蒜", amount: 2, unit: "瓣" },
+      { name: "薑", amount: 1, unit: "小塊" },
+      { name: "醬油", amount: 1, unit: "大匙" },
+      { name: "白醋", amount: 1, unit: "大匙" },
+      { name: "糖", amount: 1, unit: "小匙" },
+      { name: "香油", amount: 1, unit: "小匙" },
+      { name: "辣椒", amount: 1, unit: "根" }
+    ],
+    method: "涼拌",
+    cuisine: "中式",
+    diet: "素",
+    time: 2,
+    bento: true,
+    tags: ["健康", "多纖維"],
+    steps: [
+      "黑木耳撕小片，滾水燙 2 分鐘，冰鎮瀝乾",
+      "蒜末、薑絲、醬油、白醋、糖、香油、辣椒調成醬汁",
+      "木耳拌入醬汁，冷藏 30 分鐘更入味",
+      "常備小菜，冷藏可放 3 天"
+    ],
+    prepAhead: [
+      { type: "菜", what: "黑木耳撕小片，滾水燙 2 分鐘，冰鎮瀝乾", keep: "冷藏 2 天（燙好瀝乾）", steps: [1] },
+      { type: "醬", what: "蒜末、薑絲、醬油、白醋、糖、香油、辣椒調成醬汁", keep: "冷藏 1 週", steps: [2] }
+    ],
+    weekendMinutes: 3
+  },
+  {
+    id: "egg-salad-toast",
+    name: "蛋沙拉吐司",
+    baseServings: 2,
+    ingredients: [
+      { name: "吐司", amount: 4, unit: "片" },
+      { name: "雞蛋", amount: 3, unit: "顆" },
+      { name: "小黃瓜", amount: 1, unit: "條" }
+    ],
+    seasonings: [
+      { name: "美乃滋", amount: 2, unit: "大匙" },
+      { name: "鹽", amount: null, unit: "少許" },
+      { name: "黑胡椒", amount: null, unit: "少許" }
+    ],
+    method: "煮",
+    cuisine: "西式",
+    diet: "葷",
+    time: 2,
+    bento: true,
+    tags: ["高蛋白"],
+    steps: [
+      "雞蛋水煮 10 分鐘，剝殼壓碎（週末煮好幾顆冷藏）",
+      "小黃瓜切薄片，加少許鹽抓一下擠乾",
+      "蛋碎加美乃滋、鹽、黑胡椒拌勻",
+      "吐司夾蛋沙拉、小黃瓜片，對切即可"
+    ],
+    prepAhead: [
+      { type: "蛋", what: "水煮蛋剝殼", keep: "冷藏 3 天", steps: [1] },
+      { type: "菜", what: "小黃瓜切薄片，加少許鹽抓一下擠乾", keep: "冷藏 3 天", steps: [2] }
+    ],
+    weekendMinutes: 4
   }
 
 ];
