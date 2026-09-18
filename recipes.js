@@ -14,6 +14,7 @@
  *   - 「少許／適量」用 amount: null，unit 填 "少許" 或 "適量"，不換算。
  *   - 步驟文字裡若已寫明用量（例如「醬油 2 大匙」），seasonings 的數字必須一致。
  *   - 數字來源：步驟已寫的照抄；其餘依家常比例填，再用 tools/calibration 的愛料理資料抽查（見 tools/calibration/README.md）。
+ *   - 2026-09-18 Bryant 手機實測後定：**少鹽**——鹽一律取家常量的 2/3（炒／煎 2 人份 半小匙、湯 3 杯 3/4 小匙、醃 1/4 小匙），最少 1/4 小匙。
  *
  * 定位標記（給「下班十分鐘開飯」排序與篩選用，定義見 EXPANSION-PLAN.md）：
  *   - time  ：實際動手分鐘數，等待不計（電鍋按下去、烤箱烤、醃、燉、冷藏都不算）。≤10 進首頁清單。
@@ -44,7 +45,7 @@ const RECIPES = [
     ],
     seasonings: [
       { name: "糖", amount: 0.5, unit: "小匙" },
-      { name: "鹽", amount: 0.75, unit: "小匙" },
+      { name: "鹽", amount: 0.5, unit: "小匙" },
       { name: "食用油", amount: 1, unit: "大匙" }
     ],
     method: "炒",
@@ -70,7 +71,7 @@ const RECIPES = [
       { name: "蔥", amount: 2, unit: "根" }
     ],
     seasonings: [
-      { name: "鹽", amount: 0.75, unit: "小匙" },
+      { name: "鹽", amount: 0.5, unit: "小匙" },
       { name: "食用油", amount: 1, unit: "大匙" }
     ],
     method: "煎",
@@ -125,7 +126,7 @@ const RECIPES = [
       { name: "雞蛋", amount: 2, unit: "顆" }
     ],
     seasonings: [
-      { name: "鹽", amount: 0.75, unit: "小匙" },
+      { name: "鹽", amount: 0.5, unit: "小匙" },
       { name: "食用油", amount: 1, unit: "大匙" }
     ],
     method: "炒",
@@ -327,7 +328,7 @@ const RECIPES = [
     seasonings: [
       { name: "醬油", amount: 1, unit: "大匙" },
       { name: "米酒", amount: 1, unit: "大匙" },
-      { name: "鹽", amount: 0.75, unit: "小匙" },
+      { name: "鹽", amount: 0.5, unit: "小匙" },
       { name: "太白粉", amount: 1, unit: "小匙" },
       { name: "蒜", amount: 2, unit: "瓣" },
       { name: "食用油", amount: 1, unit: "大匙" }
@@ -408,7 +409,7 @@ const RECIPES = [
     ],
     seasonings: [
       { name: "醬油", amount: 1, unit: "大匙" },
-      { name: "鹽", amount: 0.75, unit: "小匙" },
+      { name: "鹽", amount: 0.5, unit: "小匙" },
       { name: "太白粉", amount: 1, unit: "小匙" },
       { name: "食用油", amount: 1, unit: "大匙" }
     ],
@@ -435,7 +436,7 @@ const RECIPES = [
       { name: "檸檬", amount: 1, unit: "顆" }
     ],
     seasonings: [
-      { name: "鹽", amount: 0.75, unit: "小匙" },
+      { name: "鹽", amount: 0.5, unit: "小匙" },
       { name: "黑胡椒", amount: null, unit: "少許" },
       { name: "食用油", amount: 1, unit: "大匙" }
     ],
@@ -462,7 +463,7 @@ const RECIPES = [
       { name: "雞腿肉", amount: 400, unit: "克" }
     ],
     seasonings: [
-      { name: "鹽", amount: 0.75, unit: "小匙" },
+      { name: "鹽", amount: 0.5, unit: "小匙" },
       { name: "黑胡椒", amount: null, unit: "少許" },
       { name: "食用油", amount: 1, unit: "大匙" }
     ],
@@ -546,7 +547,7 @@ const RECIPES = [
     ],
     seasonings: [
       { name: "醬油", amount: 1, unit: "大匙" },
-      { name: "鹽", amount: 0.75, unit: "小匙" },
+      { name: "鹽", amount: 0.5, unit: "小匙" },
       { name: "太白粉", amount: 1, unit: "小匙" },
       { name: "食用油", amount: 1, unit: "大匙" }
     ],
@@ -669,7 +670,7 @@ const RECIPES = [
       { name: "青椒", amount: 4, unit: "顆" }
     ],
     seasonings: [
-      { name: "鹽", amount: 0.75, unit: "小匙" },
+      { name: "鹽", amount: 0.5, unit: "小匙" },
       { name: "太白粉", amount: 1, unit: "小匙" },
       { name: "蔥", amount: 1, unit: "根" },
       { name: "食用油", amount: 1, unit: "大匙" },
@@ -758,7 +759,7 @@ const RECIPES = [
       { name: "番茄醬", amount: 2, unit: "大匙" },
       { name: "白醋", amount: 1.5, unit: "大匙" },
       { name: "糖", amount: 1.5, unit: "大匙" },
-      { name: "鹽", amount: 0.5, unit: "小匙" },
+      { name: "鹽", amount: 0.25, unit: "小匙" },
       { name: "太白粉", amount: 1, unit: "小匙" },
       { name: "食用油", amount: 1, unit: "大匙" },
       { name: "水", amount: 2, unit: "大匙" }
@@ -786,7 +787,7 @@ const RECIPES = [
     ],
     seasonings: [
       { name: "醬油", amount: 2, unit: "小匙" },
-      { name: "鹽", amount: 0.75, unit: "小匙" },
+      { name: "鹽", amount: 0.5, unit: "小匙" },
       { name: "太白粉", amount: 1, unit: "小匙" },
       { name: "食用油", amount: 1, unit: "大匙" }
     ],
@@ -815,7 +816,7 @@ const RECIPES = [
     ],
     seasonings: [
       { name: "醬油", amount: 1, unit: "大匙" },
-      { name: "鹽", amount: 0.75, unit: "小匙" },
+      { name: "鹽", amount: 0.5, unit: "小匙" },
       { name: "太白粉", amount: 1, unit: "小匙" },
       { name: "食用油", amount: 1, unit: "大匙" }
     ],
@@ -845,7 +846,7 @@ const RECIPES = [
     seasonings: [
       { name: "醬油", amount: 2, unit: "小匙" },
       { name: "米酒", amount: 1, unit: "大匙" },
-      { name: "鹽", amount: 0.75, unit: "小匙" },
+      { name: "鹽", amount: 0.5, unit: "小匙" },
       { name: "太白粉", amount: 1, unit: "小匙" },
       { name: "食用油", amount: 1, unit: "大匙" }
     ],
@@ -901,7 +902,7 @@ const RECIPES = [
     ],
     seasonings: [
       { name: "醬油", amount: 2, unit: "小匙" },
-      { name: "鹽", amount: 0.75, unit: "小匙" },
+      { name: "鹽", amount: 0.5, unit: "小匙" },
       { name: "太白粉", amount: 1, unit: "小匙" },
       { name: "食用油", amount: 1, unit: "大匙" }
     ],
@@ -929,7 +930,7 @@ const RECIPES = [
       { name: "馬鈴薯", amount: 2, unit: "顆" }
     ],
     seasonings: [
-      { name: "鹽", amount: 1, unit: "小匙" },
+      { name: "鹽", amount: 0.75, unit: "小匙" },
       { name: "薑", amount: 1, unit: "小塊" },
       { name: "蔥", amount: 1, unit: "根" },
       { name: "食用油", amount: 1, unit: "大匙" },
@@ -961,7 +962,7 @@ const RECIPES = [
       { name: "鮭魚", amount: 1, unit: "片" }
     ],
     seasonings: [
-      { name: "鹽", amount: 0.75, unit: "小匙" },
+      { name: "鹽", amount: 0.5, unit: "小匙" },
       { name: "黑胡椒", amount: null, unit: "少許" },
       { name: "食用油", amount: 1, unit: "大匙" },
       { name: "檸檬汁", amount: null, unit: "少許" }
@@ -1044,7 +1045,7 @@ const RECIPES = [
     ],
     seasonings: [
       { name: "米酒", amount: 1, unit: "大匙" },
-      { name: "鹽", amount: 0.75, unit: "小匙" },
+      { name: "鹽", amount: 0.5, unit: "小匙" },
       { name: "太白粉", amount: 1, unit: "小匙" },
       { name: "蒜", amount: 2, unit: "瓣" },
       { name: "食用油", amount: 1, unit: "大匙" }
@@ -1071,7 +1072,7 @@ const RECIPES = [
       { name: "雞蛋", amount: 3, unit: "顆" }
     ],
     seasonings: [
-      { name: "鹽", amount: 0.75, unit: "小匙" },
+      { name: "鹽", amount: 0.5, unit: "小匙" },
       { name: "食用油", amount: 1, unit: "大匙" }
     ],
     method: "炒",
@@ -1210,7 +1211,7 @@ const RECIPES = [
       { name: "魚片", amount: 2, unit: "片" }
     ],
     seasonings: [
-      { name: "鹽", amount: 0.75, unit: "小匙" },
+      { name: "鹽", amount: 0.5, unit: "小匙" },
       { name: "黑胡椒", amount: null, unit: "少許" },
       { name: "食用油", amount: 1, unit: "大匙" },
       { name: "檸檬汁", amount: null, unit: "少許" }
@@ -1238,7 +1239,7 @@ const RECIPES = [
       { name: "高麗菜", amount: 300, unit: "克" }
     ],
     seasonings: [
-      { name: "鹽", amount: 0.75, unit: "小匙" },
+      { name: "鹽", amount: 0.5, unit: "小匙" },
       { name: "蒜", amount: 2, unit: "瓣" },
       { name: "食用油", amount: 1, unit: "大匙" },
       { name: "水", amount: 2, unit: "大匙" }
@@ -1265,7 +1266,7 @@ const RECIPES = [
       { name: "蝦米", amount: 1, unit: "大匙" }
     ],
     seasonings: [
-      { name: "鹽", amount: 0.75, unit: "小匙" },
+      { name: "鹽", amount: 0.5, unit: "小匙" },
       { name: "蒜", amount: 2, unit: "瓣" },
       { name: "食用油", amount: 1, unit: "大匙" },
       { name: "水", amount: 2, unit: "大匙" }
@@ -1292,7 +1293,7 @@ const RECIPES = [
     ],
     seasonings: [
       { name: "糖", amount: 1.5, unit: "小匙" },
-      { name: "鹽", amount: 0.5, unit: "小匙" },
+      { name: "鹽", amount: 0.25, unit: "小匙" },
       { name: "香油", amount: 1, unit: "小匙" },
       { name: "白醋", amount: 1, unit: "大匙" }
     ],
@@ -1344,7 +1345,7 @@ const RECIPES = [
     ],
     seasonings: [
       { name: "醬油", amount: 2, unit: "小匙" },
-      { name: "鹽", amount: 0.75, unit: "小匙" },
+      { name: "鹽", amount: 0.5, unit: "小匙" },
       { name: "太白粉", amount: 1, unit: "小匙" },
       { name: "食用油", amount: 1, unit: "大匙" }
     ],
@@ -1372,7 +1373,7 @@ const RECIPES = [
       { name: "花椰菜", amount: 250, unit: "克" }
     ],
     seasonings: [
-      { name: "鹽", amount: 0.75, unit: "小匙" },
+      { name: "鹽", amount: 0.5, unit: "小匙" },
       { name: "蒜", amount: 2, unit: "瓣" },
       { name: "食用油", amount: 1, unit: "大匙" }
     ],
@@ -1398,7 +1399,7 @@ const RECIPES = [
       { name: "蝦仁", amount: 150, unit: "克" }
     ],
     seasonings: [
-      { name: "鹽", amount: 0.75, unit: "小匙" },
+      { name: "鹽", amount: 0.5, unit: "小匙" },
       { name: "太白粉", amount: 1, unit: "小匙" },
       { name: "食用油", amount: 1, unit: "大匙" }
     ],
@@ -1450,7 +1451,7 @@ const RECIPES = [
       { name: "青江菜", amount: 250, unit: "克" }
     ],
     seasonings: [
-      { name: "鹽", amount: 0.75, unit: "小匙" },
+      { name: "鹽", amount: 0.5, unit: "小匙" },
       { name: "蒜", amount: 2, unit: "瓣" },
       { name: "食用油", amount: 1, unit: "大匙" }
     ],
@@ -1502,7 +1503,7 @@ const RECIPES = [
       { name: "蝦米", amount: 1, unit: "大匙" }
     ],
     seasonings: [
-      { name: "鹽", amount: 0.75, unit: "小匙" },
+      { name: "鹽", amount: 0.5, unit: "小匙" },
       { name: "蒜", amount: 2, unit: "瓣" },
       { name: "食用油", amount: 1, unit: "大匙" }
     ],
@@ -1553,7 +1554,7 @@ const RECIPES = [
       { name: "菠菜", amount: 200, unit: "克" }
     ],
     seasonings: [
-      { name: "鹽", amount: 0.75, unit: "小匙" },
+      { name: "鹽", amount: 0.5, unit: "小匙" },
       { name: "蒜", amount: 2, unit: "瓣" },
       { name: "食用油", amount: 1, unit: "大匙" }
     ],
@@ -1579,7 +1580,7 @@ const RECIPES = [
       { name: "雞蛋", amount: 1, unit: "顆" }
     ],
     seasonings: [
-      { name: "鹽", amount: 1, unit: "小匙" },
+      { name: "鹽", amount: 0.75, unit: "小匙" },
       { name: "水", amount: 3, unit: "杯" }
     ],
     method: "煮",
@@ -1633,7 +1634,7 @@ const RECIPES = [
       { name: "四季豆", amount: 250, unit: "克" }
     ],
     seasonings: [
-      { name: "鹽", amount: 0.75, unit: "小匙" },
+      { name: "鹽", amount: 0.5, unit: "小匙" },
       { name: "蒜", amount: 2, unit: "瓣" },
       { name: "食用油", amount: 1, unit: "大匙" },
       { name: "水", amount: 2, unit: "大匙" }
@@ -1738,7 +1739,7 @@ const RECIPES = [
       { name: "馬鈴薯", amount: 1, unit: "顆" }
     ],
     seasonings: [
-      { name: "鹽", amount: 0.75, unit: "小匙" },
+      { name: "鹽", amount: 0.5, unit: "小匙" },
       { name: "白醋", amount: 1, unit: "大匙" },
       { name: "蒜", amount: 2, unit: "瓣" },
       { name: "乾辣椒", amount: 3, unit: "根" },
@@ -1794,7 +1795,7 @@ const RECIPES = [
       { name: "馬鈴薯", amount: 1.5, unit: "顆" }
     ],
     seasonings: [
-      { name: "鹽", amount: 0.75, unit: "小匙" },
+      { name: "鹽", amount: 0.5, unit: "小匙" },
       { name: "黑胡椒", amount: null, unit: "少許" },
       { name: "食用油", amount: 1, unit: "大匙" }
     ],
@@ -1822,7 +1823,7 @@ const RECIPES = [
       { name: "雞蛋", amount: 2, unit: "顆" }
     ],
     seasonings: [
-      { name: "鹽", amount: 0.75, unit: "小匙" },
+      { name: "鹽", amount: 0.5, unit: "小匙" },
       { name: "食用油", amount: 1, unit: "大匙" }
     ],
     method: "炒",
@@ -1847,7 +1848,7 @@ const RECIPES = [
     ],
     seasonings: [
       { name: "糖", amount: 1.5, unit: "小匙" },
-      { name: "鹽", amount: 0.5, unit: "小匙" },
+      { name: "鹽", amount: 0.25, unit: "小匙" },
       { name: "香油", amount: 1, unit: "小匙" },
       { name: "白醋", amount: 1, unit: "大匙" }
     ],
@@ -1876,7 +1877,7 @@ const RECIPES = [
       { name: "雞蛋", amount: 1, unit: "顆" }
     ],
     seasonings: [
-      { name: "鹽", amount: 1, unit: "小匙" },
+      { name: "鹽", amount: 0.75, unit: "小匙" },
       { name: "水", amount: 3, unit: "杯" }
     ],
     method: "煮",
@@ -1902,7 +1903,7 @@ const RECIPES = [
       { name: "洋蔥", amount: 0.5, unit: "顆" }
     ],
     seasonings: [
-      { name: "鹽", amount: 0.5, unit: "小匙" },
+      { name: "鹽", amount: 0.25, unit: "小匙" },
       { name: "黑胡椒", amount: null, unit: "少許" },
       { name: "食用油", amount: 1, unit: "大匙" },
       { name: "水", amount: 2, unit: "大匙" }
@@ -1933,7 +1934,7 @@ const RECIPES = [
     ],
     seasonings: [
       { name: "糖", amount: 1.5, unit: "小匙" },
-      { name: "鹽", amount: 0.5, unit: "小匙" },
+      { name: "鹽", amount: 0.25, unit: "小匙" },
       { name: "香油", amount: 1, unit: "小匙" },
       { name: "白醋", amount: 1, unit: "大匙" },
       { name: "蒜", amount: 2, unit: "瓣" }
@@ -1960,7 +1961,7 @@ const RECIPES = [
       { name: "雞蛋", amount: 2, unit: "顆" }
     ],
     seasonings: [
-      { name: "鹽", amount: 0.75, unit: "小匙" },
+      { name: "鹽", amount: 0.5, unit: "小匙" },
       { name: "蒜", amount: 2, unit: "瓣" },
       { name: "食用油", amount: 1, unit: "大匙" }
     ],
@@ -1990,7 +1991,7 @@ const RECIPES = [
     ],
     seasonings: [
       { name: "醬油", amount: 1, unit: "大匙" },
-      { name: "鹽", amount: 0.75, unit: "小匙" },
+      { name: "鹽", amount: 0.5, unit: "小匙" },
       { name: "蒜", amount: 2, unit: "瓣" },
       { name: "食用油", amount: 1, unit: "大匙" },
       { name: "水", amount: 2, unit: "大匙" }
@@ -2044,7 +2045,7 @@ const RECIPES = [
       { name: "乾香菇", amount: 3, unit: "朵" }
     ],
     seasonings: [
-      { name: "鹽", amount: 1, unit: "小匙" },
+      { name: "鹽", amount: 0.75, unit: "小匙" },
       { name: "水", amount: null, unit: "適量" }
     ],
     method: "燉",
@@ -2072,7 +2073,7 @@ const RECIPES = [
       { name: "蔥", amount: 1, unit: "根" }
     ],
     seasonings: [
-      { name: "鹽", amount: 0.75, unit: "小匙" },
+      { name: "鹽", amount: 0.5, unit: "小匙" },
       { name: "白胡椒", amount: null, unit: "少許" },
       { name: "食用油", amount: 1, unit: "大匙" }
     ],
@@ -2100,7 +2101,7 @@ const RECIPES = [
       { name: "洋蔥", amount: 0.5, unit: "顆" }
     ],
     seasonings: [
-      { name: "鹽", amount: 1, unit: "小匙" },
+      { name: "鹽", amount: 0.75, unit: "小匙" },
       { name: "黑胡椒", amount: null, unit: "少許" },
       { name: "食用油", amount: 1, unit: "大匙" }
     ],
@@ -2188,7 +2189,7 @@ const RECIPES = [
       { name: "韭菜", amount: 50, unit: "克" }
     ],
     seasonings: [
-      { name: "鹽", amount: 0.75, unit: "小匙" },
+      { name: "鹽", amount: 0.5, unit: "小匙" },
       { name: "蒜", amount: 2, unit: "瓣" },
       { name: "食用油", amount: 1, unit: "大匙" }
     ],
@@ -2238,7 +2239,7 @@ const RECIPES = [
       { name: "秋葵", amount: 12, unit: "條" }
     ],
     seasonings: [
-      { name: "鹽", amount: 0.75, unit: "小匙" },
+      { name: "鹽", amount: 0.5, unit: "小匙" },
       { name: "蒜", amount: 2, unit: "瓣" },
       { name: "食用油", amount: 1, unit: "大匙" }
     ],
@@ -2263,7 +2264,7 @@ const RECIPES = [
       { name: "秋葵", amount: 12, unit: "條" }
     ],
     seasonings: [
-      { name: "鹽", amount: 0.75, unit: "小匙" },
+      { name: "鹽", amount: 0.5, unit: "小匙" },
       { name: "食用油", amount: 1, unit: "大匙" }
     ],
     method: "烤",
@@ -2314,7 +2315,7 @@ const RECIPES = [
       { name: "雞蛋", amount: 2, unit: "顆" }
     ],
     seasonings: [
-      { name: "鹽", amount: 0.75, unit: "小匙" },
+      { name: "鹽", amount: 0.5, unit: "小匙" },
       { name: "食用油", amount: 1, unit: "大匙" }
     ],
     method: "炒",
@@ -2397,7 +2398,7 @@ const RECIPES = [
       { name: "蝦仁", amount: 250, unit: "克" }
     ],
     seasonings: [
-      { name: "鹽", amount: 0.75, unit: "小匙" },
+      { name: "鹽", amount: 0.5, unit: "小匙" },
       { name: "黑胡椒", amount: null, unit: "少許" },
       { name: "蒜", amount: 2, unit: "瓣" },
       { name: "食用油", amount: 1, unit: "大匙" },
@@ -2481,7 +2482,7 @@ const RECIPES = [
       { name: "雞蛋", amount: 2, unit: "顆" }
     ],
     seasonings: [
-      { name: "鹽", amount: 0.75, unit: "小匙" },
+      { name: "鹽", amount: 0.5, unit: "小匙" },
       { name: "食用油", amount: 1, unit: "大匙" }
     ],
     method: "煎",
@@ -2507,7 +2508,7 @@ const RECIPES = [
       { name: "空心菜", amount: 300, unit: "克" }
     ],
     seasonings: [
-      { name: "鹽", amount: 0.75, unit: "小匙" },
+      { name: "鹽", amount: 0.5, unit: "小匙" },
       { name: "蒜", amount: 2, unit: "瓣" },
       { name: "食用油", amount: 1, unit: "大匙" }
     ],
@@ -2585,7 +2586,7 @@ const RECIPES = [
       { name: "蝦米", amount: 1, unit: "大匙" }
     ],
     seasonings: [
-      { name: "鹽", amount: 0.75, unit: "小匙" },
+      { name: "鹽", amount: 0.5, unit: "小匙" },
       { name: "蒜", amount: 2, unit: "瓣" },
       { name: "食用油", amount: 1, unit: "大匙" }
     ],
@@ -2641,7 +2642,7 @@ const RECIPES = [
       { name: "地瓜葉", amount: 300, unit: "克" }
     ],
     seasonings: [
-      { name: "鹽", amount: 0.75, unit: "小匙" },
+      { name: "鹽", amount: 0.5, unit: "小匙" },
       { name: "蒜", amount: 2, unit: "瓣" },
       { name: "食用油", amount: 1, unit: "大匙" }
     ],
@@ -2667,7 +2668,7 @@ const RECIPES = [
       { name: "小魚乾", amount: 20, unit: "克" }
     ],
     seasonings: [
-      { name: "鹽", amount: 0.75, unit: "小匙" },
+      { name: "鹽", amount: 0.5, unit: "小匙" },
       { name: "蒜", amount: 2, unit: "瓣" },
       { name: "食用油", amount: 1, unit: "大匙" }
     ],
@@ -2741,7 +2742,7 @@ const RECIPES = [
       { name: "蝦米", amount: 1, unit: "大匙" }
     ],
     seasonings: [
-      { name: "鹽", amount: 0.75, unit: "小匙" },
+      { name: "鹽", amount: 0.5, unit: "小匙" },
       { name: "蒜", amount: 2, unit: "瓣" },
       { name: "食用油", amount: 1, unit: "大匙" }
     ],
@@ -2970,7 +2971,7 @@ const RECIPES = [
     seasonings: [
       { name: "醬油", amount: 3, unit: "大匙" },
       { name: "米酒", amount: 2, unit: "大匙" },
-      { name: "鹽", amount: 1, unit: "小匙" },
+      { name: "鹽", amount: 0.75, unit: "小匙" },
       { name: "薑", amount: 3, unit: "片" },
       { name: "蔥", amount: 2, unit: "根" },
       { name: "食用油", amount: 1, unit: "大匙" },
@@ -3003,7 +3004,7 @@ const RECIPES = [
     seasonings: [
       { name: "醬油", amount: 2, unit: "大匙" },
       { name: "米酒", amount: 2, unit: "大匙" },
-      { name: "鹽", amount: 1, unit: "小匙" },
+      { name: "鹽", amount: 0.75, unit: "小匙" },
       { name: "黑胡椒", amount: null, unit: "少許" },
       { name: "食用油", amount: 1, unit: "大匙" },
       { name: "水", amount: 1, unit: "杯" }
@@ -3034,7 +3035,7 @@ const RECIPES = [
     ],
     seasonings: [
       { name: "糖", amount: 1, unit: "小匙" },
-      { name: "鹽", amount: 1, unit: "小匙" },
+      { name: "鹽", amount: 0.75, unit: "小匙" },
       { name: "黑胡椒", amount: null, unit: "少許" },
       { name: "食用油", amount: 1, unit: "大匙" }
     ],
@@ -3066,7 +3067,7 @@ const RECIPES = [
     seasonings: [
       { name: "醬油", amount: 2, unit: "大匙" },
       { name: "香菇水", amount: 1, unit: "杯" },
-      { name: "鹽", amount: 0.5, unit: "小匙" },
+      { name: "鹽", amount: 0.25, unit: "小匙" },
       { name: "白胡椒", amount: null, unit: "少許" },
       { name: "蒜", amount: 2, unit: "瓣" },
       { name: "食用油", amount: 1, unit: "大匙" }
@@ -3186,7 +3187,7 @@ const RECIPES = [
       { name: "鴻喜菇", amount: 1, unit: "包" }
     ],
     seasonings: [
-      { name: "鹽", amount: 1.5, unit: "小匙" },
+      { name: "鹽", amount: 1, unit: "小匙" },
       { name: "黑胡椒", amount: null, unit: "少許" },
       { name: "蒜", amount: 4, unit: "瓣" },
       { name: "食用油", amount: 1, unit: "大匙" }
@@ -3214,7 +3215,7 @@ const RECIPES = [
       { name: "豬五花", amount: 500, unit: "克" }
     ],
     seasonings: [
-      { name: "鹽", amount: 1.5, unit: "小匙" },
+      { name: "鹽", amount: 1, unit: "小匙" },
       { name: "五香粉", amount: null, unit: "少許" },
       { name: "蒜", amount: 4, unit: "瓣" }
     ],
@@ -3246,7 +3247,7 @@ const RECIPES = [
     ],
     seasonings: [
       { name: "醬油", amount: 1, unit: "大匙" },
-      { name: "鹽", amount: 1.5, unit: "小匙" },
+      { name: "鹽", amount: 1, unit: "小匙" },
       { name: "白胡椒", amount: null, unit: "少許" },
       { name: "食用油", amount: 1, unit: "大匙" }
     ],
@@ -3308,7 +3309,7 @@ const RECIPES = [
     ],
     seasonings: [
       { name: "米酒", amount: 1, unit: "大匙" },
-      { name: "鹽", amount: 1, unit: "小匙" },
+      { name: "鹽", amount: 0.75, unit: "小匙" },
       { name: "薑", amount: 1, unit: "小塊" },
       { name: "水", amount: 3, unit: "杯" }
     ],
@@ -3334,7 +3335,7 @@ const RECIPES = [
       { name: "苦瓜", amount: 0.5, unit: "條" }
     ],
     seasonings: [
-      { name: "鹽", amount: 1, unit: "小匙" },
+      { name: "鹽", amount: 0.75, unit: "小匙" },
       { name: "薑", amount: 3, unit: "片" },
       { name: "水", amount: 5, unit: "杯" }
     ],
@@ -3361,7 +3362,7 @@ const RECIPES = [
       { name: "雞蛋", amount: 2, unit: "顆" }
     ],
     seasonings: [
-      { name: "鹽", amount: 1, unit: "小匙" },
+      { name: "鹽", amount: 0.75, unit: "小匙" },
       { name: "香油", amount: 1, unit: "小匙" },
       { name: "白胡椒", amount: null, unit: "少許" },
       { name: "水", amount: 3, unit: "杯" }
@@ -3388,7 +3389,7 @@ const RECIPES = [
       { name: "雞蛋", amount: 2, unit: "顆" }
     ],
     seasonings: [
-      { name: "鹽", amount: 1, unit: "小匙" },
+      { name: "鹽", amount: 0.75, unit: "小匙" },
       { name: "太白粉", amount: 1, unit: "小匙" },
       { name: "白胡椒", amount: null, unit: "少許" },
       { name: "蔥", amount: 1, unit: "根" },
@@ -3417,7 +3418,7 @@ const RECIPES = [
     ],
     seasonings: [
       { name: "米酒", amount: 1, unit: "大匙" },
-      { name: "鹽", amount: 1, unit: "小匙" },
+      { name: "鹽", amount: 0.75, unit: "小匙" },
       { name: "香油", amount: 1, unit: "小匙" },
       { name: "太白粉", amount: 1, unit: "小匙" },
       { name: "白胡椒", amount: null, unit: "少許" },
@@ -3476,7 +3477,7 @@ const RECIPES = [
     ],
     seasonings: [
       { name: "醬油", amount: 1, unit: "大匙" },
-      { name: "鹽", amount: 1, unit: "小匙" },
+      { name: "鹽", amount: 0.75, unit: "小匙" },
       { name: "烏醋", amount: 2, unit: "大匙" },
       { name: "太白粉", amount: 1, unit: "小匙" },
       { name: "白胡椒", amount: 1, unit: "小匙" },
@@ -3658,7 +3659,7 @@ const RECIPES = [
     ],
     seasonings: [
       { name: "醬油", amount: 1, unit: "大匙" },
-      { name: "鹽", amount: 0.5, unit: "小匙" },
+      { name: "鹽", amount: 0.25, unit: "小匙" },
       { name: "太白粉", amount: 1, unit: "小匙" },
       { name: "食用油", amount: 1, unit: "大匙" },
       { name: "水", amount: 1, unit: "杯" }
@@ -3746,7 +3747,7 @@ const RECIPES = [
     ],
     seasonings: [
       { name: "米酒", amount: 1, unit: "大匙" },
-      { name: "鹽", amount: 0.5, unit: "小匙" },
+      { name: "鹽", amount: 0.25, unit: "小匙" },
       { name: "蒜", amount: 2, unit: "瓣" },
       { name: "地瓜粉", amount: null, unit: "適量" },
       { name: "胡椒鹽", amount: null, unit: "適量" },
@@ -3806,7 +3807,7 @@ const RECIPES = [
     baseServings: 2,
     ingredients: [{ name: "A菜", amount: 300, unit: "克" }],
     seasonings: [
-      { name: "鹽", amount: 0.75, unit: "小匙" },
+      { name: "鹽", amount: 0.5, unit: "小匙" },
       { name: "蒜", amount: 2, unit: "瓣" },
       { name: "食用油", amount: 1, unit: "大匙" }
     ],
@@ -3829,7 +3830,7 @@ const RECIPES = [
     ],
     seasonings: [
       { name: "醬油", amount: 1, unit: "小匙" },
-      { name: "鹽", amount: 0.75, unit: "小匙" },
+      { name: "鹽", amount: 0.5, unit: "小匙" },
       { name: "蒜", amount: 2, unit: "瓣" },
       { name: "食用油", amount: 1, unit: "大匙" }
     ],
@@ -3950,7 +3951,7 @@ const RECIPES = [
       { name: "甜椒", amount: 1, unit: "顆" }
     ],
     seasonings: [
-      { name: "鹽", amount: 0.75, unit: "小匙" },
+      { name: "鹽", amount: 0.5, unit: "小匙" },
       { name: "黑胡椒", amount: null, unit: "少許" },
       { name: "食用油", amount: 1, unit: "大匙" }
     ],
@@ -3994,7 +3995,7 @@ const RECIPES = [
       { name: "高麗菜", amount: 200, unit: "克" }
     ],
     seasonings: [
-      { name: "鹽", amount: 1, unit: "小匙" },
+      { name: "鹽", amount: 0.75, unit: "小匙" },
       { name: "黑胡椒", amount: null, unit: "少許" },
       { name: "蒜", amount: 2, unit: "瓣" },
       { name: "食用油", amount: 1, unit: "大匙" }
@@ -4043,7 +4044,7 @@ const RECIPES = [
       { name: "冷凍三色豆", amount: 0.5, unit: "杯" }
     ],
     seasonings: [
-      { name: "鹽", amount: 0.75, unit: "小匙" },
+      { name: "鹽", amount: 0.5, unit: "小匙" },
       { name: "白胡椒", amount: null, unit: "少許" },
       { name: "蔥", amount: 1, unit: "根" },
       { name: "食用油", amount: 1, unit: "大匙" }
@@ -4150,7 +4151,7 @@ const RECIPES = [
     ],
     seasonings: [
       { name: "米酒", amount: 1, unit: "大匙" },
-      { name: "鹽", amount: 1, unit: "小匙" },
+      { name: "鹽", amount: 0.75, unit: "小匙" },
       { name: "薑", amount: 1, unit: "小塊" },
       { name: "蔥", amount: 1, unit: "根" },
       { name: "水", amount: 3, unit: "杯" }
@@ -4226,7 +4227,7 @@ const RECIPES = [
     ],
     seasonings: [
       { name: "醬油", amount: 1.5, unit: "大匙" },
-      { name: "鹽", amount: 0.75, unit: "小匙" },
+      { name: "鹽", amount: 0.5, unit: "小匙" },
       { name: "太白粉", amount: 1, unit: "小匙" },
       { name: "白胡椒", amount: null, unit: "少許" },
       { name: "蒜", amount: 2, unit: "瓣" },
@@ -4331,7 +4332,7 @@ const RECIPES = [
     ],
     seasonings: [
       { name: "醬油", amount: 1.5, unit: "大匙" },
-      { name: "鹽", amount: 0.75, unit: "小匙" },
+      { name: "鹽", amount: 0.5, unit: "小匙" },
       { name: "白胡椒", amount: null, unit: "少許" },
       { name: "蒜", amount: 2, unit: "瓣" },
       { name: "食用油", amount: 1, unit: "大匙" },
@@ -4383,7 +4384,7 @@ const RECIPES = [
     ],
     seasonings: [
       { name: "醬油", amount: 1, unit: "大匙" },
-      { name: "鹽", amount: 0.75, unit: "小匙" },
+      { name: "鹽", amount: 0.5, unit: "小匙" },
       { name: "食用油", amount: 1, unit: "大匙" }
     ],
     method: "炒", cuisine: "中式", diet: "素",
@@ -4427,7 +4428,7 @@ const RECIPES = [
       { name: "雞蛋", amount: 2, unit: "顆" }
     ],
     seasonings: [
-      { name: "鹽", amount: 0.75, unit: "小匙" },
+      { name: "鹽", amount: 0.5, unit: "小匙" },
       { name: "蒜", amount: 2, unit: "瓣" },
       { name: "薑", amount: 1, unit: "小塊" },
       { name: "食用油", amount: 1, unit: "大匙" },
@@ -4452,7 +4453,7 @@ const RECIPES = [
     ],
     seasonings: [
       { name: "米酒", amount: 1, unit: "大匙" },
-      { name: "鹽", amount: 0.5, unit: "小匙" },
+      { name: "鹽", amount: 0.25, unit: "小匙" },
       { name: "太白粉", amount: 1, unit: "小匙" },
       { name: "薑", amount: 1, unit: "小塊" },
       { name: "食用油", amount: 1, unit: "大匙" },
@@ -4477,7 +4478,7 @@ const RECIPES = [
     ],
     seasonings: [
       { name: "醬油", amount: 1, unit: "小匙" },
-      { name: "鹽", amount: 0.75, unit: "小匙" },
+      { name: "鹽", amount: 0.5, unit: "小匙" },
       { name: "蒜", amount: 2, unit: "瓣" },
       { name: "食用油", amount: 1, unit: "大匙" }
     ],
@@ -4501,7 +4502,7 @@ const RECIPES = [
     seasonings: [
       { name: "醬油", amount: 1, unit: "小匙" },
       { name: "糖", amount: 0.5, unit: "小匙" },
-      { name: "鹽", amount: 0.75, unit: "小匙" },
+      { name: "鹽", amount: 0.5, unit: "小匙" },
       { name: "豆豉", amount: 1, unit: "小匙" },
       { name: "蒜", amount: 2, unit: "瓣" },
       { name: "食用油", amount: 1, unit: "大匙" },
@@ -4571,7 +4572,7 @@ const RECIPES = [
     ],
     seasonings: [
       { name: "米酒", amount: 1, unit: "大匙" },
-      { name: "鹽", amount: 0.75, unit: "小匙" },
+      { name: "鹽", amount: 0.5, unit: "小匙" },
       { name: "太白粉", amount: 1, unit: "小匙" },
       { name: "蒜", amount: 2, unit: "瓣" },
       { name: "食用油", amount: 1, unit: "大匙" }
@@ -4596,7 +4597,7 @@ const RECIPES = [
     ],
     seasonings: [
       { name: "醬油", amount: 1, unit: "小匙" },
-      { name: "鹽", amount: 0.75, unit: "小匙" },
+      { name: "鹽", amount: 0.5, unit: "小匙" },
       { name: "黑胡椒", amount: null, unit: "少許" },
       { name: "蒜", amount: 2, unit: "瓣" },
       { name: "食用油", amount: 1, unit: "大匙" }
@@ -4621,7 +4622,7 @@ const RECIPES = [
     seasonings: [
       { name: "醬油", amount: 2, unit: "小匙" },
       { name: "米酒", amount: 1, unit: "大匙" },
-      { name: "鹽", amount: 0.75, unit: "小匙" },
+      { name: "鹽", amount: 0.5, unit: "小匙" },
       { name: "太白粉", amount: 1, unit: "小匙" },
       { name: "蒜", amount: 2, unit: "瓣" },
       { name: "辣椒", amount: 1, unit: "根" },
@@ -4647,7 +4648,7 @@ const RECIPES = [
       { name: "洋蔥", amount: 1, unit: "顆" }
     ],
     seasonings: [
-      { name: "鹽", amount: 1, unit: "小匙" },
+      { name: "鹽", amount: 0.75, unit: "小匙" },
       { name: "黑胡椒", amount: null, unit: "少許" },
       { name: "雞蛋", amount: 1, unit: "顆" },
       { name: "食用油", amount: 1, unit: "大匙" },
@@ -4658,7 +4659,7 @@ const RECIPES = [
     prep: "weekend",
     steps: [
       "洋蔥切碎，炒軟放涼",
-      "牛絞肉加洋蔥、鹽 1 小匙、黑胡椒、蛋 1 顆（可省）摔打至有黏性，分 4 份壓成餅",
+      "牛絞肉加洋蔥、鹽 3/4 小匙、黑胡椒、蛋 1 顆（可省）摔打至有黏性，分 4 份壓成餅",
       "熱鍋 1 大匙油，中火每面煎 3 分鐘，加水 2 大匙蓋鍋燜 2 分鐘",
       "一次煎 4 片，分裝冷藏或冷凍；便當重熱前噴點水"
     ]
@@ -4720,7 +4721,7 @@ const RECIPES = [
     ingredients: [{ name: "雞翅", amount: 4, unit: "支" }],
     seasonings: [
       { name: "醬油", amount: 1, unit: "小匙" },
-      { name: "鹽", amount: 0.75, unit: "小匙" },
+      { name: "鹽", amount: 0.5, unit: "小匙" },
       { name: "黑胡椒", amount: null, unit: "少許" },
       { name: "蒜", amount: 2, unit: "瓣" },
       { name: "食用油", amount: 1, unit: "大匙" },
@@ -4787,7 +4788,7 @@ const RECIPES = [
       { name: "櫛瓜", amount: 1, unit: "條" }
     ],
     seasonings: [
-      { name: "鹽", amount: 0.75, unit: "小匙" },
+      { name: "鹽", amount: 0.5, unit: "小匙" },
       { name: "太白粉", amount: null, unit: "適量" },
       { name: "黑胡椒", amount: null, unit: "少許" },
       { name: "食用油", amount: 1, unit: "大匙" },
@@ -4810,7 +4811,7 @@ const RECIPES = [
     baseServings: 2,
     ingredients: [{ name: "豬里肌", amount: 2, unit: "片" }],
     seasonings: [
-      { name: "鹽", amount: 0.5, unit: "小匙" },
+      { name: "鹽", amount: 0.25, unit: "小匙" },
       { name: "黑胡椒", amount: null, unit: "少許" },
       { name: "麵粉", amount: null, unit: "適量" },
       { name: "雞蛋", amount: 1, unit: "顆" },

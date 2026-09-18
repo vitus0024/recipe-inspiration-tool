@@ -140,9 +140,13 @@
     } else if (unit === "克") {
       rounded = scaled < 50 ? Math.round(scaled / 5) * 5 : Math.round(scaled / 10) * 10;
       if (rounded < 5) rounded = 5;
-    } else if (unit === "大匙" || unit === "小匙") {
+    } else if (unit === "大匙") {
       rounded = Math.round(scaled * 2) / 2;
       if (rounded < 0.5) rounded = 0.5;
+    } else if (unit === "小匙") {
+      // 少鹽原則（2026-09-18）：小匙允許到 1/4，鹽減人份時不會被抬回半小匙
+      rounded = Math.round(scaled * 4) / 4;
+      if (rounded < 0.25) rounded = 0.25;
     } else if (unit === "杯") {
       rounded = Math.round(scaled * 4) / 4;
       if (rounded < 0.25) rounded = 0.25;
@@ -157,9 +161,10 @@
     if (n === 0.5) return "半";
     if (n === 0.25) return "1/4";
     if (n === 0.75) return "3/4";
-    if (n === 1.25) return "1又1/4";
-    if (n === 1.5) return "1.5";
-    if (n === 1.75) return "1又3/4";
+    const whole = Math.floor(n);
+    const frac = Math.round((n - whole) * 4) / 4;
+    if (frac === 0.5) return whole + ".5";
+    if (frac === 0.25 || frac === 0.75) return whole + "又" + (frac === 0.25 ? "1/4" : "3/4");
     return String(n);
   }
 

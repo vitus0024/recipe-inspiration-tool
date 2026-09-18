@@ -32,7 +32,7 @@ KEYS = [
 ]
 # 預設用量（2 人份）：(amount, unit)；None 表示「少許」
 DEF = {
- "醬油":(1,"大匙"), "米酒":(1,"大匙"), "味醂":(1,"大匙"), "味噌":(1.5,"大匙"), "糖":(0.5,"小匙"), "鹽":(0.5,"小匙"),
+ "醬油":(1,"大匙"), "米酒":(1,"大匙"), "味醂":(1,"大匙"), "味噌":(1.5,"大匙"), "糖":(0.5,"小匙"), "鹽":(0.25,"小匙"),
  "香油":(1,"小匙"), "白醋":(1,"大匙"), "烏醋":(1,"小匙"), "太白粉":(1,"小匙"), "蠔油":(1,"大匙"), "豆瓣醬":(1,"大匙"),
  "黑胡椒":(None,"少許"), "白胡椒":(None,"少許"), "胡椒鹽":(None,"適量"), "咖哩塊":(2,"塊"), "番茄醬":(2,"大匙"),
  "魚露":(1,"大匙"), "韓式辣醬":(1,"大匙"), "甜麵醬":(2,"大匙"), "芝麻醬":(2,"大匙"), "蜂蜜":(1,"大匙"),
@@ -97,9 +97,10 @@ for r in recipes:
         if key == "太白粉" and not ex and ("拍" in steps or "沾裹太白粉" in steps): ex = (None, "適量")
         if not ex and re.search("少許" + key, steps) and DEF[key][1] == "大匙": ex = (1, "小匙")
         if key == "水" and r["method"] in ("湯", "煮") and ex == (None, "適量") and "水煮滾" in steps: ex = (round(3 * ratio * 2) / 2, "杯")
-        if key == "鹽" and not ex and r["method"] in ("湯", "煮") and "水" in steps: ex = (round(1 * ratio * 2) / 2, "小匙")
+        if key == "鹽" and not ex and r["method"] in ("湯", "煮") and "水" in steps: ex = (round(0.75 * ratio * 4) / 4, "小匙")
         if key == "糖" and not ex and r["method"] == "涼拌": ex = (round(1.5 * ratio * 2) / 2, "小匙")
-        if key == "鹽" and not ex and r["method"] in ("炒", "煎", "烤"): ex = (round(0.75 * ratio * 4) / 4, "小匙")
+        if key == "鹽" and not ex and r["method"] in ("炒", "煎", "烤"): ex = (round(0.5 * ratio * 4) / 4, "小匙")  # 少鹽（2026-09-18）
+        if key == "鹽" and not ex and r["method"] == "燉": ex = (0.75, "小匙")  # 一鍋 3～4 人份收尾調味，不再等比放大
         if key == "味噌" and not ex and r["method"] == "烤": ex = (round(1 * ratio * 2) / 2, "大匙")
         if key == "醬油" and not ex:
             mention = [s for s in r["steps"] if "醬油" in s]
@@ -109,8 +110,8 @@ for r in recipes:
         else:
             amt, unit = DEF[key]
             if amt is not None and key not in NOSCALE_DEFAULT and unit in ("大匙","小匙"):
-                amt = round(amt * ratio * 2) / 2
-                if amt < 0.5: amt = 0.5
+                amt = round(amt * ratio * 4) / 4
+                if amt < 0.25: amt = 0.25
             elif amt is not None and key in ("蒜","薑","蔥","辣椒") and ratio > 1:
                 amt = round(amt * ratio)
         items.append({"name": key, "amount": amt, "unit": unit})
