@@ -1903,7 +1903,7 @@ const RECIPES = [
       { name: "洋蔥", amount: 0.5, unit: "顆" }
     ],
     seasonings: [
-      { name: "鹽", amount: 0.25, unit: "小匙" },
+      { name: "鹽", amount: 0.5, unit: "小匙" },
       { name: "黑胡椒", amount: null, unit: "少許" },
       { name: "食用油", amount: 1, unit: "大匙" },
       { name: "水", amount: 2, unit: "大匙" }

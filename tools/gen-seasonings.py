@@ -100,7 +100,7 @@ for r in recipes:
         if key == "鹽" and not ex and r["method"] in ("湯", "煮") and "水" in steps: ex = (round(0.75 * ratio * 4) / 4, "小匙")
         if key == "糖" and not ex and r["method"] == "涼拌": ex = (round(1.5 * ratio * 2) / 2, "小匙")
         if key == "鹽" and not ex and r["method"] in ("炒", "煎", "烤"): ex = (round(0.5 * ratio * 4) / 4, "小匙")  # 少鹽（2026-09-18）
-        if key == "鹽" and not ex and r["method"] == "燉": ex = (0.75, "小匙")  # 一鍋 3～4 人份收尾調味，不再等比放大
+        if key == "鹽" and not ex and r["method"] == "燉": ex = (0.75 if r["baseServings"] >= 3 else 0.5, "小匙")  # 一鍋 3～4 人份收尾調味，不再等比放大
         if key == "味噌" and not ex and r["method"] == "烤": ex = (round(1 * ratio * 2) / 2, "大匙")
         if key == "醬油" and not ex:
             mention = [s for s in r["steps"] if "醬油" in s]
